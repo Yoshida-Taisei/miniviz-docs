@@ -1,0 +1,14 @@
+title: Miniviz Docs
+description: Documentation site for the Miniviz visualization library demo.
+remote_theme: just-the-docs/just-the-docs
+search_enabled: true
+logo: false
+nav_external_links_new_tab: false
+aux_links:
+  "View on GitHub":
+    - "//github.com/Yoshida-Taisei/miniviz-docs"
+callouts:
+  note:
+    title: Note
+    color: green
+
