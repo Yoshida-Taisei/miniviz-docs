@@ -1,1 +1,3 @@
 # miniviz-docs
+
+Minivizのドキュメントです。
