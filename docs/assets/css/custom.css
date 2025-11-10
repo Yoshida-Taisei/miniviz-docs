@@ -1,0 +1,30 @@
+/* Sidebar padding を小さくするカスタムスタイル
+   数値を調整してお好みの余白にしてください */
+.sidebar,
+.site-sidebar,
+.just-the-docs-sidebar,
+.nav-sidebar {
+  padding-left: 0.6rem !important;
+  padding-right: 0.6rem !important;
+}
+.sidebar .sidebar-inner,
+.site-sidebar .sidebar-inner,
+.nav-sidebar .sidebar-inner {
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+}
+/* サイドバーとメインコンテンツの間のギャップを縮める */
+.docs-wrapper,
+.main-content,
+.content {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+/* レスポンシブ調整（必要に応じて） */
+@media (min-width: 900px) {
+  .sidebar,
+  .site-sidebar,
+  .nav-sidebar {
+    width: 220px; /* サイドバー幅を狭くする場合 */
+  }
+}
