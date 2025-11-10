@@ -1,30 +1,25 @@
-/* Sidebar padding を小さくするカスタムスタイル
-   数値を調整してお好みの余白にしてください */
-.sidebar,
-.site-sidebar,
-.just-the-docs-sidebar,
-.nav-sidebar {
-  padding-left: 0.6rem !important;
-  padding-right: 0.6rem !important;
+/* Just the Docs のサイドバーは .side-bar クラスを利用するため、
+   実際の DOM 構造に合わせてパディングを `em` 単位で調整する */
+.side-bar {
+  padding: 0.6em 0.4em !important;
 }
-.sidebar .sidebar-inner,
-.site-sidebar .sidebar-inner,
-.nav-sidebar .sidebar-inner {
-  padding-top: 0.4rem !important;
-  padding-bottom: 0.4rem !important;
+
+/* サイドバー内部のナビゲーションリストの左右マージン/パディングも縮小 */
+.side-bar .site-nav,
+.side-bar .site-nav .nav-list,
+.side-bar .site-nav .nav-list > li {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
-/* サイドバーとメインコンテンツの間のギャップを縮める */
-.docs-wrapper,
+
+/* 各リンク要素の左右余白を文字サイズ基準でコンパクトにする */
+.side-bar .nav-list .nav-list-link {
+  padding: 0.35em 0.5em !important;
+}
+
+/* メインコンテンツとの距離を調整し、全体の横幅バランスを取る */
 .main-content,
-.content {
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
-}
-/* レスポンシブ調整（必要に応じて） */
-@media (min-width: 900px) {
-  .sidebar,
-  .site-sidebar,
-  .nav-sidebar {
-    width: 220px; /* サイドバー幅を狭くする場合 */
-  }
+.main {
+  padding-left: 1.2em !important;
+  padding-right: 1.2em !important;
 }
