@@ -7,7 +7,7 @@ permalink: /
 
 # Miniviz Docs
 
-Miniviz はブラウザ向けのビジュアライゼーションライブラリです。D3.js をベースに、宣言的な API でチャートを構築・更新できます。
+Miniviz はIoTシステム向けのBIプラットフォームです。
 
 # クイックスタート
 
