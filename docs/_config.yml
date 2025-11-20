@@ -12,3 +12,6 @@ callouts:
     title: Note
     color: green
 
+plugins:
+  - jekyll-remote-theme
+
