@@ -102,7 +102,7 @@ curl -X POST \
 ### Python
 
 以下のリンクにサンプルコードがあります。
-[Pythonサンプル1](./reference/python_ex1.md)
+[Pythonサンプル1](./samplecode/python_ex1)
 
 ## 4. データの確認(データベース)
 Databaseメニューからデータを確認します。

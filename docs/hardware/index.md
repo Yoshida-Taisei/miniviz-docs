@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ハードウェア
+title: ハードウェア別ガイド
 nav_order: 3
 has_children: true
 ---

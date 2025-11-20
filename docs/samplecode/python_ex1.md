@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Pythonサンプル1
+title: Pythonサンプル1(データ送信確認用)
 parent: サンプルコード
 nav_order: 1
 ---
 
-# Pythonサンプル1
+# Pythonサンプル1(簡易的なサンプルコード)
 
 このサンプルコードは、Miniviz API を使用してデータを送信するためのものです。
 送信間隔は90秒に設定されています。実行中はCtrl+Cで停止できます。
@@ -26,9 +26,6 @@ SEND_INTERVAL = 90  # seconds
 
 def generate_payload():
     return {
-        "temperature": 25,
-        "humidity": 55,
-        "switch": "true",
         "system_status": "running"
     }
 
