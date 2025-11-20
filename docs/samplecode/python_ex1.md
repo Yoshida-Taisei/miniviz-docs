@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pythonサンプル1
-parent: リファレンス
+parent: サンプルコード
 nav_order: 1
 ---
 

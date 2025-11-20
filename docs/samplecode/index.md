@@ -1,11 +1,11 @@
 ---
 layout: default
-title: リファレンス
+title: サンプルコード
 nav_order: 4
 has_children: true
 ---
 
-# リファレンス
+# サンプルコード
 
 Miniviz の サンプルコードをまとめています。
 

@@ -5,8 +5,8 @@ search_enabled: true
 logo: false
 nav_external_links_new_tab: false
 aux_links:
-  "View on GitHub":
-    - "//github.com/Yoshida-Taisei/miniviz-docs"
+  "Miniviz Home":
+    - "https://miniviz.net"
 callouts:
   note:
     title: Note
