@@ -2,9 +2,17 @@
 layout: default
 title: APIエンドポイント
 nav_order: 3
+has_children: true
 ---
 
 # Miniviz APIリファレンス
+
+Miniviz APIは、以下のエンドポイントをサポートしています。
+
+* [データ送信API](api_reference)
+* [画像送信API](api_image_reference)
+
+## APIエンドポイント(データ送信)
 
 ```text
 POST https://api.miniviz.net/api/project/{project_id}?token={token}
