@@ -151,4 +151,4 @@ Visualizeメニューからグラフを作成します。
 
 ![画像のVisualize](../images/raspi/cam_viz_2.png)
 
-![画像のVisualize](../images/raspi/cam_viz_1.png)
+![画像のVisualize](../images/raspi/cam_viz_3.png)

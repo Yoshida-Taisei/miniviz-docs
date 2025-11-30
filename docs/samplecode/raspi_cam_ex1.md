@@ -9,6 +9,7 @@ nav_order: 3
 
 このサンプルコードは、Raspberry Piに接続されたUSBカメラで撮影した画像をMiniviz APIに送信するためのものです。
 `fswebcam`を使用してカメラから画像を取得し、base64エンコードして送信します。
+送信間隔は1分に設定されています。実行中はCtrl+Cで停止できます。
 
 ## 必要なパッケージ
 
@@ -17,6 +18,7 @@ sudo apt-get update
 sudo apt-get install -y fswebcam python3-pip
 pip3 install requests
 ```
+
 
 ```python
 #!/usr/bin/env python3
@@ -27,6 +29,7 @@ import requests
 import base64
 import os
 import subprocess
+import time
 from datetime import datetime, timezone
 
 # Miniviz configuration
@@ -40,7 +43,8 @@ DEVICE = "/dev/video0"
 RESOLUTION = "640x480"
 IMAGE_PATH = "image.jpg"
 
-# ---- 1) Capture image with USB Camera (fswebcam) ----
+# Send interval (seconds)
+SEND_INTERVAL = 60  # 1 minute
 
 def capture_image():
     """Capture image with USB camera"""
@@ -121,4 +125,11 @@ def main():
         cleanup_image(IMAGE_PATH)
 
 if __name__ == "__main__":
-    main()
+    print("Starting miniviz image send test (press Ctrl+C to stop)")
+    try:
+        while True:
+            main()
+            time.sleep(SEND_INTERVAL)
+    except KeyboardInterrupt:
+        print("\n[Info] Stopped by user")
+```
