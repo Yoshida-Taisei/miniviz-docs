@@ -13,9 +13,16 @@ Miniviz はIoTシステム向けのBIプラットフォームです。
 
 * [クイックスタート](quickstart)
 * [ハードウェア別ガイド](hardware)
-  * [Raspberry Pi](hardware/raspi_1)
+  * [Raspberry Pi(センサーデータ送信)](hardware/raspi_1)
+  * [Raspberry Pi(画像送信)](hardware/rapi_2_cam)
+  * [ESP32](hardware/esp32_1)
 * [サンプルコード](samplecode)
-  * [Python](samplecode/python_ex1)
+  * [Pythonサンプル1(データ送信確認用)](samplecode/python_ex1)
+  * [Pythonサンプル2(温度・湿度API)](samplecode/python_ex2)
+  * [ESP32サンプル(データ送信確認用)](samplecode/esp32_ex1)
+  * [ラズパイカメラサンプル(画像送信)](samplecode/raspi_cam_ex1)
+* [APIエンドポイント](api_endpoint/api_reference)
+  * [APIエンドポイント(画像)](api_endpoint/api_image_reference)
 
 
 

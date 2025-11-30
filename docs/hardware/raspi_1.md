@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Raspberry Pi
+title: Raspberry Pi(センサーデータ送信)
 parent: ハードウェア別ガイド
 nav_order: 1
 ---
