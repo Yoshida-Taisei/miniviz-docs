@@ -12,6 +12,8 @@ callouts:
     title: Note
     color: green
 
+url: "https://docs.miniviz.net"
+
 plugins:
   - jekyll-remote-theme
-
+  - jekyll-sitemap
