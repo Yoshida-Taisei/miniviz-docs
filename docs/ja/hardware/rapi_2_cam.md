@@ -44,7 +44,7 @@ $ fswebcam -r 640x480 --no-banner image.jpg
 
 画像を確認
 (画質はイマイチですがとれています。)
-![image](../images/raspi/sample_1.png)
+![image](../../images/raspi/sample_1.png)
 
 
 # カメラの画像をMinivizに送信
@@ -60,7 +60,7 @@ $ fswebcam -r 640x480 --no-banner image.jpg
 プロジェクト作成 -> プロジェクトIDとトークンを取得
 
 <!-- アカウント -->
-![アカウント](../images/pj_5.png)
+![アカウント](../../images/pj_5.png)
 
 ## 2. 画像を送信するAPIを呼び出してサンプル画像を送信
 
@@ -139,7 +139,7 @@ except Exception as e:
 送信されたデータはデータベースに保存されます。
 ※ここに表示されない場合はデータ送信が失敗しています。再度デバイス側のログなどを確認してください。※
 
-![データの確認(データベース)](../images/raspi/cam_db_3.png)
+![データの確認(データベース)](../../images/raspi/cam_db_3.png)
 
 
 ### 画像をVisualizeで表示
@@ -149,6 +149,6 @@ Visualizeメニューからグラフを作成します。
 
 
 
-![画像のVisualize](../images/raspi/cam_viz_2.png)
+![画像のVisualize](../../images/raspi/cam_viz_2.png)
 
-![画像のVisualize](../images/raspi/cam_viz_3.png)
+![画像のVisualize](../../images/raspi/cam_viz_3.png)

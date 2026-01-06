@@ -5,10 +5,10 @@ parent: サンプルコード
 nav_order: 2
 ---
 
-# Pythonサンプル2(温度・湿度APIを用いたサンプルコード)
+# Python Sample 2 (Temperature & Humidity API Example)
 
-このサンプルコードは、Miniviz API を使用して特定の緯度経度の温度・湿度の値を送信するためのものです。
-送信間隔は90秒に設定されています。実行中はCtrl+Cで停止できます。
+This sample code demonstrates how to send temperature and humidity data for a specific latitude/longitude location using Miniviz API.
+The sending interval is set to 90 seconds. You can stop the execution with Ctrl+C.
 
 ```python
 import os

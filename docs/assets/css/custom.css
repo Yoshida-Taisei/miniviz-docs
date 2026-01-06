@@ -1,25 +1,16 @@
-/* Just the Docs のサイドバーは .side-bar クラスを利用するため、
-   実際の DOM 構造に合わせてパディングを `em` 単位で調整する */
+/* 左サイドバーを非表示にする */
 .side-bar {
-  padding: 0.6em 0.4em !important;
+  display: none !important;
 }
 
-/* サイドバー内部のナビゲーションリストの左右マージン/パディングも縮小 */
-.side-bar .site-nav,
-.side-bar .site-nav .nav-list,
-.side-bar .site-nav .nav-list > li {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-}
-
-/* 各リンク要素の左右余白を文字サイズ基準でコンパクトにする */
-.side-bar .nav-list .nav-list-link {
-  padding: 0.35em 0.5em !important;
-}
-
-/* メインコンテンツとの距離を調整し、全体の横幅バランスを取る */
-.main-content,
+/* メインコンテンツの幅を調整（サイドバーがないため全幅使用） */
 .main {
-  padding-left: 1.2em !important;
-  padding-right: 1.2em !important;
+  margin-left: 0 !important;
+  padding-left: 2em !important;
+  padding-right: 2em !important;
+}
+
+.main-content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Pythonサンプル1(データ送信確認用)
-parent: サンプルコード
+title: Python Sample 1 (Data Sending Test)
+# parent: Sample Code
 nav_order: 1
 ---
 
-# Pythonサンプル1(簡易的なサンプルコード)
+# Python Sample 1 (Simple Data Sending Example)
 
-このサンプルコードは、Miniviz API を使用してデータを送信するためのものです。
-送信間隔は90秒に設定されています。実行中はCtrl+Cで停止できます。
+This sample code demonstrates how to send data to Miniviz API.
+The sending interval is set to 90 seconds. You can stop the execution with Ctrl+C.
 
 ```python
 import os
@@ -51,3 +51,4 @@ if __name__ == "__main__":
         send_data()
         time.sleep(SEND_INTERVAL)
 ```
+

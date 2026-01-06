@@ -25,7 +25,7 @@ minivizを使う場合は
 
 以下のようにプロジェクトを作成します。
 
-![](../images/m5_cam/image_1.png)
+![](../../images/m5_cam/image_1.png)
 
 ## 2. ライブラリのサンプルコードを動かしてみる
 以下の公式のサンプルコードをダウンロードしてsrc/にソースコードをコピーしましょう。
@@ -44,9 +44,9 @@ monitor_speed = 115200
 ```
 
 アップロードして、ローカルIPにアクセスしてみましょう。
-![](../images/m5_cam/serial.png)
+![](../../images/m5_cam/serial.png)
 
-![](../images/m5_cam/web_cam.png)
+![](../../images/m5_cam/web_cam.png)
 
 
 # Minivizを使ってスマホでも確認する
@@ -57,7 +57,7 @@ monitor_speed = 115200
 プロジェクト作成 -> プロジェクトIDとトークンを取得
 
 <!-- アカウント -->
-![アカウント](../images/pj_5.png)
+![アカウント](../../images/pj_5.png)
 
 ## サンプルコードを修正してMinivizに送信する
 ```cpp
@@ -265,16 +265,16 @@ void loop() {
 ## アップロードデータの確認
 
 minivizのデータベースメニューからデータを確認します。
-![](../images/m5_cam/database.png)
+![](../../images/m5_cam/database.png)
 
 
 ## プレビュー
 
 minivizのプレビューメニューからデータを確認します。
-![](../images/m5_cam/preview.png)
+![](../../images/m5_cam/preview.png)
 
 スマホだとこんな感じ
-![](../images/m5_cam/preview_smartphone.png)
+![](../../images/m5_cam/preview_smartphone.png)
 
 
 

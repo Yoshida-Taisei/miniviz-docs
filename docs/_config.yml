@@ -5,8 +5,8 @@ search_enabled: true
 logo: false
 nav_external_links_new_tab: false
 aux_links:
-  "Miniviz Home":
-    - "https://miniviz.net"
+  "Home":
+    - "/ja/"
 callouts:
   note:
     title: Note

@@ -4,6 +4,10 @@ title: クイックスタート
 nav_order: 2
 ---
 
+<div style="text-align: right; margin-bottom: 20px;">
+  <a href="/en/quickstart" style="color: #2563eb; text-decoration: none; font-size: 14px;">English</a>
+</div>
+
 # Miniviz クイックスタート
 
 ## 全体の流れ
@@ -20,24 +24,24 @@ nav_order: 2
 
 メールアドレス・パスワードを入力して新規登録するか、既存のアカウントでログインします。
 
-![アカウント作成/ログイン](./images/account_1.png)
+![アカウント作成/ログイン](../images/account_1.png)
 
 ## 2. プロジェクト作成
 データを管理するためのプロジェクトを作成します。
 
-![プロジェクト作成](./images/pj_1.png)
+![プロジェクト作成](../images/pj_1.png)
 
-![プロジェクト作成](./images/pj_2.png)
-![プロジェクト作成](./images/pj_3.png)
+![プロジェクト作成](../images/pj_2.png)
+![プロジェクト作成](../images/pj_3.png)
 
 
 #### プロジェクトID・トークンのコピー
 次項で必要になるため、プロジェクトID・トークンをコピーしておきます。
 右側のトークンアイコンをクリック
-![プロジェクトID・トークンのコピー](./images/pj_4.png)
+![プロジェクトID・トークンのコピー](../images/pj_4.png)
 
 ここでコピーしたトークンは、デバイス側で使用します。
-![プロジェクトID・トークンのコピー](./images/pj_5.png)
+![プロジェクトID・トークンのコピー](../images/pj_5.png)
 
 
 ## 3. (デバイス側)データ送信
@@ -110,31 +114,31 @@ Databaseメニューからデータを確認します。
 送信されたデータはデータベースに保存されます。
 ※ここに表示されない場合はデータ送信が失敗しています。再度デバイス側のログなどを確認してください。※
 
-![データの確認(データベース)](./images/db_1.png)
+![データの確認(データベース)](../images/db_1.png)
 
 
 ## 5. グラフ作成
 Visualizeメニューからグラフを作成します。
 グラフを作成します。グラフの種類やデータの表示形式などを設定できます。
 
-![グラフ作成](./images/viz_1.png)
+![グラフ作成](../images/viz_1.png)
 
 ラインチャート作成後
-![グラフ作成](./images/viz_2.png)
+![グラフ作成](../images/viz_2.png)
 
 ## 6. 通知設定
 SlackやWebhookなどの通知先を設定します。
 Rulesメニューから通知設定を行います。
 
-![通知設定](./images/alert_1.png)
+![通知設定](../images/alert_1.png)
 
 ### Slack通知設定
 Slack通知設定を行います。
 SlackのWebhook URLを入力します。
-![Slack通知設定](./images/alert_2.png)
+![Slack通知設定](../images/alert_2.png)
 
 設定した閾値を超えた場合に通知が行われます。
-![Slack通知設定後](./images/alert_3.png)
+![Slack通知設定後](../images/alert_3.png)
 
 ## 7. 画像送信
 Proプランでは画像送信APIを用いて画像を送信することができます。

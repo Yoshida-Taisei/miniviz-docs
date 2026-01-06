@@ -79,12 +79,12 @@ curl -X POST \
 
 データベースページから送信された画像をプレビューすることができます。
 
-![画像の確認](../images/db_image_1.png)
+![画像の確認](../../images/db_image_1.png)
 
-![画像の確認](../images/db_image_2.png)
+![画像の確認](../../images/db_image_2.png)
 
 また、グラフ作成ページから画像をグラフに表示することもできます。
 
 [新しいグラフ作成] -> [グラフの種類を選択] -> [image]を選択
 
-![画像のグラフ作成](../images/viz_image_1.png)
+![画像のグラフ作成](../../images/viz_image_1.png)

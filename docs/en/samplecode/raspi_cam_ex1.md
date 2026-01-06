@@ -1,17 +1,17 @@
 ---
 layout: default
-title: ラズパイカメラサンプル(画像送信)
-parent: サンプルコード
+title: Raspberry Pi Camera Sample (Image Transmission)
+# parent: Sample Code
 nav_order: 3
 ---
 
-# ラズパイカメラサンプル(USBカメラで撮影して画像を送信)
+# Raspberry Pi Camera Sample (Image Sending with USB Camera)
 
-このサンプルコードは、Raspberry Piに接続されたUSBカメラで撮影した画像をMiniviz APIに送信するためのものです。
-`fswebcam`を使用してカメラから画像を取得し、base64エンコードして送信します。
-送信間隔は1分に設定されています。実行中はCtrl+Cで停止できます。
+This sample code demonstrates how to capture images using a USB camera connected to Raspberry Pi and send them to Miniviz API.
+It uses `fswebcam` to capture images from the camera, encodes them to base64, and sends them to the API.
+The sending interval is set to 1 minute. You can stop the execution with Ctrl+C.
 
-## 必要なパッケージ
+## Required Packages
 
 ```bash
 sudo apt-get update
@@ -133,3 +133,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n[Info] Stopped by user")
 ```
+

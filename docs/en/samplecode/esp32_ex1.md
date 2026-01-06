@@ -1,14 +1,14 @@
 ---
 layout: default
-title: ESP32サンプル(データ送信確認用)
-parent: サンプルコード
+title: ESP32 Sample (Data Sending Test)
+# parent: Sample Code
 nav_order: 1
 ---
 
-# ESP32サンプル1(簡易的なサンプルコード)
+# ESP32 Sample 1 (Simple Data Sending Example)
 
-このサンプルコードは、Miniviz API を使用してデータを送信するためのものです。
-送信間隔は90秒に設定されています。
+This sample code demonstrates how to send data to Miniviz API using ESP32.
+The sending interval is set to 90 seconds (deep sleep mode).
 
 ```cpp
 #include <Arduino.h>
@@ -143,3 +143,4 @@ void loop()
   esp_deep_sleep(SLEEP_INTERVAL_US);
 }
 ```
+

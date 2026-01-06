@@ -5,7 +5,7 @@ nav_order: 4
 has_children: true
 ---
 
-# サンプルコード
+# Sample Code
 
-Miniviz の サンプルコードをまとめています。
+This section contains sample code examples for Miniviz.
 

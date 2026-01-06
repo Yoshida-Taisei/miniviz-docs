@@ -1,21 +1,72 @@
 ---
 layout: default
-title: M5Stackカメラサンプル(画像送信)
-parent: サンプルコード
+title: M5Stack TimerCAM (Image Transmission)
+# parent: Hardware Guides
 nav_order: 4
 ---
 
-# M5Stackカメラサンプル(ESP32カメラで撮影して画像を送信)
+# View TimerCAM Captured Images on Smartphone (Miniviz/PlatformIO)
 
-このサンプルコードは、ESP32カメラ（M5Stack Camera等）で撮影した画像をMiniviz APIに送信するためのものです。
-ESP32のカメラモジュールから画像を取得し、base64エンコードして送信します。
-送信間隔は60秒に設定されています。
+# What We'll Do
+Send images captured by TimerCAM to Miniviz so you can view them on your smartphone.
 
-## 必要なライブラリ
+## What is Miniviz
+Miniviz is a service that makes it easy to visualize IoT data.
+Simply send IoT data and you can easily check it from your smartphone.
 
-Arduino IDEのライブラリマネージャーから以下をインストール：
-- ESP32 Camera (通常ESP32ボードマネージャーに含まれています)
+https://miniviz.net
 
+
+## Required Items
+
+* M5Stack timer
+* PlatformIO
+
+To use miniviz:
+* Miniviz Project ID and Token
+
+
+# Connection Verification
+
+## 1. Create Project in PlatformIO
+
+Create a project as follows.
+
+![Create Project](../../images/m5_cam/image_1.png)
+
+## 2. Try Running Library Sample Code
+Download the official sample code below and copy the source code to src/.
+https://github.com/m5stack/TimerCam-arduino.git
+
+
+Setting upload_speed to 115200 in platformio.ini makes uploads more stable.
+```
+[env:m5stack-timer-cam]
+platform = espressif32
+board = m5stack-timer-cam
+framework = arduino
+lib_deps =https://github.com/m5stack/TimerCam-arduino.git
+upload_speed = 115200
+monitor_speed = 115200
+```
+
+Upload and access the local IP.
+![Serial Monitor](../../images/m5_cam/serial.png)
+
+![Web Camera](../../images/m5_cam/web_cam.png)
+
+
+# Use Miniviz to View on Smartphone
+
+## Get Project ID and Token
+Get the Project ID and Token.
+
+Create Project -> Get Project ID and Token
+
+<!-- Account -->
+![Account](../../images/pj_5.png)
+
+## Modify Sample Code to Send to Miniviz
 ```cpp
 #include "battery.h"
 #include "esp_camera.h"
@@ -27,18 +78,18 @@ Arduino IDEのライブラリマネージャーから以下をインストール
 #include "soc/rtc_cntl_reg.h"
 #include "camera_pins.h"
 
-// WiFi設定
-const char *ssid     = "Buffalo-G-F9F0";
-const char *password = "tnrcst3vccr5r";
+// WiFi Configuration
+const char *ssid     = "SSID";
+const char *password = "PASSWORD";
 
-// Miniviz設定
-const char* PROJECT_ID = "1bcce920-e4de-4b91-8f80-abe5701e5af4";
-const char* TOKEN = "x9LAzGtyp792MNPpHwxUxGwNN5MJpF8P1vzRiRGKdUY";
+// Miniviz Configuration
+const char* PROJECT_ID = "PROJECT_ID";
+const char* TOKEN = "TOKEN";
 const char* API_URL = "https://api.miniviz.net";
 const char* LABEL_KEY = "m5stack_cam";
 
-// 送信間隔（ミリ秒）
-const unsigned long SEND_INTERVAL = 60000;  // 60秒
+// Send interval (milliseconds)
+const unsigned long SEND_INTERVAL = 60000;  // 60 seconds
 
 unsigned long lastSendTime = 0;
 
@@ -81,7 +132,7 @@ void setup() {
     pinMode(2, OUTPUT);
     digitalWrite(2, HIGH);
     
-    // カメラ設定
+    // Camera Configuration
     camera_config_t config;
     config.ledc_channel = LEDC_CHANNEL_0;
     config.ledc_timer   = LEDC_TIMER_0;
@@ -107,7 +158,7 @@ void setup() {
     config.jpeg_quality = 10;
     config.fb_count     = 2;
     
-    // カメラ初期化
+    // Initialize Camera
     esp_err_t err = esp_camera_init(&config);
     if (err != ESP_OK) {
         Serial.printf("Camera init failed with error 0x%x", err);
@@ -120,7 +171,7 @@ void setup() {
     s->set_saturation(s, -2);  // lower the saturation
     s->set_framesize(s, FRAMESIZE_QVGA);
     
-    // WiFi接続
+    // Connect to WiFi
     Serial.printf("Connect to %s, %s\r\n", ssid, password);
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
@@ -132,7 +183,7 @@ void setup() {
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     
-    // NTP同期
+    // NTP Time Synchronization
     syncTime();
     
     lastSendTime = millis();
@@ -159,10 +210,10 @@ bool sendImageToMiniviz(camera_fb_t* fb) {
     http.begin(url);
     http.addHeader("Content-Type", "application/json");
     
-    // タイムスタンプを生成（ミリ秒）
+    // Generate timestamp (milliseconds)
     uint64_t timestamp = getTimestampMs();
     
-    // JSONペイロードを作成
+    // Create JSON payload
     String payload = "{";
     payload += "\"timestamp\":" + String(timestamp) + ",";
     payload += "\"label_key\":\"" + String(LABEL_KEY) + "\",";
@@ -188,13 +239,13 @@ bool sendImageToMiniviz(camera_fb_t* fb) {
 void loop() {
     unsigned long currentTime = millis();
     
-    // LED点滅（動作確認用）
+    // LED blink (for status indication)
     digitalWrite(2, HIGH);
     delay(100);
     digitalWrite(2, LOW);
     delay(100);
     
-    // 60秒ごとに画像を送信
+    // Send image every 60 seconds
     if (currentTime - lastSendTime >= SEND_INTERVAL) {
         Serial.println("[Info] Capturing image...");
         camera_fb_t* fb = esp_camera_fb_get();
@@ -215,4 +266,20 @@ void loop() {
     }
 }
 ```
+
+
+
+## Verify Uploaded Data
+
+Check data from miniviz database menu.
+![Database](../../images/m5_cam/database.png)
+
+
+## Preview
+
+Check data from miniviz preview menu.
+![Preview](../../images/m5_cam/preview.png)
+
+On smartphone it looks like this
+![Preview Smartphone](../../images/m5_cam/preview_smartphone.png)
 
