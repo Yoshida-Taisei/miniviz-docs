@@ -13,6 +13,7 @@ callouts:
     color: green
 
 url: "https://docs.miniviz.net"
+baseurl: ""
 
 plugins:
   - jekyll-remote-theme
