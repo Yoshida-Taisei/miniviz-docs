@@ -18,6 +18,7 @@ Miniviz is a BI platform for IoT systems.
 * [Quick Start](quickstart)
 * Hardware Guides
   * [Raspberry Pi (Sensor Data Transmission)](hardware/raspi_1)
+  * [Raspberry Pi Pico W (Temperature & Humidity)](hardware/raspi_pico_1)
   * [Raspberry Pi (Image Transmission)](hardware/rapi_2_cam)
   * [ESP32](hardware/esp32_1)
   * [SwitchBot CO2 Sensor](hardware/swbot_co2)
