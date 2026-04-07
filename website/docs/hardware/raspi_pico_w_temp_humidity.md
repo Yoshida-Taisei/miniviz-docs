@@ -1,32 +1,10 @@
 
-# Visualize Temperature & Humidity with Raspberry Pi Pico W × DHT11 — Build an IoT Prototype with Miniviz
+# Send temperature & humidity data with Raspberry Pi Pico W
 
 This guide walks through reading temperature and humidity with a Raspberry Pi Pico W and DHT11, sending the data to `Miniviz`, and visualizing it.  
 It is a good fit for IoT prototypes and beginner electronics projects.
 
-## Table of Contents
-
-- [What Is Miniviz?](#what-is-miniviz)
-- [What We'll Do](#what-well-do)
-- [Required Items](#required-items)
-- [Wire the Pico and DHT11](#wire-the-pico-and-dht11)
-- [Acquire Data](#acquire-data)
-- [Send to Miniviz](#send-to-miniviz)
-- [Verify on Miniviz](#verify-on-miniviz)
-- [Create graphs](#create-graphs)
-- [Summary](#summary)
-- [Beta program](#beta-program)
-- [Tags](#tags)
-
-## What Is Miniviz?
-
-A service for easily storing, visualizing, and notifying on IoT data and images.  
-It suits prototypes (PoC), hobby electronics, and education.
-
-[Miniviz - IoT Data Visualization & Graphing Platform](https://miniviz.net)
-
 ## What We'll Do
-
 Use a Raspberry Pi Pico W and a `DHT11` temperature/humidity sensor to read values and visualize them on `Miniviz`.
 
 ## Required Items
@@ -82,44 +60,138 @@ This guide uses the MicroPython extension for VS Code.
 Once the environment is set up, run the sample script below.  
 The onboard LED blinks when data is read successfully.
 
+## Sample Code
+
+This is the full version of the code used in this guide.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="python" label="Python (MicroPython)" default>
+
 ```python
-from machine import Pin
-import dht
+import network
+import urequests
 import time
+import machine
+import dht
+import ntptime
 
-led = Pin("LED", Pin.OUT)
+# ================= Configuration =================
+WIFI_SSID  = "YOUR_WIFI_SSID"       # Wi-Fi SSID
+WIFI_PASS  = "YOUR_WIFI_PASSWORD"   # Wi-Fi Password
+PROJECT_ID = "YOUR_PROJECT_ID"      # Miniviz Project ID
+TOKEN      = "YOUR_TOKEN"           # Miniviz API Token
+LABEL_KEY  = "PicoW_DHT"            # Label for the device
+SEND_INTERVAL = 120                 # Interval between sends (seconds)
+# =================================================
 
-# DHT11 connected to GPIO 15
-sensor = dht.DHT11(Pin(15))
+# Hardware Setup
+dht_sensor = dht.DHT11(machine.Pin(15))
+try:
+    led = machine.Pin("LED", machine.Pin.OUT)
+except ValueError:
+    led = machine.Pin(25, machine.Pin.OUT)
 
-print("Starting measurements...")
+def connect_wifi():
+    """Connect to Wi-Fi and sync time via NTP"""
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    wlan.connect(WIFI_SSID, WIFI_PASS)
 
-while True:
+    print(f"Connecting to {WIFI_SSID}...", end="")
+    while not wlan.isconnected():
+        led.toggle()
+        time.sleep(0.5)
+
+    print("\n✅ Wi-Fi Connected!")
+    led.off()
+
+    # Attempt time synchronization using NTP
+    ntptime.host = "ntp.nict.jp"
     try:
-        # Trigger measurement
-        sensor.measure()
+        print("Syncing time via NTP...", end="")
+        ntptime.settime()
+        print(" Done!")
+    except:
+        print(" Failed (Using internal clock)")
 
-        # Get values
-        temperature = sensor.temperature()
-        humidity = sensor.humidity()
+def send_data_to_miniviz(temp, hum):
+    """Send measurement data to Miniviz and log details"""
+    url = f"https://api.miniviz.net/api/project/{PROJECT_ID}?token={TOKEN}"
 
-        print(f"Temperature: {temperature}°C, Humidity: {humidity}%")
+    # Calculate UNIX timestamp in milliseconds
+    # Assuming time.time() is synced to 1970 Epoch
+    unix_time_sec = time.time()
+    ts_ms = int(unix_time_sec * 1000)
 
-        # Blink onboard LED on success
-        led.on()
-        time.sleep(0.1)
-        led.off()
+    # Create Miniviz-compliant payload
+    payload = {
+        "timestamp": ts_ms,
+        "label_key": LABEL_KEY,
+        "payload": {
+            "temperature": temp,
+            "humidity": hum
+        }
+    }
 
-    except OSError as e:
-        print("Failed to read sensor. Check wiring!")
+    print("\n" + "=" * 40)
+    print("📡 Data Packet Prepared")
+    print(f"  [Timestamp] {ts_ms}")
+    print(f"  [Label]     {LABEL_KEY}")
+    print(f"  [Metrics]   Temp: {temp}°C, Humidity: {hum}%")
+    print("-" * 40)
 
-    # Wait for 2 seconds (DHT11 requirement)
-    time.sleep(2)
+    try:
+        print("🚀 Sending request to Miniviz...", end="")
+        res = urequests.post(url, json=payload)
+
+        if res.status_code in [200, 201]:
+            print(f"\n✅ Success! (Status: {res.status_code})")
+            print(f"  Response: {res.text}")
+            # Blink LED twice on successful transmission
+            for _ in range(2):
+                led.on()
+                time.sleep(0.1)
+                led.off()
+                time.sleep(0.1)
+        else:
+            print(f"\n❌ Server Error (Status: {res.status_code})")
+            print(f"  Reason: {res.text}")
+
+        res.close()
+    except Exception as e:
+        print(f"\n⚠️ Network/Connection Error: {e}")
+    print("=" * 40)
+
+def main():
+    connect_wifi()
+
+    print("\nStarting Telemetry (Ctrl+C to stop)")
+
+    while True:
+        try:
+            # Read from sensor
+            dht_sensor.measure()
+            t = dht_sensor.temperature()
+            h = dht_sensor.humidity()
+
+            # Send data
+            send_data_to_miniviz(t, h)
+
+        except OSError as e:
+            print(f"❌ Sensor Read Error: {e}")
+
+        # Wait for the next interval
+        time.sleep(SEND_INTERVAL)
+
+if __name__ == "__main__":
+    main()
 ```
 
-When you run it, temperature and humidity values are printed.
-
-![Output after Run](/images/pico/pico_1_05.png)
+  </TabItem>
+</Tabs>
 
 ## Send to Miniviz
 

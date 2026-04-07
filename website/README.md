@@ -1,41 +1,45 @@
-# Website
+# Miniviz Documentation Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This website is built using [Docusaurus 3](https://docusaurus.io/).
 
 ## Installation
 
 ```bash
-yarn
+cd website
+npm install
 ```
 
 ## Local Development
 
-```bash
-yarn start
-```
+To see changes immediately as you save files (Hot Reload), use the `start` command. Note that the development server runs one locale at a time.
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+- **Japanese (Recommended for current tasks)**:
+  ```bash
+  npm start -- --locale ja
+  ```
+- **English**:
+  ```bash
+  npm start
+  ```
 
-## Build
+## Preview Production Build (Multi-language)
 
-```bash
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
+To test the final build including language switching, use the `preview` command. This builds all languages but **does not** support hot reload (you must restart the command to see changes).
 
 ```bash
-USE_SSH=true yarn deploy
+npm run preview
 ```
 
-Not using SSH:
+## Writing Rules
 
+Please refer to [STYLEGUIDE.md](./STYLEGUIDE.md) for document structure and formatting rules.
+
+## Build & Deployment
+
+### Build
 ```bash
-GIT_USER=<Your GitHub username> yarn deploy
+npm run build
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+### Deployment (Vercel)
+The site is configured for automatic deployment via Vercel when pushing to the `develop` branch.

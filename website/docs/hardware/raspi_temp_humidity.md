@@ -1,9 +1,8 @@
 
-# Raspberry Pi Sensor Data Transmission Sample
+# Send temperature & humidity data with Raspberry Pi
 
 ## What We'll Do
-* Create a sample that sends data using a temperature and humidity sensor and creates graphs.
-For a simple sample code using temperature and humidity API, see [here](../samplecode/python_ex1).
+Send data using a temperature and humidity sensor and create graphs.
 
 ## Required Items
 
@@ -167,6 +166,10 @@ If working correctly, data will be sent every 90 seconds and transmission result
 2. Check sent data from Database menu
 3. Verify that temperature and humidity data is displayed
 
+:::tip
+It may take up to 30 seconds for the data to appear in the database after it is sent.
+:::
+
 ### Create Graphs
 
 1. Create graphs from Visualize menu
@@ -226,4 +229,59 @@ sudo journalctl -u miniviz-sender.service -f
 ```
 
 Now, data transmission will automatically start even after Raspberry Pi reboots.
+
+## Sample Code
+
+This is the full version of the code used in this guide.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="python" label="Python" default>
+
+```python
+import os
+import time
+from datetime import datetime, timezone
+import json
+import random
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 90  # seconds
+
+def generate_payload():
+    return {
+        "system_status": "running"
+    }
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": generate_payload()
+    })
+
+    if response.ok:
+        data = response.json()
+        print(f"Send successful (id={data.get('id')})")
+    else:
+        print(f"Send failed: {response.status_code} {response.text}")
+
+if __name__ == "__main__":
+    print("Starting miniviz data send test (press Ctrl+C to stop)")
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+  </TabItem>
+</Tabs>
 

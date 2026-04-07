@@ -84,9 +84,6 @@ Miniviz APIにデータを送信するESP32用のコードを作成します。
 
 `src/main.cpp`ファイルに以下の内容を記述します（`PROJECT_ID`と`TOKEN`は実際の値に置き換えてください）：
 
--> [ESP32サンプルコード](../samplecode/esp32_ex1)を参照してください。
-
-
 ### ビルドとアップロード
 
 1. ESP32をUSBケーブルでPCに接続

@@ -91,9 +91,6 @@ curl -X POST \
 
 ### Python
 
-以下のリンクにサンプルコードがあります。
-[Pythonサンプル1](./samplecode/python_ex1)
-
 ### サンプルコード
 
 このガイドで使用したコードの完全版です。

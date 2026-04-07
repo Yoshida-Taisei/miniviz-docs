@@ -3,13 +3,13 @@
     "message": "現在",
     "description": "The label for version current"
   },
-  "sidebar.docs.category.Use-case guides": {
+  "sidebar.docs.category.Use Cases": {
     "message": "ユースケース",
-    "description": "The label for category 'Use-case guides' in sidebar 'docs'"
+    "description": "The label for category 'Use Cases' in sidebar 'docs'"
   },
-  "sidebar.docs.category.Send sensor data": {
-    "message": "センサーデータを送る",
-    "description": "The label for category 'Send sensor data' in sidebar 'docs'"
+  "sidebar.docs.category.Send temperature & humidity data": {
+    "message": "温湿度データを送る",
+    "description": "The label for category 'Send temperature & humidity data' in sidebar 'docs'"
   },
   "sidebar.docs.category.Send images": {
     "message": "画像を送る",
@@ -19,9 +19,9 @@
     "message": "連携ガイド",
     "description": "The label for category 'Integrations' in sidebar 'docs'"
   },
-  "sidebar.docs.category.Sample code": {
+  "sidebar.docs.category.Appendix: Sample Code": {
     "message": "付録：サンプルコード",
-    "description": "The label for category 'Sample code' in sidebar 'docs'"
+    "description": "The label for category 'Appendix: Sample Code' in sidebar 'docs'"
   },
   "sidebar.docs.category.API": {
     "message": "API",

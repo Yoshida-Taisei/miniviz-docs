@@ -1,15 +1,11 @@
 
-# Store and Visualize SwitchBot CO2 Data (Miniviz / Raspberry Pi)
+# Integrate with SwitchBot CO2 sensor
 
 ## What We'll Do
 
 Send data from a SwitchBot CO2 sensor to Miniviz, store temperature, humidity, and CO2 concentration in the database, and create graphs. You can check data in the SwitchBot app as well, but sending it to Miniviz gives you more flexibility for visualization and automation.
 
 Since the API integration does not provide temperature and humidity values, this guide uses BLE to read the sensor data.
-
-## What Is Miniviz?
-
-Miniviz is a service that makes it easy to visualize IoT data. Just send your IoT data, and you can quickly check it from your smartphone.
 
 ## Example Use Cases
 

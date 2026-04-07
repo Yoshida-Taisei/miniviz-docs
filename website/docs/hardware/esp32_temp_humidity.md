@@ -1,8 +1,104 @@
 
-# ESP32 Sample 1 (Simple Data Sending Example)
+# Send temperature & humidity data with ESP32
 
-This sample code demonstrates how to send data to Miniviz API using ESP32.
-The sending interval is set to 90 seconds (deep sleep mode).
+## What We'll Do
+Send data using a temperature and humidity sensor and create graphs.
+
+## Required Items
+
+- ESP32
+- USB cable (for data transfer)
+- Temperature and humidity sensor (DHT11, etc.)
+- Jumper wires
+- Breadboard (optional)
+
+## Steps
+
+1. Set up ESP32 development environment (PlatformIO)
+2. Connect/read temperature and humidity sensor
+3. Run data transmission sample
+4. Verify data transmission and create graphs
+5. (Bonus) Configure OTA updates
+
+## 1. Set Up ESP32 Development Environment (PlatformIO)
+
+Set up ESP32 development environment using PlatformIO.
+
+### Install PlatformIO
+
+1. Download and install [PlatformIO IDE](https://platformio.org/install/ide?install=vscode)
+   - Installing as a Visual Studio Code extension is recommended
+2. Launch Visual Studio Code and verify that PlatformIO extension is enabled
+
+### Create Project
+
+1. Select "New Project" from PlatformIO home screen
+2. Enter project name (e.g., `esp32-miniviz`)
+3. Select "ESP32 Dev Module" as Board
+4. Framework as "Arduino"
+5. Create project
+
+:::tip
+Set the baud rate to `115200` to avoid garbled text in the serial monitor.
+:::
+
+Example `platformio.ini` file
+```ini
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+lib_deps = adafruit/DHT sensor library@^1.4.6
+monitor_speed = 115200
+```
+
+### Add Required Libraries
+
+Add required libraries to the project's `platformio.ini` file.
+
+* [DHT sensor library](https://github.com/adafruit/DHT-sensor-library)
+
+## 2. Connect/Read Temperature and Humidity Sensor
+
+### Sensor Connection
+
+Connect a temperature and humidity sensor such as DHT11 to ESP32.
+
+**DHT11 Connection Example:**
+
+```
+DHT11              ESP32
+------             ----------------
+(1) VCC  --------> 3.3V
+(2) DATA --------> GPIO4
+(3) NC   --------> -
+(4) GND  --------> GND
+```
+
+
+## 3. Run Data Transmission Sample
+
+Create ESP32 code to send data to Miniviz API.
+
+### Create Code
+
+Write the following content in `src/main.cpp` file (replace `PROJECT_ID` and `TOKEN` with actual values):
+
+### Build and Upload
+
+1. Connect ESP32 to PC with USB cable
+2. Run the following command from PlatformIO terminal:
+3. Check operation with serial monitor:
+
+## Sample Code
+
+This is the full version of the code used in this guide.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cpp" label="C++ (Arduino)" default>
 
 ```cpp
 #include <Arduino.h>
@@ -137,4 +233,26 @@ void loop()
   esp_deep_sleep(SLEEP_INTERVAL_US);
 }
 ```
+
+  </TabItem>
+</Tabs>
+
+## 4. Verify Data Transmission and Create Graphs
+
+### Verify Data Transmission
+
+1. Log in to Miniviz web interface
+2. Check sent data from Database menu
+3. Verify that temperature and humidity data is displayed
+
+![DATA_BASE_ESP32](/images/esp32_1.png)
+
+### Create Graphs
+
+1. Create graphs from Visualize menu
+2. Select graph type (line chart recommended)
+3. Select temperature and humidity as data sources
+4. Verify that graphs are displayed correctly
+
+For details, see "5. Create Charts" in [Quick Start](../quickstart).
 

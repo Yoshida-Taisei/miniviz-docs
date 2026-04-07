@@ -2,18 +2,18 @@
 
 Choose a guide by what you want to do.
 
-## Send sensor data
+## Send temperature & humidity data
 
-- [Raspberry Pi Sensor Data Transmission Sample](./raspi_1)
-- [Visualize Temperature & Humidity with Raspberry Pi Pico W × DHT11](./raspi_pico_1)
-- [ESP32 Sensor Data Transmission Sample](./esp32_1)
+- [Send temperature & humidity data with Raspberry Pi](./raspi_temp_humidity)
+- [Send temperature & humidity data with Raspberry Pi Pico W](./raspi_pico_w_temp_humidity)
+- [Send temperature & humidity data with ESP32](./esp32_temp_humidity)
 
 ## Send images
 
-- [Raspberry Pi and USB Camera Image Transmission Sample](./rapi_2_cam)
-- [View TimerCAM Captured Images on Smartphone (Miniviz/PlatformIO)](./m5_timer_cam)
+- [Send images with Raspberry Pi × USB camera](./raspi_usb_camera)
+- [Send images with M5Stack TimerCAM](./m5stack_timercam)
 
 ## Integrations
 
-- [Store and Visualize SwitchBot CO2 Data (Miniviz / Raspberry Pi)](./swbot_co2)
+- [Integrate with SwitchBot CO2 sensor](./switchbot_co2)
 

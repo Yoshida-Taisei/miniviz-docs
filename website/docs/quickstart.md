@@ -1,24 +1,9 @@
 
-# Miniviz Quick Start
+# Quick Start
 
-## Overview
-
-- [Overview](#overview)
-- [1. Create Miniviz Account / Login](#1-create-miniviz-account--login)
-- [2. Create Project](#2-create-project)
-    - [Copy Project ID and Token](#copy-project-id-and-token)
-- [3. Send Data (Device Side)](#3-send-data-device-side)
-  - [API Endpoint](#api-endpoint)
-  - [Request Overview](#request-overview)
-  - [Request Body](#request-body)
-  - [Request Example](#request-example)
-  - [curl Command (Linux/MacOS)](#curl-command-linuxmacos)
-  - [Python](#python)
-- [4. Check Data (Database)](#4-check-data-database)
-- [5. Create Charts](#5-create-charts)
-- [6. Notification Settings](#6-notification-settings)
-  - [Slack Notification Settings](#slack-notification-settings)
-- [7. Image Transmission](#7-image-transmission)
+:::info
+AI can help you implement and support faster. See the [AI Guide on the Intro page](/#ai-quick-start-guide) for details.
+:::
 
 ## 1. Create Miniviz Account / Login
 
@@ -109,8 +94,89 @@ curl -X POST \
 
 ### Python
 
-Sample code is available at the following link.
-[Python Sample 1](./samplecode/python_ex1)
+### Sample Code
+
+This is the full version of the code used in this guide.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="python" label="Python" default>
+
+```python
+import os
+import time
+from datetime import datetime, timezone
+import json
+import random
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 90  # seconds
+
+def read_sensor():
+    """Fetch actual temperature and humidity from Open-Meteo API"""
+    try:
+        # Using Tokyo coordinates as an example
+        LATITUDE = 35.6762
+        LONGITUDE = 139.6503
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": LATITUDE,
+            "longitude": LONGITUDE,
+            "current_weather": True,
+            "hourly": "relativehumidity_2m",
+        }
+        res = requests.get(url, params=params, timeout=5)
+        res.raise_for_status()
+        data = res.json()
+        temperature = data["current_weather"]["temperature"]
+        humidity = data["hourly"]["relativehumidity_2m"][0]
+    except Exception as e:
+        # Fallback to random values if API call fails
+        print(f"Warning: Failed to fetch weather data: {e}. Using random values.")
+        temperature = 15 + random.randint(0, 20)
+        humidity = 40 + random.randint(0, 20)
+    
+    return {
+        "temperature": temperature,
+        "humidity": humidity
+    }
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    sensor_data = read_sensor()
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": {
+            "temperature": sensor_data["temperature"],
+            "humidity": sensor_data["humidity"]
+        }
+    })
+
+    if response.ok:
+        data = response.json()
+        print(f"Send successful (id={data.get('id')}) - Temperature: {sensor_data['temperature']:.1f}°C, Humidity: {sensor_data['humidity']:.1f}%")
+    else:
+        print(f"Send failed: {response.status_code} {response.text}")
+
+if __name__ == "__main__":
+    print("Starting miniviz data send test (press Ctrl+C to stop)")
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+  </TabItem>
+</Tabs>
 
 ## 4. Check Data (Database)
 Check data from the Database menu.

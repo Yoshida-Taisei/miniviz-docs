@@ -1,15 +1,8 @@
 
-# View TimerCAM Captured Images on Smartphone (Miniviz/PlatformIO)
+# Send images with M5Stack TimerCAM
 
-# What We'll Do
+## What We'll Do
 Send images captured by TimerCAM to Miniviz so you can view them on your smartphone.
-
-## What is Miniviz
-Miniviz is a service that makes it easy to visualize IoT data.
-Simply send IoT data and you can easily check it from your smartphone.
-
-https://miniviz.net
-
 
 ## Required Items
 
@@ -61,6 +54,17 @@ Create Project -> Get Project ID and Token
 ![Account](/images/pj_5.png)
 
 ## Modify Sample Code to Send to Miniviz
+
+### Sample Code
+
+This is the full version of the code used in this guide.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cpp" label="C++ (Arduino)" default>
+
 ```cpp
 #include "battery.h"
 #include "esp_camera.h"
@@ -260,6 +264,9 @@ void loop() {
     }
 }
 ```
+
+  </TabItem>
+</Tabs>
 
 
 
