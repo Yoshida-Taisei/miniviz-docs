@@ -1,47 +1,35 @@
 ---
 slug: /
-title: Miniviz ドキュメント
+title: はじめに
 description: Miniviz（IoT向けBI）のドキュメント。
 ---
 
 import AiGuideTabs from '@site/src/components/AiGuideTabs';
 
-# Miniviz ドキュメント
+# はじめに
 
-Miniviz は IoT システム向けの BI プラットフォームです。
+Miniviz ドキュメントへようこそ！  
+このサイトでは、IoT システムのデータを簡単に可視化・通知するためのプラットフォーム「Miniviz」の使い方を解説しています。
 
-## 目次
 
-- [クイックスタート](./quickstart)
-- ハードウェア別ガイド
-  - [Raspberry Pi（センサーデータ送信）](./hardware/raspi_1)
-  - [Raspberry Pi Pico W × DHT11（温湿度）](./hardware/raspi_pico_1)
-  - [Raspberry Pi（画像送信）](./hardware/rapi_2_cam)
-  - [ESP32](./hardware/esp32_1)
-  - [M5Stack Timer CAM](./hardware/m5_timer_cam)
-  - [SwitchBot CO₂センサー](./hardware/swbot_co2)
-- サンプルコード
-  - [Pythonサンプル1（データ送信確認用）](./samplecode/python_ex1)
-  - [Pythonサンプル2（温度・湿度API）](./samplecode/python_ex2)
-  - [ESP32サンプル（データ送信確認用）](./samplecode/esp32_ex1)
-  - [ラズパイカメラサンプル（画像送信）](./samplecode/raspi_cam_ex1)
-  - [M5Stack カメラサンプル](./samplecode/M5stack_cam_ex1)
-- API
-  - [データ送信](./api_endpoint/api_reference)
-  - [画像送信](./api_endpoint/api_image_reference)
+:::info
+初めての方は、まず [クイックスタート](./quickstart) をご覧ください。
+
+AI を活用するとより素早く実装やサポートが可能です。下の [AI 用クイックスタートガイド](#ai-用クイックスタートガイド) をご覧ください。
+:::
 
 ---
 
 ## AI 用クイックスタートガイド
 
-AI に質問するときは、下のタブからテキストをコピーして貼り付けてください。
+AI（ChatGPT, Claude, Cursor など）を活用して開発を進める場合は、以下のテキストをコピーして AI に貼り付けてください。Miniviz の仕様を AI が理解し、あなたのコード作成を強力にサポートします。
 
 <AiGuideTabs defaultTab="ja" />
 
 **使い方**
 
-1. 表示されたテキストを選択してコピー（全選択してコピーでも可）。
-2. AI チャットに貼り付ける。
-3. 「Miniviz で〇〇を実装したい」など、具体的に質問する。
+1. 上のタブからテキストをコピーします。
+2. Cursor や ChatGPT などの AI チャットに貼り付けます。
+3. 「Miniviz で ESP32 から温湿度データを送りたい」のように具体的に依頼してください。
 
-詳しくは [クイックスタート（AI用）](./quickstart_for_ai) も参照してください。
+より詳細な AI 活用法については [クイックスタート（AI用）](./quickstart_for_ai) を参照してください。

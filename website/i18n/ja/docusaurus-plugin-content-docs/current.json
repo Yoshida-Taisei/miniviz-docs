@@ -3,12 +3,24 @@
     "message": "現在",
     "description": "The label for version current"
   },
-  "sidebar.docs.category.Hardware guides": {
-    "message": "ハードウェアガイド",
-    "description": "The label for category 'Hardware guides' in sidebar 'docs'"
+  "sidebar.docs.category.Use-case guides": {
+    "message": "ユースケース",
+    "description": "The label for category 'Use-case guides' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.Send sensor data": {
+    "message": "センサーデータを送る",
+    "description": "The label for category 'Send sensor data' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.Send images": {
+    "message": "画像を送る",
+    "description": "The label for category 'Send images' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.Integrations": {
+    "message": "連携ガイド",
+    "description": "The label for category 'Integrations' in sidebar 'docs'"
   },
   "sidebar.docs.category.Sample code": {
-    "message": "サンプルコード",
+    "message": "付録：サンプルコード",
     "description": "The label for category 'Sample code' in sidebar 'docs'"
   },
   "sidebar.docs.category.API": {

@@ -1,5 +1,5 @@
+# サンプルコード
 
-# Sample Code
-
-This section contains sample code examples for Miniviz.
+このセクションはコードをまとめた付録です。
+環境構築から手順を追いたい場合は、先にハードウェアガイドを参照してください。
 

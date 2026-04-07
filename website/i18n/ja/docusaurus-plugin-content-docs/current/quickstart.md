@@ -1,15 +1,9 @@
 
-# Miniviz クイックスタート
+# クイックスタート
 
-## 全体の流れ
-
-1. [Miniviz新規登録](#1-minivizアカウント作成ログイン)
-2. [プロジェクト作成](#2-プロジェクト作成)
-3. [(デバイス側)データ送信](#3-デバイス側データ送信)
-4. [データの確認(データベース)](#4-データの確認データベース)
-5. [グラフ作成](#5-グラフ作成)
-6. [通知設定](#6-通知設定)
-7. [(Proプランのみ)画像送信](#7-画像送信)
+:::info
+AI を活用するとより素早く実装やサポートが可能です。詳細は [はじめにの AI ガイド](/#ai-用クイックスタートガイド) をご覧ください。
+:::
 
 ## 1. Minivizアカウント作成/ログイン
 
@@ -99,6 +93,90 @@ curl -X POST \
 
 以下のリンクにサンプルコードがあります。
 [Pythonサンプル1](./samplecode/python_ex1)
+
+### サンプルコード
+
+このガイドで使用したコードの完全版です。
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="python" label="Python" default>
+
+```python
+import os
+import time
+from datetime import datetime, timezone
+import json
+import random
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 90  # seconds
+
+def read_sensor():
+    """Open-Meteo APIから実際の温度・湿度を取得する"""
+    try:
+        # 東京の座標を例として使用
+        LATITUDE = 35.6762
+        LONGITUDE = 139.6503
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": LATITUDE,
+            "longitude": LONGITUDE,
+            "current_weather": True,
+            "hourly": "relativehumidity_2m",
+        }
+        res = requests.get(url, params=params, timeout=5)
+        res.raise_for_status()
+        data = res.json()
+        temperature = data["current_weather"]["temperature"]
+        humidity = data["hourly"]["relativehumidity_2m"][0]
+    except Exception as e:
+        # API呼び出しに失敗した場合はランダムな値を返す
+        print(f"Warning: 天気データの取得に失敗しました: {e}。ランダムな値を使用します。")
+        temperature = 15 + random.randint(0, 20)
+        humidity = 40 + random.randint(0, 20)
+    
+    return {
+        "temperature": temperature,
+        "humidity": humidity
+    }
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    sensor_data = read_sensor()
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": {
+            "temperature": sensor_data["temperature"],
+            "humidity": sensor_data["humidity"]
+        }
+    })
+
+    if response.ok:
+        data = response.json()
+        print(f"送信成功 (id={data.get('id')}) - 温度: {sensor_data['temperature']:.1f}°C, 湿度: {sensor_data['humidity']:.1f}%")
+    else:
+        print(f"送信失敗: {response.status_code} {response.text}")
+
+if __name__ == "__main__":
+    print("Starting miniviz data send test (press Ctrl+C to stop)")
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+  </TabItem>
+</Tabs>
 
 ## 4. データの確認(データベース)
 Databaseメニューからデータを確認します。

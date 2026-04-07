@@ -1,5 +1,5 @@
-
 # Sample Code
 
-This section contains sample code examples for Miniviz.
+This section is an appendix-style code reference.
+If you want full setup steps, start from the hardware guides first.
 

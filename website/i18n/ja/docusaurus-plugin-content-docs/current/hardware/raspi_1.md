@@ -1,9 +1,9 @@
 
-# Raspberry Piを用いたセンサーデータ送信サンプル
+# Raspberry Pi で温湿度データを送る
 
 ## ここで行うこと
-* サンプルとして、温度・湿度センサーを用いてデータを送信し、グラフを作成するサンプルを作成します。
-簡易的に温度・湿度APIを用いたサンプルコードは[こちら](../samplecode/python_ex1)を参照してください。
+温度・湿度センサーを用いてデータを送信し、グラフを作成するサンプルを作成します。
+
 ## 必要なもの
 
 - Raspberry Pi
@@ -166,6 +166,10 @@ python3 miniviz_sender.py
 2. Databaseメニューから送信されたデータを確認
 3. 温度・湿度のデータが表示されていることを確認
 
+:::tip
+データが送信されてからデータベースに反映されるまで、最大 30 秒ほどかかる場合があります。
+:::
+
 ### グラフの作成
 
 1. Visualizeメニューからグラフを作成
@@ -225,4 +229,59 @@ sudo journalctl -u miniviz-sender.service -f
 ```
 
 これで、Raspberry Piを再起動しても自動的にデータ送信が開始されます。
+
+## サンプルコード
+
+このガイドで使用したコードの完全版です。
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="python" label="Python" default>
+
+```python
+import os
+import time
+from datetime import datetime, timezone
+import json
+import random
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 90  # seconds
+
+def generate_payload():
+    return {
+        "system_status": "running"
+    }
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": generate_payload()
+    })
+
+    if response.ok:
+        data = response.json()
+        print(f"Send successful (id={data.get('id')})")
+    else:
+        print(f"Send failed: {response.status_code} {response.text}")
+
+if __name__ == "__main__":
+    print("Starting miniviz data send test (press Ctrl+C to stop)")
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+  </TabItem>
+</Tabs>
 
