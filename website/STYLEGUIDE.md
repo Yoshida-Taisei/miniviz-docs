@@ -93,7 +93,7 @@
 - 複数言語を載せる場合は `Tabs` を使うこと。
 - 1 言語のみでも、将来の拡張を考えて `Tabs` を使ってよいです。
 
-```markdown
+````markdown
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -106,7 +106,7 @@ import TabItem from '@theme/TabItem';
 
   </TabItem>
 </Tabs>
-```
+````
 
 ## 8. Translation Rules
 
