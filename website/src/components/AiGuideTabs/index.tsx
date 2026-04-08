@@ -1,0 +1,30 @@
+import React from 'react';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import rawJa from '@site/src/ai/quickstart_for_ai_ja.txt';
+import rawEn from '@site/src/ai/quickstart_for_ai_en.txt';
+
+type Props = {
+  /** Which tab is selected first — set from each locale’s intro page */
+  defaultTab?: 'ja' | 'en';
+};
+
+export default function AiGuideTabs({
+  defaultTab = 'en',
+}: Props): React.ReactElement {
+  return (
+    <Tabs defaultValue={defaultTab}>
+      <TabItem value="ja" label="日本語">
+        <CodeBlock language="text" className="ai-guide-pre">
+          {String(rawJa)}
+        </CodeBlock>
+      </TabItem>
+      <TabItem value="en" label="English">
+        <CodeBlock language="text" className="ai-guide-pre">
+          {String(rawEn)}
+        </CodeBlock>
+      </TabItem>
+    </Tabs>
+  );
+}

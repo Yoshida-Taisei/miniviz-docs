@@ -1,11 +1,11 @@
-# Jekyll
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-.jekyll-cache/
+# Docusaurus
+website/.docusaurus/
+website/build/
 
-# Bundler
+# 旧 Jekyll ビルド残骸（ローカル用）
+_site/
+
+# Bundler / Ruby（旧 Jekyll 残存物があっても無視）
 vendor/bundle/
 .bundle/
 Gemfile.lock
@@ -40,5 +40,4 @@ Thumbs.db
 *.tmp
 *.temp
 
-# Temp files
 temp/
