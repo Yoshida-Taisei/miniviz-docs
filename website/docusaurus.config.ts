@@ -6,6 +6,20 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * 本番（miniviz.net/docs）では baseUrl を /docs/ に固定する。
+ * Vercel Preview（*.vercel.app 単体デプロイ）ではルート直下に置くため baseUrl は / にする。
+ * そうしないと HTML が /docs/assets/... を参照し、プレビューでは CSS が死んで 404 になりやすい。
+ */
+const vercelEnv = process.env.VERCEL_ENV;
+const vercelUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL.replace(/^https?:\/\//, '')}`
+  : undefined;
+const isVercelPreview = vercelEnv === 'preview' && Boolean(vercelUrl);
+
+const siteUrl = isVercelPreview ? vercelUrl! : 'https://miniviz.net';
+const baseUrl = isVercelPreview ? '/' : '/docs/';
+
 const config: Config = {
   title: 'Miniviz Docs',
   tagline: 'Documentation for Miniviz',
@@ -15,8 +29,8 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://docs.miniviz.net',
-  baseUrl: '/',
+  url: siteUrl,
+  baseUrl,
 
   organizationName: 'miniviz',
   projectName: 'miniviz-docs',
