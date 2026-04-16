@@ -47,7 +47,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Comparison',
       items: [
-        'comparison/miniviz_vs_thingspeak',
+        'comparison/miniviz_vs_services',
       ],
     },
   ],
