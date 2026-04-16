@@ -4,121 +4,132 @@ description: Compare Miniviz with Ambient, ThingSpeak, Grafana, IFTTT, GAS (Goog
 
 # Compare Miniviz with major services
 
-When choosing an IoT visualization service, the best option depends on whether you want the fastest possible path to charts or a more flexible platform for analysis and operations.
+When selecting an IoT-related service, you should choose based on your goals and use case.
 
-Miniviz is a strong fit when you want to send sensor data with HTTP POST and move quickly to storage, visualization, and alerts.
-Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud each have different strengths, so the better choice depends on your use case.
+- You want to prioritize getting a working prototype quickly for learning or experimentation
+- You care more about flexibility for analysis and operations
+- You want long-term scalability with commercial use in mind
+
+Miniviz is a strong fit when you want to send sensor data via HTTP POST and move quickly to storage, visualization/charting, and alerts.
+Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud each have different strengths, and may be better choices depending on your use case.
 
 :::info
 This comparison is based on public information and typical onboarding flows as of 2026-04. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
 This comparison is also subjective and does not fully represent every strength or weakness of each service.
 :::
 
-## Quick answer
+## Summary
 
-Choose **Miniviz** if you want:
+**Miniviz** is a strong candidate if these conditions apply:
 
-- The shortest setup path with HTTP POST
-- A simple way to start prototypes, learning projects, and PoCs
-- Charts and alerts in one service
+- You want the shortest setup path with HTTP POST, without installing extra libraries
+- You need strong compatibility with microcontrollers such as Raspberry Pi, ESP32, or M5Stack
+- You want to start prototypes, learning projects, and PoCs simply
+- You want data storage, visualization/charting, and alerts in one service
 
-Other services make more sense in these cases:
+Cases where other services are often a better fit:
 
-- **Ambient**: You want a widely used service in Japan and a UI that feels domestic-market friendly
-- **ThingSpeak**: You want MATLAB and MathWorks integration
-- **Grafana**: You want flexible dashboards for larger-scale monitoring
-- **IFTTT**: You care more about no-code automation than visualization
-- **GAS (Google Apps Script)**: You want lightweight custom workflows with Google Sheets and other Google services
-- **AWS / Google Cloud**: You need large-scale deployment, fine-grained permissions, and deeper cloud integration
+- **Ambient**: You prefer a widely used service in Japan and lower learning cost due to abundant local information
+- **ThingSpeak**: You want to leverage MATLAB/MathWorks integration
+- **Grafana**: You want large-scale monitoring and highly customizable dashboards
+- **IFTTT**: You prioritize no-code automation over visualization
+- **GAS (Google Apps Script)**: You want Google Sheets integration or lightweight custom workflows
+- **AWS / Google Cloud**: You prioritize large-scale deployment, fine-grained permission control, and deep cloud-service integration
 
 ## Comparison table
 
-| Service | Best fit | Strengths | Watch-outs |
+| Service | Suitable use cases | Strengths | Considerations |
 | --- | --- | --- | --- |
-| Miniviz | Learning, prototypes, PoCs, personal use | Easy HTTP POST workflow, time-series visualization, alerts, CSV export, image support in Pro | Free plan has limits such as send interval and retention |
-| Ambient | Education and lightweight IoT visualization in Japan | Simple, widely used in Japan, good fit with Arduino/ESP32 | Alert features are effectively a paid-plan consideration, and free plans have limits on channels, items, and retention |
-| ThingSpeak | Analytical IoT PoCs and research use cases | MathWorks/MATLAB integration, good balance of collection and analysis | Heavier setup and operating model than Miniviz |
-| Grafana | Continuous monitoring, multi-device dashboards, larger operations | Very flexible visualization, strong for monitoring use cases | Requires your own data source and more operational knowledge |
-| IFTTT | Automation, notifications, no-code integrations | Easy to connect web services and IoT devices | Not a strong fit for long-term time-series storage or full dashboards |
-| GAS | Small-scale collection, automation, Google Workspace integrations | Easy to combine with Sheets, Gmail, and lightweight custom logic | Full time-series visualization and larger-scale operation require more custom work |
-| AWS / Google Cloud | Enterprise IoT platforms, large-scale operations, system integration | Scalability, security, permissions, and tight integration with cloud services | Higher design and operations complexity, with cost visibility that can be harder to manage |
+| Miniviz | Learning, prototyping, PoC, personal use | Easy HTTP POST onboarding, time-series visualization, alerts, CSV, image support in Pro | Free plan has limits such as send interval and data retention |
+| Ambient | Education, lightweight IoT visualization for Japan-focused users | Simple, widely used in Japan, strong compatibility with Arduino/ESP32 | Alert features are mainly a paid-plan consideration; free plans limit channels, field counts, and retention |
+| ThingSpeak | IoT PoCs with analysis, research use cases | MathWorks/MATLAB integration, practical from collection to analysis | Slightly heavier onboarding and operation model than Miniviz |
+| Grafana | Continuous monitoring, multi-device dashboards, large-scale operation | High dashboard flexibility, strong monitoring capabilities | Requires your own data sources and operational knowledge |
+| IFTTT | Automation, notification workflows, no-code integrations | Easy integration between web services and IoT devices | Not ideal for long-term time-series storage or full-scale visualization |
+| GAS | Small-scale collection, automation, Google Workspace integration | Easy to connect with Sheets/Gmail and build lightweight flows | Large-scale operations and full time-series visualization require more custom implementation |
+| AWS / Google Cloud | Enterprise IoT platforms, large-scale operation, system integration | Scalability, security, permission control, cloud ecosystem integration | Higher initial design/operation complexity and harder cost visibility |
 
 ## Comparison by key criteria
 
-Note: `◎ = Excellent`, `○ = Good`, `△ = Limited`, `× = Weak`
-
-| Criteria | Miniviz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
+| Perspective | Miniviz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Ease of setup | ◎ | ◎ | ○ | × | ◎ | ○ | × |
+| Ease of setup | ◎  | ◎  | ○  | ×  | ◎  | ○  | ×  |
 | Time-series charting | ◎ | ◎ | ◎ | ◎ | × | △ | △ |
-| Alerts / notifications | ○ | △ (mostly paid-plan) | ○ | ○ | ◎ | ○ | △ |
-| Checking stored data (`Database`-like feature) | ◎ | ○ | ○ | × | × | ○ | △ |
+| Alerts / notifications | ○  | △ (paid-plan oriented) | ○  | ○  | ◎  | ○ | △ |
+| Checking stored data | ◎ | × | ○ | × | × | ○ | △ |
 | Analytics capability | △ | △ | ○ | △ | × | △ | ○ |
 | No-code integrations | △ | △ | ○ | × | ◎ | ○ | × |
-| Image support | △ (paid-plan oriented) | × | △ | △ | × | △ | △ |
+| Image support | △ (paid-plan oriented) | × | △ | △ | ×  | △ | △ |
 | Beginner friendliness | ◎ | ◎ | ○ | × | ◎ | ○ | × |
 
-## How to think about each service
+:::info
+This comparison is based on public information and typical onboarding flows as of 2026-04. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
+This comparison is also subjective and does not fully represent every strength or weakness of each service.
+:::
+
+## How to view each service
 
 ### Miniviz
 
-Miniviz is a good fit when you want to keep the path from device data to visualization as small as possible.
-Its main strength is the lightweight flow: send data once, confirm it, and start charting quickly.
+Miniviz is well suited when you want to keep the path from IoT device data to stored and visualized data as short as possible.
+Its key strength is lightweight onboarding: "send data first, see charts quickly."
+Because data can be sent via HTTP POST regardless of device type, setup is straightforward.
 
 ### Ambient
 
-Ambient is another service that emphasizes simplicity, especially for users in Japan.
-It is commonly used in Japan for education and personal electronics projects, but alert-related features should generally be evaluated as a paid-plan feature.
+Ambient, like Miniviz, emphasizes simplicity for Japan-focused users.
+It is commonly used in Japan for education and personal electronics projects.
+On the other hand, alert functionality should generally be considered a paid-plan feature.
 
 ### ThingSpeak
 
-ThingSpeak makes sense when you want not only visualization but also analysis and automation centered on MATLAB.
-It can feel heavier than a simple charting service, but it is a strong option for analysis-oriented PoCs.
+ThingSpeak is suitable when you want to include analysis and automated processing with MATLAB, in addition to visualization.
+It can feel heavier than a simple chart-only tool, but is strong for analysis-oriented PoCs.
 
 ### Grafana
 
-Grafana is less of a simple IoT SaaS and more of a broad monitoring and visualization platform.
-It offers much more flexibility, but usually assumes that you also prepare and operate your own data source, such as InfluxDB or Prometheus.
+Grafana is less an IoT-specific SaaS and more a broad monitoring and visualization platform.
+Its flexibility is high, but it often assumes data sources such as InfluxDB or Prometheus are prepared and operated by you, which adds overhead for small prototypes.
 
 ### IFTTT
 
-IFTTT is useful when you want sensor values to trigger notifications or actions in other services.
-If your main goal is continuous time-series storage and dashboard visualization, Miniviz, Ambient, ThingSpeak, or Grafana will usually fit better.
+IFTTT is useful when sensor values should trigger notifications or actions in external services.
+However, if the main goal is continuous time-series storage and dashboard visualization, Miniviz, Ambient, ThingSpeak, or Grafana is usually a better fit.
 
 ### GAS (Google Apps Script)
 
-GAS is useful when you want to build lightweight custom flows around Google Sheets, Gmail, and Google Chat.
-However, it is not a complete visualization platform, so charts, retention design, UI, and operations often need more custom implementation.
+GAS is suitable when you want to build small custom IoT collection and notification flows integrated with Google Sheets, Gmail, or Google Chat.
+Because it is not a finished visualization platform, time-series charts, retention design, UI, and operations often require additional custom implementation.
 
 ### AWS / Google Cloud
 
 AWS and Google Cloud are not simple plug-and-play visualization services.
-They are cloud foundations for combining IoT ingestion, storage, analytics, notifications, and authentication, which makes them powerful for large-scale systems but relatively heavy for learning projects or early PoCs.
+They are foundational cloud platforms where IoT ingestion, storage, analysis, notification, and authentication are built by combining cloud components.
+They are powerful for large-scale deployment and security/integration needs, but typically involve higher learning and design costs, and can be over-spec for early learning or small PoCs.
 
 ## How to choose by use case
 
 ### Quick prototyping and learning
 
-If you want to visualize `ESP32` or `Raspberry Pi` data quickly, start with **Miniviz** or **Ambient**.
-Choose Miniviz if you prefer an API-first flow. Choose Ambient if you want a service that is widely used in Japan and feels more domestic-market oriented.
+If you want to visualize data from `ESP32` or `Raspberry Pi` quickly, **Miniviz** or **Ambient** is a good first candidate.
+If you prefer an API-first approach, Miniviz is a better fit; if you value a Japan-mainstream service with local familiarity, Ambient is often a better fit.
 
 ### Analysis-oriented PoCs
 
-If you want to analyze or process the data in addition to visualizing it, **ThingSpeak** becomes a stronger candidate.
-It is especially attractive when you already use MathWorks tools.
+If you want analysis and calculation on collected data in addition to visualization, **ThingSpeak** is a strong candidate.
+It is especially suitable when you already use MathWorks assets or workflows.
 
 ### Continuous monitoring and production-scale operations
 
-If you want flexible dashboards across many devices and services, **Grafana** is a strong candidate.
-If you also need identity, messaging, data lakes, analytics platforms, and wider enterprise integration, **AWS** and **Google Cloud** become more relevant.
+If you want flexible dashboards across multiple devices and services, **Grafana** is a strong option.
+If you also need identity, messaging, data lakes, and analytics platforms for large-scale architecture, **AWS** and **Google Cloud** become important candidates.
 
 ### Automation and external integrations
 
-If your top priority is no-code rules such as "when this condition happens, notify or trigger another service," **IFTTT** is very convenient.
-If you want lightweight custom automation centered on Google Workspace, **GAS** is also a reasonable option.
-If visualization itself is the main goal, a dedicated visualization service is usually the better choice.
+If your top priority is no-code integrations such as "when a condition is met, send a notification or trigger another service," **IFTTT** is very convenient.
+If you want lightweight custom workflows centered on Google Workspace, **GAS** is also a candidate.
+On the other hand, if visualization itself is your primary goal, a dedicated visualization service is usually the better fit.
 
 ## Summary
 
-Miniviz is a strong choice for people who want to start IoT visualization and alerts with as little setup as possible.
-Other services each have their own strengths, but Miniviz stands out when you want to move quickly in prototypes, learning projects, and lightweight PoCs. If you want Google-centered lightweight automation, compare GAS as well. If you need enterprise-scale cloud architecture, include AWS and Google Cloud in the evaluation.
+Miniviz is a strong choice for users who want to start IoT data visualization and alerts with as little effort as possible.
+Other services each have their own strengths, but Miniviz stands out for fast progress in prototyping, learning, and lightweight PoCs. If Google-centered lightweight workflows are important, include GAS in your comparison. If enterprise-scale integrated architecture is required, include AWS and Google Cloud as well.
