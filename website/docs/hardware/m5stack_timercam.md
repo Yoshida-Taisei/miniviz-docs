@@ -1,5 +1,11 @@
+---
+description: Send images from M5Stack TimerCAM to Miniviz and view them on your smartphone with a lightweight image-upload flow.
+---
 
 # Send images with M5Stack TimerCAM
+
+This guide is the fastest way to send TimerCAM images to Miniviz and check them from your phone.
+Use it when you want a lightweight image monitoring flow with simple HTTP uploads and minimal dashboard setup.
 
 ## What We'll Do
 Send images captured by TimerCAM to Miniviz so you can view them on your smartphone.

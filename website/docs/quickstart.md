@@ -1,5 +1,36 @@
 
+---
+description: Send your first IoT data to Miniviz with curl or Python, verify it in the database, and create a chart in minutes.
+---
+
+import FaqPageJsonLd from '@site/src/components/FaqPageJsonLd';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const faqItems = [
+  {
+    question: 'Why is my data not showing up in Miniviz?',
+    answer:
+      'First check that the project ID and token are correct. Then verify that timestamp, label_key, and payload are included in the JSON body, and confirm that payload only contains flat string or number values. If the database page is still empty, inspect the device-side log and the HTTP response body.',
+  },
+  {
+    question: 'Why do I get a 403 error when sending data or images?',
+    answer:
+      'A 403 error usually means the token is invalid or the feature is not available on your current plan. For image uploads, Miniviz requires the Pro plan. Re-copy the token from the project screen and confirm that you are calling the correct endpoint.',
+  },
+  {
+    question: 'Which payload types are not supported by Miniviz?',
+    answer:
+      'Miniviz payload values must be flat strings or numbers. Nested objects, arrays, booleans, and null values are not supported. Keep the payload to 8 keys or fewer and within 400 bytes after JSON encoding.',
+  },
+];
+
+<FaqPageJsonLd items={faqItems} />
+
 # Quick Start
+
+This page is the fastest way to confirm that Miniviz works for your device workflow.
+Use it when you want to send sample sensor data with a simple HTTP POST, see the record in the database, and create your first chart in about 5 minutes before writing full device code.
 
 :::info
 AI can help you implement and support faster. See the [AI Guide on the Intro page](/#ai-quick-start-guide) for details.
@@ -97,9 +128,6 @@ curl -X POST \
 ### Sample Code
 
 This is the full version of the code used in this guide.
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="python" label="Python" default>
@@ -213,4 +241,32 @@ Notifications will be sent when the set threshold is exceeded.
 Pro plan users can send images using the image transmission API.
 
 For details, see [API Endpoint (Image)](./api_endpoint/api_image_reference).
+
+## Common errors
+
+### Why is my data not showing up in Miniviz?
+
+Check the following in order:
+
+- Project ID and token are correct
+- The request body includes `timestamp`, `label_key`, and `payload`
+- `payload` contains only flat string or number values
+- The device log or HTTP response does not show an API error
+
+### Why do I get a 403 error?
+
+The most common causes are:
+
+- The token is invalid or belongs to another project
+- You are calling an endpoint that is not available on your plan
+- You are using the image API without the Pro plan
+
+### Which payload types are not supported?
+
+Miniviz does not accept these payload value types:
+
+- Nested objects
+- Arrays
+- Boolean values
+- `null`
 

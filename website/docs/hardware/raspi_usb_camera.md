@@ -1,5 +1,11 @@
+---
+description: Send Raspberry Pi USB camera images to Miniviz with Python and the image API, then review them from the dashboard.
+---
 
 # Send images with Raspberry Pi × USB camera
+
+This page shows the shortest path to capture Raspberry Pi USB camera images and send them to Miniviz.
+It is a good fit for simple remote monitoring prototypes where you want image history and dashboard visibility without a complex camera stack.
 
 ## What We'll Do
 Connect a USB camera to Raspberry Pi and send images to Miniviz.

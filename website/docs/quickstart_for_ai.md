@@ -1,3 +1,7 @@
+---
+description: Copy-ready Miniviz guide for AI tools, including API specs, constraints, and sample code for implementation support.
+---
+
 # Miniviz Quick Start Guide (For AI)
 
 ## 📋 About This Document

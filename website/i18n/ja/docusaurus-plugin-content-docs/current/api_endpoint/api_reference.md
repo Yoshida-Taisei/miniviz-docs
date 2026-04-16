@@ -1,3 +1,6 @@
+---
+description: Miniviz のデータ送信 API について、POST エンドポイント、payload 制約、対応する値型、サンプルをまとめたリファレンスです。
+---
 
 # Miniviz APIリファレンス
 

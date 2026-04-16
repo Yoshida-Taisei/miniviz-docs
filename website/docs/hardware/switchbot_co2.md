@@ -1,5 +1,11 @@
+---
+description: Send SwitchBot CO2, temperature, and humidity data to Miniviz from Raspberry Pi and visualize it with a flexible dashboard.
+---
 
 # Integrate with SwitchBot CO2 sensor
+
+This guide shows how to capture SwitchBot CO2 data with Raspberry Pi, send it to Miniviz, and turn it into reusable charts and alerts.
+Choose this flow when you want more flexible visualization and automation than the vendor app alone can provide.
 
 ## What We'll Do
 
@@ -530,3 +536,31 @@ Miniviz lets you build your layout freely.
 
 <!-- image -->
 ![Visualization](/images/swbot_co2/swbot_1.png)
+
+## Common errors
+
+### Why is my SwitchBot CO2 data not showing up in Miniviz?
+
+Check these points:
+
+- The device ID was detected correctly from BLE advertisements
+- The Raspberry Pi script is still running
+- `PROJECT_ID` and `TOKEN` are correct
+- `payload` values are only strings or numbers
+
+### Why do I get a 403 error when sending data?
+
+The usual causes are:
+
+- The token is invalid or belongs to another project
+- The request URL is incorrect
+- You are calling a feature that is not available on your current plan
+
+### Which payload types are not supported?
+
+Avoid these payload value types:
+
+- Nested objects
+- Arrays
+- Boolean values
+- `null`

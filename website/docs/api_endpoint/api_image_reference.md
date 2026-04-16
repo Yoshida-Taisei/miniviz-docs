@@ -1,3 +1,6 @@
+---
+description: Reference for the Miniviz image upload API, including the POST endpoint, plan limits, image constraints, and request examples.
+---
 
 # Miniviz API Reference (Image)
 

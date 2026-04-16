@@ -43,6 +43,13 @@ const sidebars: SidebarsConfig = {
         'api_endpoint/api_image_reference',
       ],
     },
+    {
+      type: 'category',
+      label: 'Comparison',
+      items: [
+        'comparison/miniviz_vs_thingspeak',
+      ],
+    },
   ],
 };
 

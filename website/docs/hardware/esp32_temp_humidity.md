@@ -1,5 +1,11 @@
+---
+description: Send ESP32 temperature and humidity data to Miniviz with a simple HTTP POST workflow and turn it into charts quickly.
+---
 
 # Send temperature & humidity data with ESP32
+
+This guide shows the shortest practical path for sending ESP32 sensor data to Miniviz and visualizing it.
+It is a good fit for prototypes, demos, and first-time IoT dashboards when you want simple HTTP-based setup instead of a heavier IoT platform.
 
 ## What We'll Do
 Send data using a temperature and humidity sensor and create graphs.
@@ -255,4 +261,32 @@ void loop()
 4. Verify that graphs are displayed correctly
 
 For details, see "5. Create Charts" in [Quick Start](../quickstart).
+
+## Common errors
+
+### Why is my ESP32 data not showing up in Miniviz?
+
+Check these points first:
+
+- The ESP32 is connected to Wi-Fi successfully
+- `PROJECT_ID` and `TOKEN` are copied correctly
+- The request body includes `timestamp`, `label_key`, and `payload`
+- `payload` values are only strings or numbers
+
+### Why do I get a 403 error from the API?
+
+The usual causes are:
+
+- The token is invalid or belongs to another project
+- The request URL or endpoint is incorrect
+- You are trying to use a feature that is not included in your plan
+
+### Which payload types should I avoid?
+
+Do not send these payload value types:
+
+- Nested objects
+- Arrays
+- Boolean values
+- `null`
 

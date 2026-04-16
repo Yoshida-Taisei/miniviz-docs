@@ -1,5 +1,36 @@
 
+---
+description: curl や Python で Miniviz に最初の IoT データを送り、データ確認とグラフ作成まで数分で試せる最短ガイドです。
+---
+
+import FaqPageJsonLd from '@site/src/components/FaqPageJsonLd';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const faqItems = [
+  {
+    question: 'Miniviz にデータが表示されない原因は？',
+    answer:
+      'まずプロジェクト ID とトークンが正しいか確認してください。次に JSON ボディに timestamp、label_key、payload が入っているか、payload がフラットな文字列または数値だけで構成されているかを確認します。それでも表示されない場合は、デバイス側ログと HTTP レスポンス本文を確認してください。',
+  },
+  {
+    question: 'データ送信や画像送信で 403 エラーが出るのはなぜ？',
+    answer:
+      '403 エラーは、トークンが無効か、現在のプランで使えない機能を呼んでいる場合に発生しやすいです。画像送信 API は Pro プラン専用です。プロジェクト画面からトークンを再取得し、エンドポイントも再確認してください。',
+  },
+  {
+    question: 'Miniviz の payload に送れない型は？',
+    answer:
+      'payload の値には、フラットな文字列または数値のみ使えます。ネストしたオブジェクト、配列、真偽値、null は送れません。JSON エンコード後 400 bytes 以内、キー数は 8 個以内に収めてください。',
+  },
+];
+
+<FaqPageJsonLd items={faqItems} />
+
 # クイックスタート
+
+このページは、Miniviz が自分のデバイス構成で動くかを最短で確認するための入口です。
+まずはシンプルな HTTP POST でサンプルデータを送り、Database で保存を確認し、5 分程度で最初のグラフまで作る流れを試せます。
 
 :::info
 AI を活用するとより素早く実装やサポートが可能です。詳細は [はじめにの AI ガイド](/#ai-用クイックスタートガイド) をご覧ください。
@@ -94,9 +125,6 @@ curl -X POST \
 ### サンプルコード
 
 このガイドで使用したコードの完全版です。
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="python" label="Python" default>
@@ -210,3 +238,31 @@ SlackのWebhook URLを入力します。
 Proプランでは画像送信APIを用いて画像を送信することができます。
 
 詳細は[APIエンドポイント(画像)](./api_endpoint/api_image_reference)を参照してください。
+
+## よくあるエラー
+
+### Miniviz にデータが表示されない原因は？
+
+次の順に確認してください。
+
+- プロジェクト ID とトークンが正しい
+- リクエストボディに `timestamp`、`label_key`、`payload` が含まれている
+- `payload` がフラットな文字列または数値だけで構成されている
+- デバイス側ログや HTTP レスポンスに API エラーが出ていない
+
+### 403 エラーが出るのはなぜ？
+
+よくある原因は次の通りです。
+
+- トークンが無効、または別プロジェクトのトークンを使っている
+- 現在のプランで利用できない API を呼んでいる
+- Pro プラン未契約で画像 API を使っている
+
+### payload に送れない型は？
+
+Miniviz では次の payload 値は送れません。
+
+- ネストしたオブジェクト
+- 配列
+- 真偽値
+- `null`

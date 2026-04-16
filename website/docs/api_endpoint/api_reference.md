@@ -1,3 +1,6 @@
+---
+description: Reference for the Miniviz data ingestion API, including the POST endpoint, payload rules, supported value types, and examples.
+---
 
 # Miniviz API Reference
 

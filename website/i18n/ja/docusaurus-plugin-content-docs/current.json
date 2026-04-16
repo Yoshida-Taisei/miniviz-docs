@@ -26,5 +26,9 @@
   "sidebar.docs.category.API": {
     "message": "API",
     "description": "The label for category 'API' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.Comparison": {
+    "message": "比較",
+    "description": "The label for category 'Comparison' in sidebar 'docs'"
   }
 }

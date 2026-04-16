@@ -1,5 +1,11 @@
+---
+description: Send Raspberry Pi temperature and humidity data to Miniviz with Python and create charts with a minimal HTTP-based flow.
+---
 
 # Send temperature & humidity data with Raspberry Pi
+
+This guide is the fastest way to send Raspberry Pi sensor data to Miniviz with Python and visualize it.
+Use it when you want a simple HTTP workflow for prototypes, home labs, or monitoring without building a larger IoT stack first.
 
 ## What We'll Do
 Send data using a temperature and humidity sensor and create graphs.
@@ -284,4 +290,32 @@ if __name__ == "__main__":
 
   </TabItem>
 </Tabs>
+
+## Common errors
+
+### Why is my Raspberry Pi data not showing up in Miniviz?
+
+Check the following:
+
+- The sensor can be read locally before sending
+- `PROJECT_ID` and `TOKEN` are correct
+- The request body includes `timestamp`, `label_key`, and `payload`
+- `payload` contains only flat string or number values
+
+### Why do I get a 403 error from Miniviz?
+
+The most common causes are:
+
+- The token is invalid or copied from another project
+- The endpoint URL is incorrect
+- You are trying to use a plan-limited feature
+
+### Which payload types are not supported?
+
+Avoid these payload value types:
+
+- Nested objects
+- Arrays
+- Boolean values
+- `null`
 

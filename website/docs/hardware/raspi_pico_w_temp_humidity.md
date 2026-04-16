@@ -1,3 +1,6 @@
+---
+description: Send Raspberry Pi Pico W temperature and humidity data to Miniviz with MicroPython and a simple HTTP-based setup.
+---
 
 # Send temperature & humidity data with Raspberry Pi Pico W
 
@@ -361,7 +364,3 @@ Individuals, students, and companies who can use the product and share feedback 
 A regular 2-week free trial is also available. The Pro plan supports images as well—worth exploring.
 
 [Miniviz - IoT Data Visualization & Graphing Platform](https://miniviz.net)
-
-## Tags
-
-`#IT` `#indiedev` `#IoT` `#electronics` `#RaspberryPi` `#RaspberryPiPico`

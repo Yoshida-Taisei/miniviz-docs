@@ -1,5 +1,11 @@
+---
+description: SwitchBot CO2 センサーの CO2・温湿度データを Raspberry Pi 経由で Miniviz に送り、柔軟に可視化/グラフ化する手順です。
+---
 
-# SwitchBot CO2データを保存・可視化する（Miniviz / Raspberry Pi）
+# SwitchBot CO2データを保存・可視化/グラフ化する（Miniviz / Raspberry Pi）
+
+このページでは、SwitchBot CO2 センサーのデータを Raspberry Pi で取得し、Miniviz に送って可視化/グラフ化や通知につなげる方法を紹介します。
+純正アプリだけでは足りない、自由なダッシュボード化や自動化をしたい場合に向いています。
 
 ## ここで行うこと
 
@@ -505,7 +511,7 @@ sudo systemctl enable miniviz-co2
 sudo systemctl start miniviz-co2
 ```
 
-## 4. Minivizでデータ確認・可視化
+## 4. Minivizでデータ確認・可視化/グラフ化
 
 ### データベースの確認
 
@@ -522,7 +528,7 @@ Databaseメニューより、データが保存されていることを確認で
 <!-- 画像 -->
 ![データベース](/images/swbot_co2/swbot_2.png)
 
-### 可視化・グラフ化
+### 可視化/グラフ化
 
 取得したデータは自由にグラフ化できます。CO2の値が低すぎる場合は、センサーの校正状態も確認してください。
 
@@ -530,3 +536,31 @@ Minivizなら自由にレイアウトを作成できます。
 
 <!-- 画像 -->
 ![可視化](/images/swbot_co2/swbot_1.png)
+
+## よくあるエラー
+
+### SwitchBot CO2 のデータが Miniviz に表示されない原因は？
+
+次を確認してください。
+
+- BLE アドバタイズからデバイス ID を正しく取得できている
+- Raspberry Pi 上の送信スクリプトが動き続けている
+- `PROJECT_ID` と `TOKEN` を正しく設定している
+- `payload` の値が文字列または数値だけになっている
+
+### データ送信時に 403 エラーが出るのはなぜ？
+
+主な原因は次の通りです。
+
+- トークンが無効、または別プロジェクトのものを使っている
+- リクエスト URL が誤っている
+- 現在のプランで使えない機能を呼んでいる
+
+### payload に送れない型は？
+
+次の payload 値は避けてください。
+
+- ネストしたオブジェクト
+- 配列
+- 真偽値
+- `null`

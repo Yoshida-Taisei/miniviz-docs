@@ -1,5 +1,11 @@
+---
+description: Raspberry Pi と USB カメラの画像を Python と画像 API で Miniviz に送り、ダッシュボードから確認する手順です。
+---
 
 # Raspberry Pi × USBカメラで画像を送る
+
+このページでは、Raspberry Pi の USB カメラ画像を Miniviz に送る最短手順を紹介します。
+複雑なカメラアーキテクチャを組まずに、画像履歴の保存とダッシュボード確認をすばやく始めたい場合に向いています。
 
 ## ここで行うこと
 Raspberry PiとUSBカメラを接続してMinivizに画像を送信します。
