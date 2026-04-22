@@ -39,7 +39,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'その他',
+          label: 'Others',
           items: [
             'hardware/esp8266_ir_sensor',
           ],
