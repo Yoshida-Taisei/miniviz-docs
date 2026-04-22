@@ -3,7 +3,11 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   docs: [
     'intro',
-    'quickstart',
+    {
+      type: 'doc',
+      id: 'quickstart',
+      label: 'QuickStart',
+    },
     {
       type: 'category',
       label: 'Use Cases',
@@ -31,6 +35,13 @@ const sidebars: SidebarsConfig = {
           label: 'Integrations',
           items: [
             'hardware/switchbot_co2',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'その他',
+          items: [
+            'hardware/esp8266_ir_sensor',
           ],
         },
       ],

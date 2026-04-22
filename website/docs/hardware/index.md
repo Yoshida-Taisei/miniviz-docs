@@ -11,6 +11,7 @@ Choose a guide by what you want to do.
 - [Send temperature & humidity data with Raspberry Pi](./raspi_temp_humidity)
 - [Send temperature & humidity data with Raspberry Pi Pico W](./raspi_pico_w_temp_humidity)
 - [Send temperature & humidity data with ESP32](./esp32_temp_humidity)
+- [Send IR sensor state data with ESP8266 (ESP32)](./esp8266_ir_sensor)
 
 ## Send images
 

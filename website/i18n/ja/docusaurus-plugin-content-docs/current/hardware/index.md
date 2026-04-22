@@ -11,6 +11,7 @@ description: ESP32、Raspberry Pi、Pico W、USB カメラ、M5Stack、SwitchBot
 - [Raspberry Pi で温湿度データを送る](./raspi_temp_humidity)
 - [Raspberry Pi Pico W で温湿度データを送る](./raspi_pico_w_temp_humidity)
 - [ESP32 で温湿度データを送る](./esp32_temp_humidity)
+- [ESP8266(ESP32) で赤外線センサー判定値を送る](./esp8266_ir_sensor)
 
 ## 画像を送る
 
