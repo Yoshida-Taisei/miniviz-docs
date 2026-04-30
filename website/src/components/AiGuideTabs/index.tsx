@@ -2,8 +2,8 @@ import React from 'react';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
-import rawJa from '@site/src/ai/quickstart_for_ai_ja.txt';
-import rawEn from '@site/src/ai/quickstart_for_ai_en.txt';
+import rawJa from '@miniviz-public/llms-full.ja.txt';
+import rawEn from '@miniviz-public/llms-full.txt';
 
 type Props = {
   /** Which tab is selected first — set from each locale’s intro page */

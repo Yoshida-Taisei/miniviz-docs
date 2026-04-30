@@ -5,6 +5,7 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const minivizFrontendPublicDir = path.resolve(__dirname, '../../../frontend/public');
 
 /**
  * 本番（miniviz.net/docs）では baseUrl を /docs/ に固定する。
@@ -50,11 +51,16 @@ const config: Config = {
         name: 'ai-txt-asset-source',
         configureWebpack() {
           return {
+            resolve: {
+              alias: {
+                '@miniviz-public': minivizFrontendPublicDir,
+              },
+            },
             module: {
               rules: [
                 {
                   test: /\.txt$/i,
-                  include: [path.resolve(__dirname, 'src/ai')],
+                  include: [path.resolve(__dirname, 'src/ai'), minivizFrontendPublicDir],
                   type: 'asset/source',
                 },
               ],
