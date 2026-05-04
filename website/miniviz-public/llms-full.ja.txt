@@ -1,0 +1,237 @@
+# Miniviz クイックスタートガイド（AI用）
+
+> Miniviz は、デバイスから HTTP リクエストでデータを送り、Database で確認し、Visualize でグラフ化し、Rules で通知設定まで行える IoT データ可視化サービスです。
+
+このファイルは、MiniViz サイト上の AI Quick Start Guide と同じ中核本文です。AI やコーディングエージェントに Miniviz の現行公開仕様を理解させたいときに使ってください。
+
+## このガイドの使い方
+
+1. このファイル全体を AI ツールへ貼り付ける
+2. 「ESP32 から温湿度を Miniviz に送信したい」「Miniviz の画像 API の正しい curl 例を出して」など、具体的な依頼を続けて書く
+3. デバイス固有のセットアップが必要なら、末尾の公開 docs を参照する
+
+## サービス概要
+
+Miniviz は、デバイスデータを次の流れで扱うためのサービスです。
+
+- データ保存
+- グラフ可視化
+- Rules による通知
+- Pro プランでの画像プレビューと画像チャート
+
+基本的な公開ワークフローは次の通りです。
+
+1. アカウント作成とログイン
+2. プロジェクト作成
+3. プロジェクト ID と token のコピー
+4. デバイスからイベント送信
+5. Database ページでイベント確認
+6. Visualize ページでグラフ作成
+7. Rules ページで通知設定
+8. Pro の場合は画像イベント送信
+
+## プランごとの主要制限
+
+### Free プラン
+
+- プロジェクト数: 1 まで
+- データ送信周期: プロジェクト単位で 60 秒
+- データ保存期間: 90 日
+- Rules 数: 1 まで
+- 画像 API: 利用不可
+
+### Pro プラン
+
+- プロジェクト数: 3 まで
+- データ送信周期: プロジェクト単位で 15 秒
+- データ保存期間: 365 日
+- Rules 数: 5 まで
+- 画像送信周期: label_key 単位で 60 秒
+- 画像保存期間: 365 日
+
+## データ送信 API
+
+### エンドポイント
+
+`POST https://api.miniviz.net/api/project/{project_id}?token={token}`
+
+### リクエストボディ
+
+```json
+{
+  "timestamp": 1731129600000,
+  "label_key": "raspberry_pi_home",
+  "payload": {
+    "temperature": 25,
+    "humidity": 55,
+    "system_status": "running"
+  }
+}
+```
+
+### 必須項目
+
+- `timestamp`: UNIX 時間ミリ秒
+- `label_key`: デバイス名や設置場所などの送信元ラベル
+- `payload`: 実測値を入れるフラットな JSON オブジェクト
+
+### payload 制約
+
+- 最大 8 キー
+- JSON エンコード後 400 バイト以内
+- フラット構造のみ
+- ネストした object は不可
+- 配列は不可
+- bool は不可
+- `null` は不可
+- 値は文字列か数値のみ
+
+### `label_key` 制約
+
+- 必須
+- 128 文字以内
+- 使用可能文字: `A-Z a-z 0-9 - _ . : @ /`
+
+### レート制限
+
+- データ送信周期制限はプロジェクト単位
+- Free は最短 60 秒
+- Pro は最短 15 秒
+- 短すぎる間隔で送ると `429 Too Many Requests`
+- レスポンスには `Retry-After` ヘッダーが付く
+
+### 安全な curl 例
+
+この例は 60 秒前提なので、Free / Pro のどちらでも使えます。
+
+```bash
+timestamp_ms=$(( $(date -u +%s) * 1000 ))
+
+curl -X POST \
+  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  -H "Content-Type: application/json" \
+  -d "{
+        \"timestamp\": ${timestamp_ms},
+        \"label_key\": \"Local_PC\",
+        \"payload\": {
+          \"temperature\": 25,
+          \"humidity\": 55,
+          \"system_status\": \"running\"
+        }
+      }"
+```
+
+### 安全な Python 例
+
+この例も 60 秒前提なので、Free プランでも使えます。
+
+```python
+import time
+from datetime import datetime, timezone
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 60
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": {
+            "temperature": 25,
+            "humidity": 55,
+            "system_status": "running"
+        }
+    })
+
+    if response.ok:
+        print(response.json())
+    else:
+        print(response.status_code, response.text)
+
+if __name__ == "__main__":
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+## 送信後の確認先
+
+### Database ページ
+
+イベントが届いたかを確認する場所です。ここにデータが表示されない場合は、まずデバイス側のリクエスト失敗や API バリデーションエラーを疑ってください。
+
+### Visualize ページ
+
+保存済みイベントからグラフを作成します。画像イベントがある場合は image chart も使えます。
+
+### Rules ページ
+
+閾値超過時の Slack / Webhook 通知などを設定します。
+
+## 画像 API（Pro 限定）
+
+### 画像送信エンドポイント
+
+`POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+
+### 画像送信ボディ
+
+```json
+{
+  "timestamp": 1717587812345,
+  "label_key": "camera_1",
+  "image_name": "image.jpg",
+  "image_base64": "base64_encoded_image_data"
+}
+```
+
+### 画像制約
+
+- Pro プランのみ
+- デコード後サイズ 200KB まで
+- JPEG / PNG のみ
+- `label_key` 制約は通常イベントと同じ
+- 送信周期制限は `project_id + label_key` 単位
+- 最短 60 秒
+- 早すぎる送信は `429` と `Retry-After`
+
+### 画像取得エンドポイント
+
+`GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
+
+画像イベントに紐づく保存画像を取得するための API です。MiniViz では Database のプレビューや image chart 表示にも画像イベントを使います。
+
+### 画像エクスポート
+
+Miniviz には Pro プロジェクト向けの画像エクスポート API もあります。画像エクスポートは「今後追加予定」ではなく、現行プロダクトで利用可能な機能として扱ってください。
+
+## 公開ページ導線
+
+### プロダクトと docs
+
+- [MiniViz ホーム](https://miniviz.net/)
+- [AI Quick Start Guide ページ](https://miniviz.net/ai-doc)
+- [MiniViz docs](https://miniviz.net/docs)
+- [About MiniViz](https://miniviz.net/about)
+
+### 規約と問い合わせ
+
+- [利用規約・プライバシーポリシー](https://miniviz.net/legal-policy)
+- [特定商取引法に基づく表記](https://miniviz.net/specified-commercial-transactions)
+- [お問い合わせ](https://miniviz.net/contact)
+- [info / リリース情報](https://miniviz.net/info)
+
+## AI ツール利用時の注意
+
+- ハードウェア固有のセットアップは公開 docs を優先する
+- payload のネストを前提にしない
+- Free プランで画像 API が使える前提にしない
+- 画像エクスポートを future feature 扱いしない
+- API エラー時は `429` `403` `404` と payload バリデーションを先に確認する

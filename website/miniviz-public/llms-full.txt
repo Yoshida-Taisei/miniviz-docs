@@ -1,0 +1,237 @@
+# MiniViz AI Quick Start Guide
+
+> MiniViz is an IoT data visualization service for sending device data with simple HTTP requests, checking it in a database UI, turning it into charts, and triggering alerts.
+
+This file is the same core content used by the AI Quick Start Guide shown on the MiniViz website. Use it when you want an LLM or coding agent to understand the current public MiniViz workflow and API constraints.
+
+## How to use this guide
+
+1. Paste this file into your AI tool.
+2. Add a concrete request such as "Send temperature and humidity from an ESP32 to MiniViz" or "Show me a valid curl example for the MiniViz image API".
+3. If you need device-specific setup, open the public docs linked at the end of this file.
+
+## Product summary
+
+MiniViz is designed for a short path from device data to:
+
+- data storage
+- chart visualization
+- alerting through Rules
+- image preview and image charts on the Pro plan
+
+The basic public workflow is:
+
+1. Create an account and sign in.
+2. Create a project.
+3. Copy the project ID and token.
+4. Send events from your device.
+5. Confirm the events in the Database page.
+6. Build charts in the Visualize page.
+7. Configure alerts in the Rules page.
+8. If you are on Pro, send images as image events.
+
+## Plan-related limits
+
+### Free plan
+
+- Projects: up to 1
+- Event send interval: 60 seconds per project
+- Data retention: 90 days
+- Rules: up to 1
+- Image APIs: not available
+
+### Pro plan
+
+- Projects: up to 3
+- Event send interval: 15 seconds per project
+- Data retention: 365 days
+- Rules: up to 5
+- Image upload interval: 60 seconds per label key
+- Image retention: 365 days
+
+## Event ingestion API
+
+### Endpoint
+
+`POST https://api.miniviz.net/api/project/{project_id}?token={token}`
+
+### Request body
+
+```json
+{
+  "timestamp": 1731129600000,
+  "label_key": "raspberry_pi_home",
+  "payload": {
+    "temperature": 25,
+    "humidity": 55,
+    "system_status": "running"
+  }
+}
+```
+
+### Required fields
+
+- `timestamp`: UNIX time in milliseconds
+- `label_key`: sender label such as device name or location
+- `payload`: flat JSON object with actual measurement values
+
+### Payload constraints
+
+- Maximum 8 keys
+- Maximum 400 bytes after JSON encoding
+- Flat structure only
+- Nested objects are not allowed
+- Arrays are not allowed
+- Boolean values are not allowed
+- `null` values are not allowed
+- Payload values must be strings or numbers
+
+### `label_key` constraints
+
+- Required
+- Maximum 128 characters
+- Allowed characters: `A-Z a-z 0-9 - _ . : @ /`
+
+### Rate limiting behavior
+
+- Event rate limiting is enforced per project
+- Free plan minimum interval: 60 seconds
+- Pro plan minimum interval: 15 seconds
+- If you send too early, the API returns `429 Too Many Requests`
+- The response includes a `Retry-After` header
+
+### Safe curl example
+
+This example uses a 60-second interval so it is safe for both Free and Pro projects.
+
+```bash
+timestamp_ms=$(( $(date -u +%s) * 1000 ))
+
+curl -X POST \
+  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  -H "Content-Type: application/json" \
+  -d "{
+        \"timestamp\": ${timestamp_ms},
+        \"label_key\": \"Local_PC\",
+        \"payload\": {
+          \"temperature\": 25,
+          \"humidity\": 55,
+          \"system_status\": \"running\"
+        }
+      }"
+```
+
+### Safe Python example
+
+This example also uses a 60-second interval so it works on the Free plan.
+
+```python
+import time
+from datetime import datetime, timezone
+import requests
+
+PROJECT_ID = "MINIVIZ_PROJECT_ID"
+TOKEN = "MINIVIZ_API_TOKEN"
+API_URL = "https://api.miniviz.net"
+LABEL_KEY = "Local_PC"
+SEND_INTERVAL = 60
+
+def send_data():
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    response = requests.post(url, json={
+        "timestamp": timestamp_ms,
+        "label_key": LABEL_KEY,
+        "payload": {
+            "temperature": 25,
+            "humidity": 55,
+            "system_status": "running"
+        }
+    })
+
+    if response.ok:
+        print(response.json())
+    else:
+        print(response.status_code, response.text)
+
+if __name__ == "__main__":
+    while True:
+        send_data()
+        time.sleep(SEND_INTERVAL)
+```
+
+## After sending data
+
+### Database page
+
+Use the Database page to confirm whether events arrived. If your data is not visible there, first assume the device request failed or was rejected.
+
+### Visualize page
+
+Use the Visualize page to create charts from stored events. The service supports multiple chart types, including image charts for image events.
+
+### Rules page
+
+Use the Rules page to define alerts and notifications such as Slack or Webhook notifications when thresholds are exceeded.
+
+## Image APIs (Pro only)
+
+### Image upload endpoint
+
+`POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+
+### Image request body
+
+```json
+{
+  "timestamp": 1717587812345,
+  "label_key": "camera_1",
+  "image_name": "image.jpg",
+  "image_base64": "base64_encoded_image_data"
+}
+```
+
+### Image constraints
+
+- Pro plan only
+- Maximum decoded image size: 200KB
+- Supported formats: JPEG and PNG
+- `label_key` rules are the same as the event API
+- Upload rate limiting is enforced per `project_id + label_key`
+- Minimum interval: 60 seconds
+- If you upload too early, the API returns `429` with `Retry-After`
+
+### Image retrieval endpoint
+
+`GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
+
+Use this endpoint to fetch the stored image for an image event. MiniViz also uses image events for preview in the Database page and display in image charts.
+
+### Image export
+
+MiniViz also provides an image export API for Pro projects. Treat image export as available in the current product, not as a future or unreleased feature.
+
+## Useful public pages
+
+### Product and docs
+
+- [MiniViz home](https://miniviz.net/)
+- [AI Quick Start Guide page](https://miniviz.net/ai-doc)
+- [MiniViz docs](https://miniviz.net/docs)
+- [About MiniViz](https://miniviz.net/about)
+
+### Policies and support
+
+- [Terms of Service and Privacy Policy](https://miniviz.net/legal-policy)
+- [Specified Commercial Transactions Act](https://miniviz.net/specified-commercial-transactions)
+- [Contact](https://miniviz.net/contact)
+- [Info / release notes](https://miniviz.net/info)
+
+## Usage notes for AI tools
+
+- Prefer current public docs for hardware-specific setup
+- Do not assume payload nesting is supported
+- Do not assume images are available on the Free plan
+- Do not describe image export as a future feature
+- If an API request fails, inspect `429`, `403`, `404`, and payload validation errors first

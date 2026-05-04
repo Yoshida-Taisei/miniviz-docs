@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'path';
 import {fileURLToPath} from 'node:url';
 import {themes as prismThemes} from 'prism-react-renderer';
@@ -5,7 +6,20 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const minivizFrontendPublicDir = path.resolve(__dirname, '../../../frontend/public');
+/** miniviz モノレポ内では本物の public、miniviz-docs 単体リポジトリでは同梱コピーを使う */
+const minivizFrontendPublicDirMonorepo = path.resolve(
+  __dirname,
+  '../../../frontend/public',
+);
+const minivizFrontendPublicDirBundled = path.resolve(
+  __dirname,
+  'miniviz-public',
+);
+const minivizFrontendPublicDir = fs.existsSync(
+  path.join(minivizFrontendPublicDirMonorepo, 'llms-full.txt'),
+)
+  ? minivizFrontendPublicDirMonorepo
+  : minivizFrontendPublicDirBundled;
 
 /**
  * 本番（miniviz.net/docs）では baseUrl を /docs/ に固定する。
