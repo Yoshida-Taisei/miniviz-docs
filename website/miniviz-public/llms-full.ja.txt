@@ -179,7 +179,9 @@ if __name__ == "__main__":
 
 ### 画像送信エンドポイント
 
-`POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}/image`
+
+project token は `Authorization: Bearer {token}` で渡します。後方互換として従来の `?token={token}` クエリパラメータも利用できますが、新規例ではヘッダー方式を使ってください。
 
 ### 画像送信ボディ
 

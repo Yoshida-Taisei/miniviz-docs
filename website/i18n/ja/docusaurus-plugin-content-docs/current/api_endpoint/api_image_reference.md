@@ -11,13 +11,13 @@ Miniviz APIは、以下のエンドポイントをサポートしています。
 ### 画像送信API
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
+POST https://api.miniviz.net/api/project/{project_id}/image
 ```
 
 
 ## リクエスト概要
 
-Miniviz API への画像送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
+Miniviz API への画像送信は `POST` メソッドを使用します。project token は `Authorization: Bearer {token}` で渡す方式を推奨します。後方互換として従来の `?token={token}` クエリパラメータも利用できますが、新規実装ではヘッダー方式を使ってください。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
 
 ## リクエストボディ（画像送信）
 
@@ -34,9 +34,7 @@ Miniviz API への画像送信は `POST` メソッドを使用します。送信
 - **画像サイズ**: 1枚あたり200KBまで（base64エンコード後のサイズ）
 - **対応形式**: JPEG、PNGのみ
 - **送信周期**: 60秒/枚（ラベルキー別に管理）
-- **保存期間**: 30日間(※)
-
-※エクスポート機能は2025年12月末頃に公開予定です。
+- **保存期間**: 365日間
 
 ### プラン制限
 - **利用可能プラン**: Proプランのみ（無料プランでは403エラー）
@@ -62,8 +60,9 @@ timestamp_ms=$(( $(date -u +%s) * 1000 ))
 image_base64=$(base64 -i image.jpg)
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}/image?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}/image" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"camera_1\",
