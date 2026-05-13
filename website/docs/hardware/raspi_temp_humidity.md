@@ -121,7 +121,8 @@ def read_sensor():
 
 def send_data():
     """Send data to Miniviz API"""
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
     
     temperature, humidity = read_sensor()
@@ -140,7 +141,7 @@ def send_data():
     }
     
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(url, json=payload, headers=headers)
         if response.ok:
             data = response.json()
             print(f"Send successful (id={data.get('id')}) - Temperature: {temperature:.1f}°C, Humidity: {humidity:.1f}%")
@@ -266,14 +267,15 @@ def generate_payload():
     }
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
     response = requests.post(url, json={
         "timestamp": timestamp_ms,
         "label_key": LABEL_KEY,
         "payload": generate_payload()
-    })
+    }, headers=headers)
 
     if response.ok:
         data = response.json()
@@ -318,4 +320,3 @@ Avoid these payload value types:
 - Arrays
 - Boolean values
 - `null`
-

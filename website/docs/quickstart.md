@@ -70,11 +70,12 @@ We recommend first testing data transmission with curl commands or a simple Pyth
 ### API Endpoint
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}?token={token}
+POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ### Request Overview
 Data transmission to Miniviz API uses the `POST` method. The request body is in JSON format.
+Send the project token in the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter remains available for compatibility, but the header is recommended.
 
 ### Request Body
 
@@ -109,8 +110,9 @@ Data transmission to Miniviz API uses the `POST` method. The request body is in 
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
@@ -176,7 +178,8 @@ def read_sensor():
     }
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
     sensor_data = read_sensor()
@@ -188,7 +191,7 @@ def send_data():
             "temperature": sensor_data["temperature"],
             "humidity": sensor_data["humidity"]
         }
-    })
+    }, headers=headers)
 
     if response.ok:
         data = response.json()
@@ -269,4 +272,3 @@ Miniviz does not accept these payload value types:
 - Arrays
 - Boolean values
 - `null`
-

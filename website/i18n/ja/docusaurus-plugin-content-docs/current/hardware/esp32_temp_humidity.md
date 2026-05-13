@@ -126,7 +126,7 @@ const char *project_id = "MINIVIZ_PROJECT_ID";
 const char *token = "MINIVIZ_API_TOKEN";
 
 String endpoint = String("https://api.miniviz.net/api/project/") +
-                  project_id + "?token=" + token;
+                  project_id;
 
 // Deep Sleep (90 seconds)
 const uint64_t SLEEP_INTERVAL_US = 90ULL * 1000000ULL;
@@ -193,6 +193,7 @@ void sendToMiniviz(float temp, float humid)
   HTTPClient http;
   http.begin(endpoint);
   http.addHeader("Content-Type", "application/json");
+  http.addHeader("Authorization", String("Bearer ") + token);
 
   uint64_t ts = getTimestampMs();
 
@@ -289,4 +290,3 @@ void loop()
 - 配列
 - 真偽値
 - `null`
-
