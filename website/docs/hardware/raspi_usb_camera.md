@@ -69,8 +69,10 @@ Create Project -> Get Project ID and Token
 
 API: Send image in request body
 ```
-POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
+POST https://api.miniviz.net/api/project/{project_id}/image
 ```
+
+Send the project token with `Authorization: Bearer {token}`. The legacy `?token={token}` query parameter is still accepted for compatibility, but new examples should use the header.
 
 Request Body
 ```
@@ -116,7 +118,8 @@ payload = {
 }
 
 try:
-    response = requests.post(url, json=payload, params={"token": TOKEN})
+    headers = {"Authorization": f"Bearer {TOKEN}"}
+    response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
     print("✅ Send successful")
     print(response.json())
@@ -210,7 +213,8 @@ def send_image_to_miniviz(image_path):
     }
 
     try:
-        response = requests.post(url, json=payload, params={"token": TOKEN})
+        headers = {"Authorization": f"Bearer {TOKEN}"}
+        response = requests.post(url, json=payload, headers=headers)
         response.raise_for_status()
         print("[Info] Send successful")
         print(response.json())
@@ -278,4 +282,3 @@ You can configure graph types and data display formats.
 ![Image Visualize](/images/raspi/cam_viz_2.png)
 
 ![Image Visualize](/images/raspi/cam_viz_3.png)
-

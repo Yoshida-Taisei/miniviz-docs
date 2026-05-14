@@ -53,7 +53,9 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 
 ### エンドポイント
 
-`POST https://api.miniviz.net/api/project/{project_id}?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}`
+
+プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。後方互換のため従来の `?token={token}` クエリパラメータも利用できますが、新しいデバイス連携では URL に token が出ないヘッダー方式を使ってください。
 
 ### リクエストボディ
 
@@ -108,8 +110,9 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
@@ -137,7 +140,8 @@ LABEL_KEY = "Local_PC"
 SEND_INTERVAL = 60
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
     response = requests.post(url, json={
@@ -148,7 +152,7 @@ def send_data():
             "humidity": 55,
             "system_status": "running"
         }
-    })
+    }, headers=headers)
 
     if response.ok:
         print(response.json())

@@ -69,8 +69,10 @@ $ fswebcam -r 640x480 --no-banner image.jpg
 
 API: リクエストボディに画像を送信
 ```
-POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
+POST https://api.miniviz.net/api/project/{project_id}/image
 ```
+
+project token は `Authorization: Bearer {token}` ヘッダーで送信します。後方互換として従来の `?token={token}` クエリパラメータも利用できますが、新規例ではヘッダー方式を使ってください。
 
 リクエストボディ
 ```
@@ -116,7 +118,8 @@ payload = {
 }
 
 try:
-    response = requests.post(url, json=payload, params={"token": TOKEN})
+    headers = {"Authorization": f"Bearer {TOKEN}"}
+    response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
     print("✅ Send successful")
     print(response.json())
@@ -210,7 +213,8 @@ def send_image_to_miniviz(image_path):
     }
 
     try:
-        response = requests.post(url, json=payload, params={"token": TOKEN})
+        headers = {"Authorization": f"Bearer {TOKEN}"}
+        response = requests.post(url, json=payload, headers=headers)
         response.raise_for_status()
         print("[Info] Send successful")
         print(response.json())
