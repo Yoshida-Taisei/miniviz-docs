@@ -105,7 +105,7 @@ const char *project_id = "YOUR_PROJECT_ID";
 const char *token = "YOUR_TOKEN";
 
 String endpoint = String("https://api.miniviz.net/api/project/") +
-project_id + "?token=" + token;
+                  project_id + "?token=" + token;
 
 const int irPin = D5;
 

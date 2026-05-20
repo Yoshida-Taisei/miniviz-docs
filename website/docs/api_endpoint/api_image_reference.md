@@ -17,7 +17,7 @@ POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
 
 ## Request Overview
 
-Image transmission to Miniviz API uses the `POST` method. The request body is in JSON format. Image data is base64 encoded before transmission.
+Image transmission to Miniviz API uses the `POST` method. Pass the project token with the `?token={token}` query parameter. The request body is in JSON format. Image data is base64 encoded before transmission.
 
 ## Request Body (Image Transmission)
 
@@ -34,9 +34,7 @@ Image transmission to Miniviz API uses the `POST` method. The request body is in
 - **Image Size**: Maximum 200KB per image (size after base64 encoding)
 - **Supported Formats**: JPEG and PNG only
 - **Transmission Interval**: 60 seconds/image (managed per label key)
-- **Retention Period**: 30 days (※)
-
-※Export feature is scheduled to be released around the end of December 2025.
+- **Retention Period**: 365 days
 
 ### Plan Restrictions
 - **Available Plans**: Pro plan only (403 error for free plan)
@@ -85,4 +83,3 @@ You can also display images in graphs from the graph creation page.
 [Create New Graph] -> [Select Graph Type] -> Select [image]
 
 ![Create Image Graph](/images/viz_image_1.png)
-

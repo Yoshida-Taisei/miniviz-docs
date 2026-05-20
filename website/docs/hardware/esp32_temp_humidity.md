@@ -289,4 +289,3 @@ Do not send these payload value types:
 - Arrays
 - Boolean values
 - `null`
-

@@ -55,6 +55,8 @@ The basic public workflow is:
 
 `POST https://api.miniviz.net/api/project/{project_id}?token={token}`
 
+Send the project token with the `?token={token}` query parameter.
+
 ### Request body
 
 ```json
@@ -180,6 +182,8 @@ Use the Rules page to define alerts and notifications such as Slack or Webhook n
 ### Image upload endpoint
 
 `POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+
+Use the `?token={token}` query parameter for the project token.
 
 ### Image request body
 

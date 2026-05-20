@@ -291,4 +291,3 @@ minivizのプレビューメニューからデータを確認します。
 ![](/images/m5_cam/preview_smartphone.png)
 
 
-

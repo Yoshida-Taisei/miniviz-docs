@@ -289,4 +289,3 @@ Check data from miniviz preview menu.
 
 On smartphone it looks like this
 ![Preview Smartphone](/images/m5_cam/preview_smartphone.png)
-

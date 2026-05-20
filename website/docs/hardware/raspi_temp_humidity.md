@@ -318,4 +318,3 @@ Avoid these payload value types:
 - Arrays
 - Boolean values
 - `null`
-

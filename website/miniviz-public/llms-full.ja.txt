@@ -55,6 +55,8 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 
 `POST https://api.miniviz.net/api/project/{project_id}?token={token}`
 
+プロジェクト token は `?token={token}` クエリパラメータで送信します。
+
 ### リクエストボディ
 
 ```json
@@ -180,6 +182,8 @@ if __name__ == "__main__":
 ### 画像送信エンドポイント
 
 `POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+
+project token は `?token={token}` クエリパラメータで渡します。
 
 ### 画像送信ボディ
 

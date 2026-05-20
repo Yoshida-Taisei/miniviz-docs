@@ -75,6 +75,7 @@ POST https://api.miniviz.net/api/project/{project_id}?token={token}
 
 ### Request Overview
 Data transmission to Miniviz API uses the `POST` method. The request body is in JSON format.
+Send the project token with the `?token={token}` query parameter.
 
 ### Request Body
 
@@ -269,4 +270,3 @@ Miniviz does not accept these payload value types:
 - Arrays
 - Boolean values
 - `null`
-

@@ -72,6 +72,7 @@ POST https://api.miniviz.net/api/project/{project_id}?token={token}
 
 ### リクエスト概要
 Miniviz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
+プロジェクト token は `?token={token}` クエリパラメータで送信します。
 
 ### リクエストボディ
 
