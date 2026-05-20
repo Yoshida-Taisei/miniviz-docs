@@ -69,10 +69,10 @@ Create Project -> Get Project ID and Token
 
 API: Send image in request body
 ```
-POST https://api.miniviz.net/api/project/{project_id}/image
+POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
 ```
 
-Send the project token with `Authorization: Bearer {token}`. The legacy `?token={token}` query parameter is still accepted for compatibility, but new examples should use the header.
+Send the project token with the `?token={token}` query parameter.
 
 Request Body
 ```
@@ -109,7 +109,7 @@ with open(IMAGE_PATH, "rb") as f:
 image_base64 = base64.b64encode(image_data).decode('utf-8')
 
 # Send request
-url = f"{API_URL}/api/project/{PROJECT_ID}/image"
+url = f"{API_URL}/api/project/{PROJECT_ID}/image?token={TOKEN}"
 payload = {
     "timestamp": int(datetime.now(timezone.utc).timestamp() * 1000),
     "label_key": LABEL_KEY,
@@ -118,8 +118,7 @@ payload = {
 }
 
 try:
-    headers = {"Authorization": f"Bearer {TOKEN}"}
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.post(url, json=payload)
     response.raise_for_status()
     print("✅ Send successful")
     print(response.json())
@@ -199,7 +198,7 @@ def encode_image_to_base64(image_path):
 
 def send_image_to_miniviz(image_path):
     """Send image to Miniviz API"""
-    url = f"{API_URL}/api/project/{PROJECT_ID}/image"
+    url = f"{API_URL}/api/project/{PROJECT_ID}/image?token={TOKEN}"
     
     # Encode image to base64
     image_base64 = encode_image_to_base64(image_path)
@@ -213,8 +212,7 @@ def send_image_to_miniviz(image_path):
     }
 
     try:
-        headers = {"Authorization": f"Bearer {TOKEN}"}
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.post(url, json=payload)
         response.raise_for_status()
         print("[Info] Send successful")
         print(response.json())

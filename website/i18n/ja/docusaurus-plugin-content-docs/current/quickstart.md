@@ -67,12 +67,12 @@ AI を活用するとより素早く実装やサポートが可能です。詳�
 ### APIエンドポイント
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}
+POST https://api.miniviz.net/api/project/{project_id}?token={token}
 ```
 
 ### リクエスト概要
 Miniviz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
-プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。後方互換のため従来の `?token={token}` クエリパラメータも利用できますが、ヘッダー方式を推奨します。
+プロジェクト token は `?token={token}` クエリパラメータで送信します。
 
 ### リクエストボディ
 
@@ -107,9 +107,8 @@ Miniviz API へのデータ送信は `POST` メソッドを使用します。送
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}" \
+  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
@@ -175,8 +174,7 @@ def read_sensor():
     }
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}"
-    headers = {"Authorization": f"Bearer {TOKEN}"}
+    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
     sensor_data = read_sensor()
@@ -188,7 +186,7 @@ def send_data():
             "temperature": sensor_data["temperature"],
             "humidity": sensor_data["humidity"]
         }
-    }, headers=headers)
+    })
 
     if response.ok:
         data = response.json()

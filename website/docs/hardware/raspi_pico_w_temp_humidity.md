@@ -122,8 +122,7 @@ def connect_wifi():
 
 def send_data_to_miniviz(temp, hum):
     """Send measurement data to Miniviz and log details"""
-    url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
-    headers = {"Authorization": f"Bearer {TOKEN}"}
+    url = f"https://api.miniviz.net/api/project/{PROJECT_ID}?token={TOKEN}"
 
     # Calculate UNIX timestamp in milliseconds
     # Assuming time.time() is synced to 1970 Epoch
@@ -149,7 +148,7 @@ def send_data_to_miniviz(temp, hum):
 
     try:
         print("🚀 Sending request to Miniviz...", end="")
-        res = urequests.post(url, json=payload, headers=headers)
+        res = urequests.post(url, json=payload)
 
         if res.status_code in [200, 201]:
             print(f"\n✅ Success! (Status: {res.status_code})")
@@ -261,8 +260,7 @@ def connect_wifi():
 
 def send_data_to_miniviz(temp, hum):
     """Send measurement data to Miniviz and log details"""
-    url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
-    headers = {"Authorization": f"Bearer {TOKEN}"}
+    url = f"https://api.miniviz.net/api/project/{PROJECT_ID}?token={TOKEN}"
 
     # Calculate UNIX timestamp in milliseconds
     # Assuming time.time() is synced to 1970 Epoch
@@ -288,7 +286,7 @@ def send_data_to_miniviz(temp, hum):
 
     try:
         print("🚀 Sending request to Miniviz...", end="")
-        res = urequests.post(url, json=payload, headers=headers)
+        res = urequests.post(url, json=payload)
 
         if res.status_code in [200, 201]:
             print(f"\n✅ Success! (Status: {res.status_code})")

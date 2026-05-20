@@ -105,7 +105,7 @@ const char *project_id = "YOUR_PROJECT_ID";
 const char *token = "YOUR_TOKEN";
 
 String endpoint = String("https://api.miniviz.net/api/project/") +
-project_id;
+                  project_id + "?token=" + token;
 
 const int irPin = D5;
 
@@ -150,7 +150,6 @@ void sendToMiniviz(int irState) {
   HTTPClient http;
   http.begin(client, endpoint);
   http.addHeader("Content-Type", "application/json");
-  http.addHeader("Authorization", String("Bearer ") + token);
 
   uint64_t ts = getTimestampMs();
 
