@@ -209,10 +209,11 @@ bool sendImageToMiniviz(camera_fb_t* fb) {
     Serial.println("[Info] Sending image to Miniviz...");
     
     HTTPClient http;
-    String url = String(API_URL) + "/api/project/" + String(PROJECT_ID) + "/image?token=" + String(TOKEN);
+    String url = String(API_URL) + "/api/project/" + String(PROJECT_ID) + "/image";
     
     http.begin(url);
     http.addHeader("Content-Type", "application/json");
+    http.addHeader("Authorization", String("Bearer ") + String(TOKEN));
     
     // Generate timestamp (milliseconds)
     uint64_t timestamp = getTimestampMs();

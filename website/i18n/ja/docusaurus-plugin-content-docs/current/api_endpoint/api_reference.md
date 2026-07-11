@@ -12,13 +12,13 @@ Miniviz APIは、以下のエンドポイントをサポートしています。
 ## APIエンドポイント(データ送信)
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}?token={token}
+POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ## リクエスト概要
 Miniviz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
 
-プロジェクト token は `?token={token}` クエリパラメータで送信します。
+プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。
 
 ## リクエストボディ
 
@@ -78,8 +78,9 @@ payloadは以下のデータ型を受け入れます。
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",

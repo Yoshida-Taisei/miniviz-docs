@@ -69,10 +69,10 @@ $ fswebcam -r 640x480 --no-banner image.jpg
 
 API: リクエストボディに画像を送信
 ```
-POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
+POST https://api.miniviz.net/api/project/{project_id}/image
 ```
 
-project token は `?token={token}` クエリパラメータで送信します。
+project token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。
 
 リクエストボディ
 ```
@@ -109,7 +109,8 @@ with open(IMAGE_PATH, "rb") as f:
 image_base64 = base64.b64encode(image_data).decode('utf-8')
 
 # リクエスト送信
-url = f"{API_URL}/api/project/{PROJECT_ID}/image?token={TOKEN}"
+url = f"{API_URL}/api/project/{PROJECT_ID}/image"
+headers = {"Authorization": f"Bearer {TOKEN}"}
 payload = {
     "timestamp": int(datetime.now(timezone.utc).timestamp() * 1000),
     "label_key": LABEL_KEY,
@@ -118,7 +119,7 @@ payload = {
 }
 
 try:
-    response = requests.post(url, json=payload)
+    response = requests.post(url, headers=headers, json=payload)
     response.raise_for_status()
     print("✅ Send successful")
     print(response.json())
@@ -198,7 +199,8 @@ def encode_image_to_base64(image_path):
 
 def send_image_to_miniviz(image_path):
     """Send image to Miniviz API"""
-    url = f"{API_URL}/api/project/{PROJECT_ID}/image?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}/image"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
     
     # Encode image to base64
     image_base64 = encode_image_to_base64(image_path)
@@ -212,7 +214,7 @@ def send_image_to_miniviz(image_path):
     }
 
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
         print("[Info] Send successful")
         print(response.json())

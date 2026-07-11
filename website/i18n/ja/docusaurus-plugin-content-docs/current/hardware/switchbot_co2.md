@@ -262,7 +262,7 @@ SwitchBot MeterPro(CO2) のBLEアドバタイズから取得した値を Miniviz
   pip install bleak requests
 
 Miniviz API:
-  POST https://api.miniviz.net/api/project/{project_id}?token={token}
+  POST https://api.miniviz.net/api/project/{project_id}
 """
 
 import asyncio
@@ -391,7 +391,8 @@ async def read_once_from_ble() -> Reading:
 
 
 def post_to_miniviz(reading: Reading) -> None:
-    url = f"{MINIVIZ_API_URL}/api/project/{MINIVIZ_PROJECT_ID}?token={MINIVIZ_TOKEN}"
+    url = f"{MINIVIZ_API_URL}/api/project/{MINIVIZ_PROJECT_ID}"
+    headers = {"Authorization": f"Bearer {MINIVIZ_TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
     payload: Dict[str, object] = {
@@ -407,7 +408,7 @@ def post_to_miniviz(reading: Reading) -> None:
 
     body = {"timestamp": timestamp_ms, "label_key": LABEL_KEY, "payload": payload}
 
-    r = requests.post(url, json=body, timeout=20)
+    r = requests.post(url, headers=headers, json=body, timeout=20)
     if r.status_code == 429:
         retry_after = int(r.headers.get("Retry-After", "60"))
         raise RuntimeError(f"Miniviz rate limit (429). Retry-After={retry_after}")
