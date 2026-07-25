@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import path from 'path';
 import {fileURLToPath} from 'node:url';
 import {themes as prismThemes} from 'prism-react-renderer';
@@ -6,20 +5,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-/** miniviz モノレポ内では本物の public、miniviz-docs 単体リポジトリでは同梱コピーを使う */
-const minivizFrontendPublicDirMonorepo = path.resolve(
-  __dirname,
-  '../../../frontend/public',
-);
-const minivizFrontendPublicDirBundled = path.resolve(
-  __dirname,
-  'miniviz-public',
-);
-const minivizFrontendPublicDir = fs.existsSync(
-  path.join(minivizFrontendPublicDirMonorepo, 'llms-full.txt'),
-)
-  ? minivizFrontendPublicDirMonorepo
-  : minivizFrontendPublicDirBundled;
+/** 公開Docsを正本にし、monorepo内のfrontend copyへbuild結果を依存させない。 */
+const minivizPublicDir = path.resolve(__dirname, 'miniviz-public');
 
 /**
  * 本番（miniviz.net/docs）では baseUrl を /docs/ に固定する。
@@ -46,6 +33,7 @@ const config: Config = {
 
   url: siteUrl,
   baseUrl,
+  staticDirectories: ['static', 'generated/mcp-static'],
 
   organizationName: 'miniviz',
   projectName: 'miniviz-docs',
@@ -67,14 +55,14 @@ const config: Config = {
           return {
             resolve: {
               alias: {
-                '@miniviz-public': minivizFrontendPublicDir,
+                '@miniviz-public': minivizPublicDir,
               },
             },
             module: {
               rules: [
                 {
                   test: /\.txt$/i,
-                  include: [path.resolve(__dirname, 'src/ai'), minivizFrontendPublicDir],
+                  include: [path.resolve(__dirname, 'src/ai'), minivizPublicDir],
                   type: 'asset/source',
                 },
               ],

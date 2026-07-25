@@ -56,6 +56,28 @@ npm run serve
 
 **多言語（i18n）について:** ビルド成果物そのものは **英語が `build/` ルート**、**日本語が `build/ja/`** ですが、公開URLは `https://miniviz.net/docs/...` と `https://miniviz.net/docs/ja/...` を正規形として扱います。
 
+## MCP向け公開Docs artifact
+
+`npm run build`はDocusaurus buildの前に、公開DocsをMCPから安全に参照するためのmanifestとmachine-readable Markdownを生成します。
+
+```bash
+cd website
+npm run test:mcp-docs
+npm run docs:mcp:build
+```
+
+生成物は`website/generated/mcp-static/mcp-docs/`へ出力され、git管理しません。Vercel deploy後の公開URLは次の形です。
+
+- `https://miniviz.net/docs/mcp-docs/manifest.json`
+- `https://miniviz.net/docs/mcp-docs/en/{doc_id}.md`
+- `https://miniviz.net/docs/mcp-docs/ja/{doc_id}.md`
+
+公開対象は英語の`website/docs`と日本語translation directoryにあるDocusaurus Docsだけです。`draft: true`は除外されます。内部task、deployment資料、repository全体は列挙しません。AI向けentrypointは`quickstart_for_ai`です。
+
+Source MDXのDocusaurus componentは生成時に除去または公開本文へ展開されますが、code fence内のサンプルコードは保持されます。Manifestにはcode fenceを除いたbounded search textも含まれ、SHA-256とbyte数はGateway取得時の整合性検証に使われます。
+
+Vercel Previewでは`VERCEL_URL`からpreview固有の`/mcp-docs` URLをmanifestへ設定します。ローカルや他のcontrolled previewで公開先を変える場合は、build時だけ`MCP_DOCS_PUBLIC_BASE_URL`へ`/mcp-docs`で終わるbase URLを指定します。Canonical page URLは常に`miniviz.net/docs`を示します。
+
 ## 画像
 
 スクリーンショットは **`website/static/images/`** に置き、Markdown では **`/images/...`** で参照します。

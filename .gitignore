@@ -1,6 +1,7 @@
 # Docusaurus
 website/.docusaurus/
 website/build/
+website/generated/
 
 # 旧 Jekyll ビルド残骸（ローカル用）
 _site/
