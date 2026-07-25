@@ -11,13 +11,13 @@ Miniviz APIは、以下のエンドポイントをサポートしています。
 ### 画像送信API
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}/image?token={token}
+POST https://api.miniviz.net/api/project/{project_id}/image
 ```
 
 
 ## リクエスト概要
 
-Miniviz API への画像送信は `POST` メソッドを使用します。project token は `?token={token}` クエリパラメータで渡します。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
+Miniviz API への画像送信は `POST` メソッドを使用します。project token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
 
 ## リクエストボディ（画像送信）
 
@@ -60,8 +60,9 @@ timestamp_ms=$(( $(date -u +%s) * 1000 ))
 image_base64=$(base64 -i image.jpg)
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}/image?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}/image" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"camera_1\",

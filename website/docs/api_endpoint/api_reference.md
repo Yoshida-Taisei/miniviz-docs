@@ -12,13 +12,13 @@ Miniviz API supports the following endpoints.
 ## API Endpoint (Data Transmission)
 
 ```text
-POST https://api.miniviz.net/api/project/{project_id}?token={token}
+POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ## Request Overview
 Data transmission to Miniviz API uses the `POST` method. The request body is in JSON format.
 
-Send the project token with the `?token={token}` query parameter.
+Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter is still supported for compatibility.
 
 ## Request Body
 
@@ -78,8 +78,9 @@ The following types cannot be used as `payload` values:
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
