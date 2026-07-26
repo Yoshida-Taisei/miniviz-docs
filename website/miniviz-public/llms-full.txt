@@ -53,9 +53,9 @@ The basic public workflow is:
 
 ### Endpoint
 
-`POST https://api.miniviz.net/api/project/{project_id}?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}`
 
-Send the project token with the `?token={token}` query parameter.
+Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter remains available for existing clients, but new implementations should use the header.
 
 ### Request body
 
@@ -110,8 +110,9 @@ This example uses a 60-second interval so it is safe for both Free and Pro proje
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
@@ -139,10 +140,10 @@ LABEL_KEY = "Local_PC"
 SEND_INTERVAL = 60
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
-    response = requests.post(url, json={
+    response = requests.post(url, headers={"Authorization": f"Bearer {TOKEN}"}, json={
         "timestamp": timestamp_ms,
         "label_key": LABEL_KEY,
         "payload": {
@@ -181,9 +182,9 @@ Use the Rules page to define alerts and notifications such as Slack or Webhook n
 
 ### Image upload endpoint
 
-`POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}/image`
 
-Use the `?token={token}` query parameter for the project token.
+Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter remains available for existing clients, but new implementations should use the header.
 
 ### Image request body
 

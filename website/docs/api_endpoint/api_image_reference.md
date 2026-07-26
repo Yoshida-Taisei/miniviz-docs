@@ -26,12 +26,12 @@ Image transmission to Miniviz API uses the `POST` method. Send the project token
 | `timestamp`  | number | Yes | Transmission time (UNIX time in milliseconds) |
 | `label_key`  | string | Yes | Label to identify the source, such as device name or location (max 128 characters, [A-Za-z0-9-_.:@/] only) |
 | `image_name` | string | Yes | Image file name (max 255 characters) |
-| `image_base64` | string | Yes | Base64 encoded image data (max 200KB) |
+| `image_base64` | string | Yes | Base64-encoded image data; the decoded image must be at most 200 KiB |
 
 ## Limitations
 
 ### Image Size and Format
-- **Image Size**: Maximum 200KB per image (size after base64 encoding)
+- **Image Size**: Maximum 200 KiB per image after base64 decoding (204,800 bytes)
 - **Supported Formats**: JPEG and PNG only
 - **Transmission Interval**: 60 seconds/image (managed per label key)
 - **Retention Period**: 365 days

@@ -53,9 +53,9 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 
 ### エンドポイント
 
-`POST https://api.miniviz.net/api/project/{project_id}?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}`
 
-プロジェクト token は `?token={token}` クエリパラメータで送信します。
+プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。既存クライアント向けに `?token={token}` クエリパラメータも利用できますが、新規実装ではヘッダーを使用してください。
 
 ### リクエストボディ
 
@@ -110,8 +110,9 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 timestamp_ms=$(( $(date -u +%s) * 1000 ))
 
 curl -X POST \
-  "https://api.miniviz.net/api/project/{project_id}?token={token}" \
+  "https://api.miniviz.net/api/project/{project_id}" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
   -d "{
         \"timestamp\": ${timestamp_ms},
         \"label_key\": \"Local_PC\",
@@ -139,10 +140,10 @@ LABEL_KEY = "Local_PC"
 SEND_INTERVAL = 60
 
 def send_data():
-    url = f"{API_URL}/api/project/{PROJECT_ID}?token={TOKEN}"
+    url = f"{API_URL}/api/project/{PROJECT_ID}"
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
 
-    response = requests.post(url, json={
+    response = requests.post(url, headers={"Authorization": f"Bearer {TOKEN}"}, json={
         "timestamp": timestamp_ms,
         "label_key": LABEL_KEY,
         "payload": {
@@ -181,9 +182,9 @@ if __name__ == "__main__":
 
 ### 画像送信エンドポイント
 
-`POST https://api.miniviz.net/api/project/{project_id}/image?token={token}`
+`POST https://api.miniviz.net/api/project/{project_id}/image`
 
-project token は `?token={token}` クエリパラメータで渡します。
+project token は `Authorization: Bearer {token}` ヘッダーで送信します。既存クライアント向けに `?token={token}` クエリパラメータも利用できますが、新規実装ではヘッダーを使用してください。
 
 ### 画像送信ボディ
 

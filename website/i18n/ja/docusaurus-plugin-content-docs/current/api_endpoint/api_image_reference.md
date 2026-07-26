@@ -26,12 +26,12 @@ Miniviz API への画像送信は `POST` メソッドを使用します。projec
 | `timestamp`  | number | Yes | 送信時刻（UNIX 時間ミリ秒） |
 | `label_key`  | string | Yes | デバイス名や設置場所など、送信元を識別するラベル（128文字以内、[A-Za-z0-9-_.:@/]のみ） |
 | `image_name` | string | Yes | 画像ファイル名（255文字以内） |
-| `image_base64` | string | Yes | base64エンコードされた画像データ（200KBまで） |
+| `image_base64` | string | Yes | base64エンコードされた画像データ。復号後の画像は 200 KiB 以下 |
 
 ## 制限事項
 
 ### 画像サイズと形式
-- **画像サイズ**: 1枚あたり200KBまで（base64エンコード後のサイズ）
+- **画像サイズ**: base64 復号後の画像データで 1枚あたり 200 KiB まで（204,800 bytes）
 - **対応形式**: JPEG、PNGのみ
 - **送信周期**: 60秒/枚（ラベルキー別に管理）
 - **保存期間**: 365日間
