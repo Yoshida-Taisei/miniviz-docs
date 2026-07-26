@@ -107,6 +107,58 @@ test('buildMcpDocs exports the public English and Japanese corpus', async (t) =>
   assert.ok(serializedManifest.byteLength <= 262_144);
 });
 
+test('generated MCP documentation keeps the public device API contract consistent', async (t) => {
+  const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), 'miniviz-mcp-contract-'));
+  t.after(() => fs.rm(outputDir, {recursive: true, force: true}));
+
+  const websiteDir = path.resolve(import.meta.dirname, '..');
+  await buildMcpDocs({websiteDir, outputDir});
+
+  for (const language of ['en', 'ja']) {
+    const quickstartForAi = await readGeneratedDocument(
+      outputDir,
+      language,
+      'quickstart_for_ai',
+    );
+    assert.match(quickstartForAi, /Authorization: Bearer \{token\}/);
+    assert.doesNotMatch(
+      quickstartForAi,
+      /POST https:\/\/api\.miniviz\.net\/api\/project\/\{project_id\}(?:\/image)?\?token=\{token\}/,
+    );
+
+    const quickstart = await readGeneratedDocument(outputDir, language, 'quickstart');
+    const apiReference = await readGeneratedDocument(
+      outputDir,
+      language,
+      'api_endpoint/api_reference',
+    );
+    assert.match(quickstart, /Authorization: Bearer \{token\}/);
+    assert.match(apiReference, /Authorization: Bearer \{token\}/);
+  }
+
+  const englishImageReference = await readGeneratedDocument(
+    outputDir,
+    'en',
+    'api_endpoint/api_image_reference',
+  );
+  assert.match(
+    englishImageReference,
+    /Maximum 200 KiB per image after base64 decoding \(204,800 bytes\)/,
+  );
+  assert.doesNotMatch(englishImageReference, /size after base64 encoding/);
+
+  const japaneseImageReference = await readGeneratedDocument(
+    outputDir,
+    'ja',
+    'api_endpoint/api_image_reference',
+  );
+  assert.match(
+    japaneseImageReference,
+    /base64 復号後の画像データで 1枚あたり 200 KiB まで（204,800 bytes）/,
+  );
+  assert.doesNotMatch(japaneseImageReference, /base64エンコード後のサイズ/);
+});
+
 test('resolvePublicBaseUrl uses the Vercel preview artifact path', () => {
   expectUrl(
     resolvePublicBaseUrl({
@@ -116,6 +168,10 @@ test('resolvePublicBaseUrl uses the Vercel preview artifact path', () => {
     'https://miniviz-docs-git-feature.vercel.app/mcp-docs',
   );
 });
+
+async function readGeneratedDocument(outputDir, language, docId) {
+  return fs.readFile(path.join(outputDir, language, `${docId}.md`), 'utf8');
+}
 
 function expectUrl(actual, expected) {
   assert.equal(actual, expected);
