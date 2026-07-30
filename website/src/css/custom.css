@@ -43,3 +43,14 @@
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+.mcp-screenshot {
+  margin: 1.5rem 0;
+}
+
+.mcp-screenshot img {
+  display: block;
+  width: min(100%, 860px);
+  height: auto;
+  margin: 0 auto;
+}
