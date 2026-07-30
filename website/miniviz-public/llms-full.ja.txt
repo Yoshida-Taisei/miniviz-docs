@@ -30,6 +30,14 @@ Miniviz は、デバイスデータを次の流れで扱うためのサービス
 7. Rules ページで通知設定
 8. Pro の場合は画像イベント送信
 
+## MiniViz MCP（Public Beta）
+
+MiniViz MCPは、対応するAIクライアントから、あなたが選択したMiniVizプロジェクトを会話しながら参照するための仕組みです。プロジェクト概要、最新値、時系列データ、チャート設定、ルール設定、MiniVizの公開ドキュメントを、安全にread-onlyで確認できます。
+
+MCP経由でデータの送信・変更・削除、通知の送信、画像・プロジェクトtoken・認証情報の参照はできません。接続するには、MiniVizの**AI連携**画面でServer URLをコピーし、AIクライアントにRemote MCPサーバーとして追加します。その後、OAuth認可でログインし、クライアントに参照を許可するプロジェクトを選択します。
+
+Codexでの設定を含む詳しい接続手順は、[MiniViz MCPを接続する](https://miniviz.net/docs/ja/mcp/connect)を参照してください。
+
 ## プランごとの主要制限
 
 ### Free プラン
@@ -224,6 +232,7 @@ Miniviz には Pro プロジェクト向けの画像エクスポート API も�
 - [Miniviz ホーム](https://miniviz.net/)
 - [AI Quick Start Guide ページ](https://miniviz.net/ai-doc)
 - [Miniviz docs](https://miniviz.net/docs)
+- [MiniViz MCPを接続する](https://miniviz.net/docs/ja/mcp/connect)
 - [About Miniviz](https://miniviz.net/about)
 
 ### 規約と問い合わせ

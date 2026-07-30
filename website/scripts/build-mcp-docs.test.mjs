@@ -56,7 +56,7 @@ test('buildMcpDocs exports the public English and Japanese corpus', async (t) =>
 
   assert.equal(manifest.schema_version, 1);
   assert.deepEqual(manifest.languages, ['en', 'ja']);
-  assert.equal(manifest.documents.length, 28);
+  assert.equal(manifest.documents.length, 32);
   const apiReference = manifest.documents.find(
     (document) =>
       document.language === 'en' &&
@@ -80,6 +80,7 @@ test('buildMcpDocs exports the public English and Japanese corpus', async (t) =>
     );
     assert.doesNotMatch(content, /<AiGuideTabs/);
     assert.ok(content.length > 1_000);
+    assert.match(content, /MiniViz MCP|MiniViz MCP（Public Beta）/);
   }
 
   for (const document of manifest.documents) {

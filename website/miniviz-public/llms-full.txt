@@ -30,6 +30,14 @@ The basic public workflow is:
 7. Configure alerts in the Rules page.
 8. If you are on Pro, send images as image events.
 
+## MiniViz MCP (Public Beta)
+
+MiniViz MCP lets a compatible AI client read the MiniViz projects you select through conversation. It is designed for safe, read-only analysis of project summaries, latest values, time-series data, chart settings, rule settings, and public MiniViz documentation.
+
+MCP cannot ingest, change, or delete data; send notifications; or read images, project tokens, or credentials. To connect, open **AI connections** in MiniViz, copy the Server URL, add it as a remote MCP server in your AI client, then complete OAuth authorization and select the projects the client may read.
+
+For Codex setup and detailed connection instructions, see [Connect MiniViz MCP](https://miniviz.net/docs/mcp/connect).
+
 ## Plan-related limits
 
 ### Free plan
@@ -224,6 +232,7 @@ Miniviz also provides an image export API for Pro projects. Treat image export a
 - [Miniviz home](https://miniviz.net/)
 - [AI Quick Start Guide page](https://miniviz.net/ai-doc)
 - [Miniviz docs](https://miniviz.net/docs)
+- [Connect MiniViz MCP](https://miniviz.net/docs/mcp/connect)
 - [About Miniviz](https://miniviz.net/about)
 
 ### Policies and support
