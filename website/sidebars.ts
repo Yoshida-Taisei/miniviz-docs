@@ -56,6 +56,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'MCP',
+      items: [
+        'mcp/connect',
+        'mcp/tips',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Comparison',
       items: [
         'comparison/miniviz_vs_services',
