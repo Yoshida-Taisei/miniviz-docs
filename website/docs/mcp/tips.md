@@ -1,17 +1,17 @@
 ---
-description: Practical MiniViz MCP question patterns for understanding project data safely and efficiently.
+description: Practical Miniviz MCP question patterns for understanding project data safely and efficiently.
 ---
 
-# MiniViz MCP Tips
+# Miniviz MCP Tips
 
-MiniViz MCP works best when your question identifies a project, a time range, and the metric or condition you care about. Start broad, then narrow the question with the result.
+Miniviz MCP works best when your question identifies a project, a time range, and the metric or condition you care about. Start broad, then narrow the question with the result.
 
 ## Start With Context
 
 If the project is not clear, ask:
 
 ```text
-Which MiniViz projects can I use in this chat?
+Which Miniviz projects can I use in this chat?
 ```
 
 Then identify the project by name in later questions.
@@ -70,7 +70,7 @@ Compare the last 24 hours of temperature for label values <label-a> and <label-b
 
 ## Ask for Explanation, Not Just Values
 
-MiniViz MCP can also help you interpret configured monitoring:
+Miniviz MCP can also help you interpret configured monitoring:
 
 ```text
 For <project>, explain the configured charts and monitoring rules in plain language.
@@ -80,6 +80,6 @@ It returns safe summaries and does not reveal notification destinations or crede
 
 ## Know When to Use the App Instead
 
-Use the MiniViz Database page when you need a dense table view, manual CSV work, or broad row-by-row inspection. MCP is intentionally bounded for conversational analysis and does not provide unlimited raw-event export.
+Use the Miniviz Database page when you need a dense table view, manual CSV work, or broad row-by-row inspection. MCP is intentionally bounded for conversational analysis and does not provide unlimited raw-event export.
 
-MiniViz MCP also does not calculate exact continuous durations, detect every missing-data interval, or write data and settings. For these cases, narrow the question, inspect the data in the app, or use your own downstream analysis workflow.
+Miniviz MCP also does not calculate exact continuous durations, detect every missing-data interval, or write data and settings. For these cases, narrow the question, inspect the data in the app, or use your own downstream analysis workflow.

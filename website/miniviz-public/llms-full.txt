@@ -1,18 +1,18 @@
-# MiniViz AI Quick Start Guide
+# Miniviz AI Quick Start Guide
 
-> MiniViz is an IoT data visualization service for sending device data with simple HTTP requests, checking it in a database UI, turning it into charts, and triggering alerts.
+> Miniviz is an IoT data visualization service for sending device data with simple HTTP requests, checking it in a database UI, turning it into charts, and triggering alerts.
 
-This file is the same core content used by the AI Quick Start Guide shown on the MiniViz website. Use it when you want an LLM or coding agent to understand the current public MiniViz workflow and API constraints.
+This file is the same core content used by the AI Quick Start Guide shown on the Miniviz website. Use it when you want an LLM or coding agent to understand the current public Miniviz workflow and API constraints.
 
 ## How to use this guide
 
 1. Paste this file into your AI tool.
-2. Add a concrete request such as "Send temperature and humidity from an ESP32 to MiniViz" or "Show me a valid curl example for the MiniViz image API".
+2. Add a concrete request such as "Send temperature and humidity from an ESP32 to Miniviz" or "Show me a valid curl example for the Miniviz image API".
 3. If you need device-specific setup, open the public docs linked at the end of this file.
 
 ## Product summary
 
-MiniViz is designed for a short path from device data to:
+Miniviz is designed for a short path from device data to:
 
 - data storage
 - chart visualization
@@ -211,20 +211,20 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 
 `GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
 
-Use this endpoint to fetch the stored image for an image event. MiniViz also uses image events for preview in the Database page and display in image charts.
+Use this endpoint to fetch the stored image for an image event. Miniviz also uses image events for preview in the Database page and display in image charts.
 
 ### Image export
 
-MiniViz also provides an image export API for Pro projects. Treat image export as available in the current product, not as a future or unreleased feature.
+Miniviz also provides an image export API for Pro projects. Treat image export as available in the current product, not as a future or unreleased feature.
 
 ## Useful public pages
 
 ### Product and docs
 
-- [MiniViz home](https://miniviz.net/)
+- [Miniviz home](https://miniviz.net/)
 - [AI Quick Start Guide page](https://miniviz.net/ai-doc)
-- [MiniViz docs](https://miniviz.net/docs)
-- [About MiniViz](https://miniviz.net/about)
+- [Miniviz docs](https://miniviz.net/docs)
+- [About Miniviz](https://miniviz.net/about)
 
 ### Policies and support
 

@@ -2,7 +2,7 @@
 
 > Miniviz は、デバイスから HTTP リクエストでデータを送り、Database で確認し、Visualize でグラフ化し、Rules で通知設定まで行える IoT データ可視化サービスです。
 
-このファイルは、MiniViz サイト上の AI Quick Start Guide と同じ中核本文です。AI やコーディングエージェントに Miniviz の現行公開仕様を理解させたいときに使ってください。
+このファイルは、Miniviz サイト上の AI Quick Start Guide と同じ中核本文です。AI やコーディングエージェントに Miniviz の現行公開仕様を理解させたいときに使ってください。
 
 ## このガイドの使い方
 
@@ -211,7 +211,7 @@ project token は `Authorization: Bearer {token}` ヘッダーで送信します
 
 `GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
 
-画像イベントに紐づく保存画像を取得するための API です。MiniViz では Database のプレビューや image chart 表示にも画像イベントを使います。
+画像イベントに紐づく保存画像を取得するための API です。Miniviz では Database のプレビューや image chart 表示にも画像イベントを使います。
 
 ### 画像エクスポート
 
@@ -221,10 +221,10 @@ Miniviz には Pro プロジェクト向けの画像エクスポート API も�
 
 ### プロダクトと docs
 
-- [MiniViz ホーム](https://miniviz.net/)
+- [Miniviz ホーム](https://miniviz.net/)
 - [AI Quick Start Guide ページ](https://miniviz.net/ai-doc)
-- [MiniViz docs](https://miniviz.net/docs)
-- [About MiniViz](https://miniviz.net/about)
+- [Miniviz docs](https://miniviz.net/docs)
+- [About Miniviz](https://miniviz.net/about)
 
 ### 規約と問い合わせ
 
