@@ -23,6 +23,21 @@ export const faqItems = [
     answer:
       'Miniviz payload values must be flat strings or numbers. Nested objects, arrays, booleans, and null values are not supported. Keep the payload to 8 keys or fewer and within 400 bytes after JSON encoding.',
   },
+  {
+    question: 'Why do I get a 429 response when sending data?',
+    answer:
+      'Wait for the Retry-After duration before sending again. Free projects accept one event every 60 seconds and Pro projects every 15 seconds. Do not retry in a tight loop.',
+  },
+  {
+    question: 'Why is the event visible in Database but missing from my chart?',
+    answer:
+      'Confirm that the chart uses a numeric payload field, the chart time range includes the event timestamp, and the selected project is the one that received the event.',
+  },
+  {
+    question: 'What should I check if the sender destination changes?',
+    answer:
+      'Update the API base URL and the project ID/token together, then send one test event before restoring the device send interval.',
+  },
 ];
 
 <FaqPageJsonLd items={faqItems} />
@@ -35,6 +50,10 @@ Use it when you want to send sample sensor data with a simple HTTP POST, see the
 :::info
 AI can help you implement and support faster. See the [AI Guide on the Intro page](/#ai-quick-start-guide) for details.
 :::
+
+## Choose a first path
+
+You do not need a sensor to make the first chart. Start with the curl example below, confirm the event in **Database**, and create a chart in **Visualize**. When you are ready to connect hardware, continue with [ESP32 temperature and humidity](./hardware/esp32_temp_humidity) or [Raspberry Pi temperature and humidity](./hardware/raspi_temp_humidity).
 
 ## 1. Create Miniviz Account / Login
 
@@ -272,3 +291,15 @@ Miniviz does not accept these payload value types:
 - Arrays
 - Boolean values
 - `null`
+
+### Why do I get a 429 response?
+
+Wait for the `Retry-After` duration. Free projects accept one event every 60 seconds and Pro projects every 15 seconds. Avoid tight retry loops.
+
+### Why is the event visible in Database but missing from my chart?
+
+Confirm that the chart uses a numeric payload field, the chart time range includes the event timestamp, and the selected project is the one that received the event.
+
+### What should I check if the sender destination changes?
+
+Update the API base URL and the project ID/token together, then send one test event before restoring the device send interval.
