@@ -1,18 +1,18 @@
-# Miniviz クイックスタートガイド（AI用）
+# MiniViz クイックスタートガイド（AI用）
 
-> Miniviz は、デバイスから HTTP リクエストでデータを送り、Database で確認し、Visualize でグラフ化し、Rules で通知設定まで行える IoT データ可視化サービスです。
+> MiniViz は、デバイスから HTTP リクエストでデータを送り、Database で確認し、Visualize でグラフ化し、Rules で通知設定まで行える IoT データ可視化サービスです。
 
-このファイルは、Miniviz サイト上の AI Quick Start Guide と同じ中核本文です。AI やコーディングエージェントに Miniviz の現行公開仕様を理解させたいときに使ってください。
+このファイルは、MiniViz サイト上の AI Quick Start Guide と同じ中核本文です。AI やコーディングエージェントに MiniViz の現行公開仕様を理解させたいときに使ってください。
 
 ## このガイドの使い方
 
 1. このファイル全体を AI ツールへ貼り付ける
-2. 「ESP32 から温湿度を Miniviz に送信したい」「Miniviz の画像 API の正しい curl 例を出して」など、具体的な依頼を続けて書く
+2. 「ESP32 から温湿度を MiniViz に送信したい」「MiniViz の画像 API の正しい curl 例を出して」など、具体的な依頼を続けて書く
 3. デバイス固有のセットアップが必要なら、末尾の公開 docs を参照する
 
 ## サービス概要
 
-Miniviz は、デバイスデータを次の流れで扱うためのサービスです。
+MiniViz は、デバイスデータを次の流れで扱うためのサービスです。
 
 - データ保存
 - グラフ可視化
@@ -219,21 +219,21 @@ project token は `Authorization: Bearer {token}` ヘッダーで送信します
 
 `GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
 
-画像イベントに紐づく保存画像を取得するための API です。Miniviz では Database のプレビューや image chart 表示にも画像イベントを使います。
+画像イベントに紐づく保存画像を取得するための API です。MiniViz では Database のプレビューや image chart 表示にも画像イベントを使います。
 
 ### 画像エクスポート
 
-Miniviz には Pro プロジェクト向けの画像エクスポート API もあります。画像エクスポートは「今後追加予定」ではなく、現行プロダクトで利用可能な機能として扱ってください。
+MiniViz には Pro プロジェクト向けの画像エクスポート API もあります。画像エクスポートは「今後追加予定」ではなく、現行プロダクトで利用可能な機能として扱ってください。
 
 ## 公開ページ導線
 
 ### プロダクトと docs
 
-- [Miniviz ホーム](https://miniviz.net/)
+- [MiniViz ホーム](https://miniviz.net/)
 - [AI Quick Start Guide ページ](https://miniviz.net/ai-doc)
-- [Miniviz docs](https://miniviz.net/docs)
+- [MiniViz docs](https://miniviz.net/docs)
 - [MiniViz MCPを接続する](https://miniviz.net/docs/ja/mcp/connect)
-- [About Miniviz](https://miniviz.net/about)
+- [About MiniViz](https://miniviz.net/about)
 
 ### 規約と問い合わせ
 

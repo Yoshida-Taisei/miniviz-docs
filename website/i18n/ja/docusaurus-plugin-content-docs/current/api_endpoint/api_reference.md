@@ -1,10 +1,10 @@
 ---
-description: Miniviz のデータ送信 API について、POST エンドポイント、payload 制約、対応する値型、サンプルをまとめたリファレンスです。
+description: MiniViz のデータ送信 API について、POST エンドポイント、payload 制約、対応する値型、サンプルをまとめたリファレンスです。
 ---
 
-# Miniviz APIリファレンス
+# MiniViz APIリファレンス
 
-Miniviz APIは、以下のエンドポイントをサポートしています。
+MiniViz APIは、以下のエンドポイントをサポートしています。
 
 * [データ送信API](api_reference)
 * [画像送信API](api_image_reference)
@@ -16,7 +16,7 @@ POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ## リクエスト概要
-Miniviz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
+MiniViz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
 
 プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。
 

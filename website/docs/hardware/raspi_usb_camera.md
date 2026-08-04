@@ -1,14 +1,14 @@
 ---
-description: Send Raspberry Pi USB camera images to Miniviz with Python and the image API, then review them from the dashboard.
+description: Send Raspberry Pi USB camera images to MiniViz with Python and the image API, then review them from the dashboard.
 ---
 
 # Send images with Raspberry Pi × USB camera
 
-This page shows the shortest path to capture Raspberry Pi USB camera images and send them to Miniviz.
+This page shows the shortest path to capture Raspberry Pi USB camera images and send them to MiniViz.
 It is a good fit for simple remote monitoring prototypes where you want image history and dashboard visibility without a complex camera stack.
 
 ## What We'll Do
-Connect a USB camera to Raspberry Pi and send images to Miniviz.
+Connect a USB camera to Raspberry Pi and send images to MiniViz.
 
 :::caution
 The image transmission feature is only available for the **Pro plan**. It is not available for the free plan.
@@ -17,7 +17,7 @@ The image transmission feature is only available for the **Pro plan**. It is not
 ## Required Items and Environment
 * Raspberry Pi
 * USB Camera
-* Miniviz Project ID and Token
+* MiniViz Project ID and Token
 
 # Connect Raspberry Pi and USB Camera
 
@@ -50,7 +50,7 @@ Check the image
 ![Sample Image](/images/raspi/sample_1.png)
 
 
-# Send Camera Images to Miniviz
+# Send Camera Images to MiniViz
 
 1. Get Project ID and Token
 2. Call the image transmission API and send a sample image
@@ -148,7 +148,7 @@ import TabItem from '@theme/TabItem';
 ```python
 #!/usr/bin/env python3
 """
-Raspberry Pi USB Camera to Miniviz
+Raspberry Pi USB Camera to MiniViz
 """
 import requests
 import base64
@@ -157,7 +157,7 @@ import subprocess
 import time
 from datetime import datetime, timezone
 
-# Miniviz configuration
+# MiniViz configuration
 PROJECT_ID = "PROJECT_ID"
 TOKEN = "TOKEN"
 API_URL = "https://api.miniviz.net"
@@ -198,7 +198,7 @@ def encode_image_to_base64(image_path):
     return base64.b64encode(image_data).decode('utf-8')
 
 def send_image_to_miniviz(image_path):
-    """Send image to Miniviz API"""
+    """Send image to MiniViz API"""
     url = f"{API_URL}/api/project/{PROJECT_ID}/image"
     headers = {"Authorization": f"Bearer {TOKEN}"}
     
@@ -243,7 +243,7 @@ def main():
         print("[Error] Failed to capture image")
         return
     
-    # Send to Miniviz
+    # Send to MiniViz
     success = send_image_to_miniviz(IMAGE_PATH)
     
     # Delete image file only on success (to save disk space)

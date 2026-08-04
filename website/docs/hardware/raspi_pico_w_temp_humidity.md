@@ -1,14 +1,14 @@
 ---
-description: Send Raspberry Pi Pico W temperature and humidity data to Miniviz with MicroPython and a simple HTTP-based setup.
+description: Send Raspberry Pi Pico W temperature and humidity data to MiniViz with MicroPython and a simple HTTP-based setup.
 ---
 
 # Send temperature & humidity data with Raspberry Pi Pico W
 
-This guide walks through reading temperature and humidity with a Raspberry Pi Pico W and DHT11, sending the data to `Miniviz`, and visualizing it.  
+This guide walks through reading temperature and humidity with a Raspberry Pi Pico W and DHT11, sending the data to `MiniViz`, and visualizing it.
 It is a good fit for IoT prototypes and beginner electronics projects.
 
 ## What We'll Do
-Use a Raspberry Pi Pico W and a `DHT11` temperature/humidity sensor to read values and visualize them on `Miniviz`.
+Use a Raspberry Pi Pico W and a `DHT11` temperature/humidity sensor to read values and visualize them on `MiniViz`.
 
 ## Required Items
 
@@ -16,7 +16,7 @@ Use a Raspberry Pi Pico W and a `DHT11` temperature/humidity sensor to read valu
 - DHT11 (temperature & humidity sensor)
 - Breadboard and jumper wires
 - MicroPython environment
-- Miniviz project ID and token
+- MiniViz project ID and token
 
 ## Wire the Pico and DHT11
 
@@ -40,9 +40,9 @@ Wire the circuit as shown in the photo.
 
 This guide uses the MicroPython extension for VS Code.
 
-- Install the `MicroPico` extension  
+- Install the `MicroPico` extension
   It helps manage communication with the Pico and transferring code in one place.
-- Run `MicroPico: Configure project` from the Command Palette (`Ctrl+Shift+P`)  
+- Run `MicroPico: Configure project` from the Command Palette (`Ctrl+Shift+P`)
   This creates Pico-specific completion and connection settings in the folder.
 
 ![Extension screen](/images/pico/pico_1_03.png)
@@ -60,7 +60,7 @@ This guide uses the MicroPython extension for VS Code.
 
 ### Data acquisition script
 
-Once the environment is set up, run the sample script below.  
+Once the environment is set up, run the sample script below.
 The onboard LED blinks when data is read successfully.
 
 ## Sample Code
@@ -84,8 +84,8 @@ import ntptime
 # ================= Configuration =================
 WIFI_SSID  = "YOUR_WIFI_SSID"       # Wi-Fi SSID
 WIFI_PASS  = "YOUR_WIFI_PASSWORD"   # Wi-Fi Password
-PROJECT_ID = "YOUR_PROJECT_ID"      # Miniviz Project ID
-TOKEN      = "YOUR_TOKEN"           # Miniviz API Token
+PROJECT_ID = "YOUR_PROJECT_ID"      # MiniViz Project ID
+TOKEN      = "YOUR_TOKEN"           # MiniViz API Token
 LABEL_KEY  = "PicoW_DHT"            # Label for the device
 SEND_INTERVAL = 120                 # Interval between sends (seconds)
 # =================================================
@@ -121,7 +121,7 @@ def connect_wifi():
         print(" Failed (Using internal clock)")
 
 def send_data_to_miniviz(temp, hum):
-    """Send measurement data to Miniviz and log details"""
+    """Send measurement data to MiniViz and log details"""
     url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
 
@@ -130,7 +130,7 @@ def send_data_to_miniviz(temp, hum):
     unix_time_sec = time.time()
     ts_ms = int(unix_time_sec * 1000)
 
-    # Create Miniviz-compliant payload
+    # Create MiniViz-compliant payload
     payload = {
         "timestamp": ts_ms,
         "label_key": LABEL_KEY,
@@ -148,7 +148,7 @@ def send_data_to_miniviz(temp, hum):
     print("-" * 40)
 
     try:
-        print("🚀 Sending request to Miniviz...", end="")
+        print("🚀 Sending request to MiniViz...", end="")
         res = urequests.post(url, headers=headers, json=payload)
 
         if res.status_code in [200, 201]:
@@ -197,18 +197,18 @@ if __name__ == "__main__":
   </TabItem>
 </Tabs>
 
-## Send to Miniviz
+## Send to MiniViz
 
 ### Get project ID and token
 
-Extend the previous code with Wi-Fi, time sync, and HTTP requests to send data to `Miniviz`.
+Extend the previous code with Wi-Fi, time sync, and HTTP requests to send data to `MiniViz`.
 
-Create a project and obtain the project ID and token.  
+Create a project and obtain the project ID and token.
 See the quick start for details.
 
 ![Project ID and token screen](/images/pico/pico_1_06.png)
 
-### Source code to send to Miniviz
+### Source code to send to MiniViz
 
 Replace Wi-Fi credentials, project ID, and token with your own values.
 
@@ -223,8 +223,8 @@ import ntptime
 # ================= Configuration =================
 WIFI_SSID  = "YOUR_WIFI_SSID"       # Wi-Fi SSID
 WIFI_PASS  = "YOUR_WIFI_PASSWORD"   # Wi-Fi Password
-PROJECT_ID = "YOUR_PROJECT_ID"      # Miniviz Project ID
-TOKEN      = "YOUR_TOKEN"           # Miniviz API Token
+PROJECT_ID = "YOUR_PROJECT_ID"      # MiniViz Project ID
+TOKEN      = "YOUR_TOKEN"           # MiniViz API Token
 LABEL_KEY  = "PicoW_DHT"            # Label for the device
 SEND_INTERVAL = 120                 # Interval between sends (seconds)
 # =================================================
@@ -260,7 +260,7 @@ def connect_wifi():
         print(" Failed (Using internal clock)")
 
 def send_data_to_miniviz(temp, hum):
-    """Send measurement data to Miniviz and log details"""
+    """Send measurement data to MiniViz and log details"""
     url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
 
@@ -269,7 +269,7 @@ def send_data_to_miniviz(temp, hum):
     unix_time_sec = time.time()
     ts_ms = int(unix_time_sec * 1000)
 
-    # Create Miniviz-compliant payload
+    # Create MiniViz-compliant payload
     payload = {
         "timestamp": ts_ms,
         "label_key": LABEL_KEY,
@@ -287,7 +287,7 @@ def send_data_to_miniviz(temp, hum):
     print("-" * 40)
 
     try:
-        print("🚀 Sending request to Miniviz...", end="")
+        print("🚀 Sending request to MiniViz...", end="")
         res = urequests.post(url, headers=headers, json=payload)
 
         if res.status_code in [200, 201]:
@@ -337,16 +337,16 @@ When you run it, transmission logs appear in the console.
 
 ![Log on successful send](/images/pico/pico_1_07.png)
 
-## Verify on Miniviz
+## Verify on MiniViz
 
-Open the `Database` menu to inspect the data you sent.  
+Open the `Database` menu to inspect the data you sent.
 It may take about 30 seconds to show up.
 
 ![Database screen](/images/pico/pico_1_08.png)
 
 ## Create graphs
 
-Use the `Viz` menu to build charts.  
+Use the `Viz` menu to build charts.
 This example uses a line chart.
 
 ![Chart configuration](/images/pico/pico_1_09.png)
@@ -355,14 +355,14 @@ This example uses a line chart.
 
 ## Summary
 
-This guide showed how to visualize temperature and humidity with a Raspberry Pi Pico.  
-`Miniviz` also supports many other sensor payloads and images—give them a try.
+This guide showed how to visualize temperature and humidity with a Raspberry Pi Pico.
+`MiniViz` also supports many other sensor payloads and images—give them a try.
 
 ## Beta program
 
-We are looking for participants to try the Pro plan.  
+We are looking for participants to try the Pro plan.
 Individuals, students, and companies who can use the product and share feedback may receive Pro access for a limited time. Contact us or DM for details.
 
 A regular 2-week free trial is also available. The Pro plan supports images as well—worth exploring.
 
-[Miniviz - IoT Data Visualization & Graphing Platform](https://miniviz.net)
+[MiniViz - IoT Data Visualization & Graphing Platform](https://miniviz.net)

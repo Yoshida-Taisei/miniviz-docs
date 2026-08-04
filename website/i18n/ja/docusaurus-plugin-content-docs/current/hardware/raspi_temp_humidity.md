@@ -1,10 +1,10 @@
 ---
-description: Raspberry Pi の温湿度データを Python と HTTP で Miniviz に送り、最小構成でグラフ化する手順を解説します。
+description: Raspberry Pi の温湿度データを Python と HTTP で MiniViz に送り、最小構成でグラフ化する手順を解説します。
 ---
 
 # Raspberry Pi で温湿度データを送る
 
-このガイドは、Raspberry Pi のセンサーデータを Python で Miniviz に送り、可視化/グラフ化する最短手順です。
+このガイドは、Raspberry Pi のセンサーデータを Python で MiniViz に送り、可視化/グラフ化する最短手順です。
 まずは大きな IoT アーキテクチャを組まずに、試作や自宅監視をシンプルな HTTP フローで始めたい場合に向いています。
 
 ## ここで行うこと
@@ -85,7 +85,7 @@ else:
 
 ## 3. データ送信サンプルを実行
 
-Miniviz APIにデータを送信するPythonスクリプトを作成します。
+MiniViz APIにデータを送信するPythonスクリプトを作成します。
 
 ### スクリプトの作成
 
@@ -120,7 +120,7 @@ def read_sensor():
     return temperature, humidity
 
 def send_data():
-    """Miniviz APIにデータを送信"""
+    """MiniViz APIにデータを送信"""
     url = f"{API_URL}/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
@@ -151,7 +151,7 @@ def send_data():
         print(f"エラー: {e}")
 
 if __name__ == "__main__":
-    print("Minivizデータ送信を開始します (Ctrl+Cで停止)")
+    print("MiniVizデータ送信を開始します (Ctrl+Cで停止)")
     while True:
         send_data()
         time.sleep(SEND_INTERVAL)
@@ -169,7 +169,7 @@ python3 miniviz_sender.py
 
 ### データ送信の確認
 
-1. MinivizのWebインターフェースにログイン
+1. MiniVizのWebインターフェースにログイン
 2. Databaseメニューから送信されたデータを確認
 3. 温度・湿度のデータが表示されていることを確認
 
@@ -200,7 +200,7 @@ sudo nano /etc/systemd/system/miniviz-sender.service
 
 ```ini
 [Unit]
-Description=Miniviz Data Sender
+Description=MiniViz Data Sender
 After=network.target
 
 [Service]
@@ -295,7 +295,7 @@ if __name__ == "__main__":
 
 ## よくあるエラー
 
-### Raspberry Pi のデータが Miniviz に表示されない原因は？
+### Raspberry Pi のデータが MiniViz に表示されない原因は？
 
 次を確認してください。
 
@@ -304,7 +304,7 @@ if __name__ == "__main__":
 - リクエストボディに `timestamp`、`label_key`、`payload` が含まれている
 - `payload` がフラットな文字列または数値だけで構成されている
 
-### Miniviz から 403 エラーが返るのはなぜ？
+### MiniViz から 403 エラーが返るのはなぜ？
 
 よくある原因は次の通りです。
 

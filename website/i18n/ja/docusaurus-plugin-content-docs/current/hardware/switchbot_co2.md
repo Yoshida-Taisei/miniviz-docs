@@ -1,15 +1,15 @@
 ---
-description: SwitchBot CO2 センサーの CO2・温湿度データを Raspberry Pi 経由で Miniviz に送り、柔軟に可視化/グラフ化する手順です。
+description: SwitchBot CO2 センサーの CO2・温湿度データを Raspberry Pi 経由で MiniViz に送り、柔軟に可視化/グラフ化する手順です。
 ---
 
-# SwitchBot CO2データを保存・可視化/グラフ化する（Miniviz / Raspberry Pi）
+# SwitchBot CO2データを保存・可視化/グラフ化する（MiniViz / Raspberry Pi）
 
-このページでは、SwitchBot CO2 センサーのデータを Raspberry Pi で取得し、Miniviz に送って可視化/グラフ化や通知につなげる方法を紹介します。
+このページでは、SwitchBot CO2 センサーのデータを Raspberry Pi で取得し、MiniViz に送って可視化/グラフ化や通知につなげる方法を紹介します。
 純正アプリだけでは足りない、自由なダッシュボード化や自動化をしたい場合に向いています。
 
 ## ここで行うこと
 
-SwitchBot CO2センサーのデータをMinivizに送信して、データベースに温度・湿度・CO2濃度を保存し、グラフを作成します。SwitchBotアプリでもデータを確認できますが、Minivizへ送信することで、より柔軟なデータ活用が可能になります。
+SwitchBot CO2センサーのデータをMiniVizに送信して、データベースに温度・湿度・CO2濃度を保存し、グラフを作成します。SwitchBotアプリでもデータを確認できますが、MiniVizへ送信することで、より柔軟なデータ活用が可能になります。
 
 :::info
 API連携では温湿度の値が取得できないため、今回はBLEを用いてデータを取得します。
@@ -26,18 +26,18 @@ API連携では温湿度の値が取得できないため、今回はBLEを用�
 
 - Raspberry Pi（Raspberry Pi 3 B+ / Zero 2 W など）
 - SwitchBot CO2センサー
-- MinivizのプロジェクトIDとトークン
+- MiniVizのプロジェクトIDとトークン
 
-## MinivizのプロジェクトIDとトークンを取得
+## MiniVizのプロジェクトIDとトークンを取得
 
 プロジェクトIDとトークンを取得します。プロジェクトを作成し、プロジェクト詳細画面から確認してください。詳細は[クイックスタート](../quickstart)を参照してください。
 
 ## 手順
 
 1. ローカルPCを使ってCO2センサーのデバイスIDを取得
-2. Minivizにデータを送信するスクリプトを作成
+2. MiniVizにデータを送信するスクリプトを作成
 3. Raspberry Piでスクリプトを常時稼働
-4. Minivizでデータベースとグラフを確認
+4. MiniVizでデータベースとグラフを確認
 
 ## 1. CO2センサーのBLEアドバタイズを受信してデバイスIDを取得
 
@@ -228,7 +228,7 @@ python3 sw_ble_adv_scan.py
 {"ts_ms": 1773046541493, "dev_id": "AABBCCDDEEFF", "temp_c": 19.4, "humidity": 45, "co2": 268, "battery": null, "rssi": -78, "rest_hex": "116404932d000c01b700", "fd3d": null}
 ```
 
-## 2. Minivizへデータを送信する
+## 2. MiniVizへデータを送信する
 
 ### 設定項目
 
@@ -237,10 +237,10 @@ python3 sw_ble_adv_scan.py
 ```python
 # ===== ユーザー設定 =====
 MINIVIZ_API_URL = "https://api.miniviz.net"
-MINIVIZ_PROJECT_ID = "PROJECT_ID"  # MinivizのプロジェクトID
+MINIVIZ_PROJECT_ID = "PROJECT_ID"  # MiniVizのプロジェクトID
 MINIVIZ_TOKEN = "PROJECT_TOKEN"  # トークン
 
-# Miniviz上での送信元ラベル（デバイス名/設置場所など）
+# MiniViz上での送信元ラベル（デバイス名/設置場所など）
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # Freeなら60秒、Proなら15秒（今回は120秒）
@@ -256,12 +256,12 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # 先ほど取得したデバイスID
 
 ```python
 """
-SwitchBot MeterPro(CO2) のBLEアドバタイズから取得した値を Miniviz にPOSTする。
+SwitchBot MeterPro(CO2) のBLEアドバタイズから取得した値を MiniViz にPOSTする。
 
 前提:
   pip install bleak requests
 
-Miniviz API:
+MiniViz API:
   POST https://api.miniviz.net/api/project/{project_id}
 """
 
@@ -284,7 +284,7 @@ MINIVIZ_API_URL = "https://api.miniviz.net"
 MINIVIZ_PROJECT_ID = "PROJECT_ID"
 MINIVIZ_TOKEN = "PROJECT_TOKEN"
 
-# Miniviz上での送信元ラベル（デバイス名/設置場所など）
+# MiniViz上での送信元ラベル（デバイス名/設置場所など）
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # Freeなら60秒、Proなら15秒(今回は120秒)
@@ -411,13 +411,13 @@ def post_to_miniviz(reading: Reading) -> None:
     r = requests.post(url, headers=headers, json=body, timeout=20)
     if r.status_code == 429:
         retry_after = int(r.headers.get("Retry-After", "60"))
-        raise RuntimeError(f"Miniviz rate limit (429). Retry-After={retry_after}")
+        raise RuntimeError(f"MiniViz rate limit (429). Retry-After={retry_after}")
     r.raise_for_status()
     print(r.json())
 
 
 def main() -> None:
-    print("Starting BLE -> Miniviz sender (Ctrl+C to stop)")
+    print("Starting BLE -> MiniViz sender (Ctrl+C to stop)")
     while True:
         try:
             reading = asyncio.run(read_once_from_ble())
@@ -483,7 +483,7 @@ sudo nano /etc/systemd/system/miniviz-co2.service
 
 ```ini
 [Unit]
-Description=Miniviz SwitchBot MeterPro CO2 BLE Sender
+Description=MiniViz SwitchBot MeterPro CO2 BLE Sender
 After=bluetooth.target network-online.target
 Wants=network-online.target
 
@@ -512,7 +512,7 @@ sudo systemctl enable miniviz-co2
 sudo systemctl start miniviz-co2
 ```
 
-## 4. Minivizでデータ確認・可視化/グラフ化
+## 4. MiniVizでデータ確認・可視化/グラフ化
 
 ### データベースの確認
 
@@ -533,14 +533,14 @@ Databaseメニューより、データが保存されていることを確認で
 
 取得したデータは自由にグラフ化できます。CO2の値が低すぎる場合は、センサーの校正状態も確認してください。
 
-Minivizなら自由にレイアウトを作成できます。
+MiniVizなら自由にレイアウトを作成できます。
 
 <!-- 画像 -->
 ![可視化](/images/swbot_co2/swbot_1.png)
 
 ## よくあるエラー
 
-### SwitchBot CO2 のデータが Miniviz に表示されない原因は？
+### SwitchBot CO2 のデータが MiniViz に表示されない原因は？
 
 次を確認してください。
 

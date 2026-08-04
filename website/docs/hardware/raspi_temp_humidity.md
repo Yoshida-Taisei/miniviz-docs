@@ -1,10 +1,10 @@
 ---
-description: Send Raspberry Pi temperature and humidity data to Miniviz with Python and create charts with a minimal HTTP-based flow.
+description: Send Raspberry Pi temperature and humidity data to MiniViz with Python and create charts with a minimal HTTP-based flow.
 ---
 
 # Send temperature & humidity data with Raspberry Pi
 
-This guide is the fastest way to send Raspberry Pi sensor data to Miniviz with Python and visualize it.
+This guide is the fastest way to send Raspberry Pi sensor data to MiniViz with Python and visualize it.
 Use it when you want a simple HTTP workflow for prototypes, home labs, or monitoring without building a larger IoT stack first.
 
 ## What We'll Do
@@ -85,7 +85,7 @@ else:
 
 ## 3. Run Data Transmission Sample
 
-Create a Python script to send data to Miniviz API.
+Create a Python script to send data to MiniViz API.
 
 ### Create Script
 
@@ -120,7 +120,7 @@ def read_sensor():
     return temperature, humidity
 
 def send_data():
-    """Send data to Miniviz API"""
+    """Send data to MiniViz API"""
     url = f"{API_URL}/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
     timestamp_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
@@ -151,7 +151,7 @@ def send_data():
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    print("Starting Miniviz data transmission (press Ctrl+C to stop)")
+    print("Starting MiniViz data transmission (press Ctrl+C to stop)")
     while True:
         send_data()
         time.sleep(SEND_INTERVAL)
@@ -169,7 +169,7 @@ If working correctly, data will be sent every 90 seconds and transmission result
 
 ### Verify Data Transmission
 
-1. Log in to Miniviz web interface
+1. Log in to MiniViz web interface
 2. Check sent data from Database menu
 3. Verify that temperature and humidity data is displayed
 
@@ -200,7 +200,7 @@ Write the following content (replace `/home/pi/miniviz_sender.py` with the actua
 
 ```ini
 [Unit]
-Description=Miniviz Data Sender
+Description=MiniViz Data Sender
 After=network.target
 
 [Service]
@@ -295,7 +295,7 @@ if __name__ == "__main__":
 
 ## Common errors
 
-### Why is my Raspberry Pi data not showing up in Miniviz?
+### Why is my Raspberry Pi data not showing up in MiniViz?
 
 Check the following:
 
@@ -304,7 +304,7 @@ Check the following:
 - The request body includes `timestamp`, `label_key`, and `payload`
 - `payload` contains only flat string or number values
 
-### Why do I get a 403 error from Miniviz?
+### Why do I get a 403 error from MiniViz?
 
 The most common causes are:
 

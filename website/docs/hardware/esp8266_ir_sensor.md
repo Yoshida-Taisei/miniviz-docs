@@ -1,15 +1,15 @@
 ---
-description: Send IR sensor (KY-022) state values from ESP8266 (ESP32) to Miniviz, then verify incoming data and chart it.
+description: Send IR sensor (KY-022) state values from ESP8266 (ESP32) to MiniViz, then verify incoming data and chart it.
 ---
 
 # Send IR sensor state data with ESP8266 (ESP32)
 
-This guide shows how to read IR receiver state values (`0/1`) from an ESP8266 (or ESP32) board and send them to Miniviz over HTTP.  
+This guide shows how to read IR receiver state values (`0/1`) from an ESP8266 (or ESP32) board and send them to MiniViz over HTTP.
 It is a lightweight setup for sensor prototyping and quick dashboard validation.
 
 ## What We'll Do
 
-Read IR sensor state with ESP8266 (ESP32), send data to Miniviz API periodically, then check records and chart the values.
+Read IR sensor state with ESP8266 (ESP32), send data to MiniViz API periodically, then check records and chart the values.
 
 ## Required Items
 
@@ -17,14 +17,14 @@ Read IR sensor state with ESP8266 (ESP32), send data to Miniviz API periodically
 - USB cable (data transfer capable)
 - IR receiver module (KY-022 / VS1838B / TSOP1838)
 - Jumper wires
-- Miniviz project ID and token
+- MiniViz project ID and token
 
 ## Steps
 
 1. Prepare Arduino IDE for ESP8266 (ESP32)
 2. Wire the KY-022 sensor to ESP8266 (ESP32)
 3. Run the sample data sender
-4. Verify data and create a graph in Miniviz
+4. Verify data and create a graph in MiniViz
 
 ## 1. Prepare ESP8266 (ESP32) Development Environment (Arduino IDE)
 
@@ -34,7 +34,7 @@ Install Arduino IDE from the official Arduino website.
 
 ### Add ESP8266 / ESP32 Board Package
 
-Install ESP8266 from Board Manager and select your board.  
+Install ESP8266 from Board Manager and select your board.
 You can name your project `esp8266-miniviz` or any name you prefer.
 
 :::tip For ESP32
@@ -69,14 +69,14 @@ Use **3.3V** for `VCC` and use a GPIO pin such as `GPIO4` for `OUT`.
 
 ## 3. Run the Data Transmission Sample
 
-Connect ESP8266 via USB and paste the code below into Arduino IDE.  
+Connect ESP8266 via USB and paste the code below into Arduino IDE.
 Replace `ssid`, `password`, `project_id`, and `token` with your own values.
 
-### Get Miniviz Project ID and Token
+### Get MiniViz Project ID and Token
 
-Before running the code, create a target project in Miniviz and collect credentials.
+Before running the code, create a target project in MiniViz and collect credentials.
 
-1. Log in to Miniviz
+1. Log in to MiniViz
 2. Create a new project
 3. Open the project details and copy `project_id` and `token`
 4. Set those values in the sample code (`project_id` / `token`)
@@ -184,11 +184,11 @@ void loop() {
 }
 ```
 
-## 4. Verify Data in Miniviz
+## 4. Verify Data in MiniViz
 
 ### Check Incoming Data
 
-1. Log in to Miniviz
+1. Log in to MiniViz
 2. Open the `Database` screen
 3. Confirm records with `label_key: esp8266_home`
 
@@ -196,7 +196,7 @@ void loop() {
 Use a distinct `label_key` (for example, `esp32_home`) so data is easy to identify by device.
 :::
 
-![Miniviz data view](/images/esp8266_ir/graph_output.png)
+![MiniViz data view](/images/esp8266_ir/graph_output.png)
 
 ### Create a Graph
 
@@ -206,5 +206,5 @@ Open `Viz`, create a line chart, and select `payload.value` to visualize state t
 
 ## Summary
 
-With ESP8266 (ESP32) and an IR module, you can quickly send state values to Miniviz and visualize behavior.  
+With ESP8266 (ESP32) and an IR module, you can quickly send state values to MiniViz and visualize behavior.
 After confirming this baseline flow, you can extend it with more sensors or automation.

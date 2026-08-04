@@ -1,15 +1,15 @@
 ---
-description: IoT データ可視化サービスとして Miniviz を中心に Ambient、ThingSpeak、Grafana、IFTTT、GAS (Google Apps Script)、AWS、Google Cloud の違いを比較します。
+description: IoT データ可視化サービスとして MiniViz を中心に Ambient、ThingSpeak、Grafana、IFTTT、GAS (Google Apps Script)、AWS、Google Cloud の違いを比較します。
 ---
 
-# Miniviz と主要サービスを比較する
+# MiniViz と主要サービスを比較する
 
 IoTに関するサービスを選定するときは、目的や用途に合わせて適切なサービスを選ぶ必要があります。
 * まずは試作や学習をシンプルに始めて動くものを優先したい
 * 分析や運用の自由度を重視したい
 * 将来の拡張性を重視して、商用利用を視野に入れたい
 
-Miniviz は、HTTP POST でセンサーデータを送り、すばやく保存・可視化/グラフ化・通知まで進めたいケースに向いています。
+MiniViz は、HTTP POST でセンサーデータを送り、すばやく保存・可視化/グラフ化・通知まで進めたいケースに向いています。
 一方で、Ambient、ThingSpeak、Grafana、IFTTT、GAS (Google Apps Script)、AWS、Google Cloud はそれぞれ強みが異なり、用途によってはより適した選択肢になります。
 
 :::info
@@ -19,7 +19,7 @@ Miniviz は、HTTP POST でセンサーデータを送り、すばやく保存�
 
 ## まとめ
 
-次の条件に当てはまるなら **Miniviz** が有力です。
+次の条件に当てはまるなら **MiniViz** が有力です。
 
 - HTTP POST で最短セットアップしたい、ライブラリのインストールが不要
 - Raspberry Pi, ESP32, M5Stack などのマイコンとの親和性が高い
@@ -39,9 +39,9 @@ Miniviz は、HTTP POST でセンサーデータを送り、すばやく保存�
 
 | サービス | 向いている用途 | 強み | 注意点 |
 | --- | --- | --- | --- |
-| Miniviz | 学習、試作、PoC、個人利用 | HTTP POST で始めやすい、時系列可視化、アラート、CSV、Pro で画像対応 | Free は送信間隔や保持期間などに制限あり |
+| MiniViz | 学習、試作、PoC、個人利用 | HTTP POST で始めやすい、時系列可視化、アラート、CSV、Pro で画像対応 | Free は送信間隔や保持期間などに制限あり |
 | Ambient | 教育、国内向けの手軽な IoT 可視化 | シンプル、日本国内で主流、Arduino/ESP32 との親和性 | 通知機能は有料プラン前提、チャネルや項目数、保持期間に無料枠の制限あり |
-| ThingSpeak | 分析を伴う IoT PoC、研究用途 | MathWorks/MATLAB 連携、収集から分析まで扱いやすい | Miniviz より導入や運用の考え方がやや重い |
+| ThingSpeak | 分析を伴う IoT PoC、研究用途 | MathWorks/MATLAB 連携、収集から分析まで扱いやすい | MiniViz より導入や運用の考え方がやや重い |
 | Grafana | 継続監視、複数機器の統合ダッシュボード、大規模運用 | 可視化の自由度が高い、監視用途に強い | 自前のデータソースや運用知識が必要 |
 | IFTTT | 自動化、通知連携、ノーコード連携 | Web サービスや IoT 機器を簡単につなげやすい | 時系列データの長期蓄積や本格可視化には不向き |
 | GAS | 小規模な収集、自動化、Google Workspace 連携 | スプレッドシートや Gmail と連携しやすく、軽量な仕組みを作りやすい | 本格的な時系列可視化や大規模運用は自前実装が増える |
@@ -51,7 +51,7 @@ Miniviz は、HTTP POST でセンサーデータを送り、すばやく保存�
 
 
 
-| 観点 | Miniviz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
+| 観点 | MiniViz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 導入しやすさ | ◎  | ◎  | ○  | ×  | ◎  | ○  | ×  |
 | 時系列グラフ化 | ◎ | ◎ | ◎ | ◎ | × | △ | △ |
@@ -69,15 +69,15 @@ Miniviz は、HTTP POST でセンサーデータを送り、すばやく保存�
 
 ## サービスごとの見方
 
-### Miniviz
+### MiniViz
 
-Miniviz は、IoT デバイスから送られた時系列データを、できるだけ小さな手順で保存して可視化したいときに向いています。
+MiniViz は、IoT デバイスから送られた時系列データを、できるだけ小さな手順で保存して可視化したいときに向いています。
 特に「まずデータを送って、すぐグラフを見たい」という導入の軽さが強みです。
 機器の種類に関わらず、HTTP POST でデータを送信できるため、導入が容易です。
 
 ### Ambient
 
-Ambient は、Miniviz と同じくシンプルさを重視した国内向けサービスです。
+Ambient は、MiniViz と同じくシンプルさを重視した国内向けサービスです。
 教育用途や個人の電子工作では扱いやすく、日本国内で主流のサービスの 1 つとして使われています。
 一方で、通知機能は有料プラン前提で考える必要があります。
 
@@ -94,7 +94,7 @@ Grafana は、IoT 専用 SaaS というより、幅広い監視・可視化基�
 ### IFTTT
 
 IFTTT は、センサー値をきっかけに通知や外部サービス操作をしたい場合に便利です。
-ただし、継続的な時系列データの蓄積やダッシュボード可視化を主目的にするなら、Miniviz や Ambient、ThingSpeak、Grafana の方が適しています。
+ただし、継続的な時系列データの蓄積やダッシュボード可視化を主目的にするなら、MiniViz や Ambient、ThingSpeak、Grafana の方が適しています。
 
 ### GAS (Google Apps Script)
 
@@ -110,8 +110,8 @@ AWS や Google Cloud は、単体の「かんたん可視化サービス」と�
 
 ### 手軽なプロトタイピングや学習
 
-`ESP32` や `Raspberry Pi` のデータをすぐ可視化したいなら、まずは **Miniviz** か **Ambient** が候補です。
-より API 中心で進めたいなら Miniviz、日本国内で主流のサービスや国内向けのわかりやすさを重視するなら Ambient が向いています。
+`ESP32` や `Raspberry Pi` のデータをすぐ可視化したいなら、まずは **MiniViz** か **Ambient** が候補です。
+より API 中心で進めたいなら MiniViz、日本国内で主流のサービスや国内向けのわかりやすさを重視するなら Ambient が向いています。
 
 ### 分析を伴う PoC
 
@@ -132,5 +132,5 @@ Google Workspace を中心に軽量な自作フローを組みたいなら **GAS
 
 ## まとめ
 
-Miniviz は、「IoT データの可視化と通知を、できるだけ少ない手間で始めたい」ユーザーに向いた選択肢です。
-競合サービスにもそれぞれ強みはありますが、試作、学習、軽量な PoC を素早く進めたいなら Miniviz、Google 系サービス連携を軸に軽量実装したいなら GAS、企業規模の統合基盤まで視野に入れるなら AWS や Google Cloud も含めて比較するのが自然です。
+MiniViz は、「IoT データの可視化と通知を、できるだけ少ない手間で始めたい」ユーザーに向いた選択肢です。
+競合サービスにもそれぞれ強みはありますが、試作、学習、軽量な PoC を素早く進めたいなら MiniViz、Google 系サービス連携を軸に軽量実装したいなら GAS、企業規模の統合基盤まで視野に入れるなら AWS や Google Cloud も含めて比較するのが自然です。

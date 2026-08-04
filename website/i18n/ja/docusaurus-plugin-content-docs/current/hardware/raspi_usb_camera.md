@@ -1,14 +1,14 @@
 ---
-description: Raspberry Pi と USB カメラの画像を Python と画像 API で Miniviz に送り、ダッシュボードから確認する手順です。
+description: Raspberry Pi と USB カメラの画像を Python と画像 API で MiniViz に送り、ダッシュボードから確認する手順です。
 ---
 
 # Raspberry Pi × USBカメラで画像を送る
 
-このページでは、Raspberry Pi の USB カメラ画像を Miniviz に送る最短手順を紹介します。
+このページでは、Raspberry Pi の USB カメラ画像を MiniViz に送る最短手順を紹介します。
 複雑なカメラアーキテクチャを組まずに、画像履歴の保存とダッシュボード確認をすばやく始めたい場合に向いています。
 
 ## ここで行うこと
-Raspberry PiとUSBカメラを接続してMinivizに画像を送信します。
+Raspberry PiとUSBカメラを接続してMiniVizに画像を送信します。
 
 :::caution
 画像送信機能は **Proプラン限定** です。無料プランでは利用できませんのでご注意ください。
@@ -17,7 +17,7 @@ Raspberry PiとUSBカメラを接続してMinivizに画像を送信します。
 ## 用意するもの・環境
 * Raspberry Pi
 * USBカメラ
-* MinivizのプロジェクトIDとトークン
+* MiniVizのプロジェクトIDとトークン
 
 # Raspberry PiとUSBカメラの接続
 
@@ -50,7 +50,7 @@ $ fswebcam -r 640x480 --no-banner image.jpg
 ![image](/images/raspi/sample_1.png)
 
 
-# カメラの画像をMinivizに送信
+# カメラの画像をMiniVizに送信
 
 1. プロジェクトIDとトークンを取得
 2. 画像を送信するAPIを呼び出してサンプル画像を送信
@@ -148,7 +148,7 @@ import TabItem from '@theme/TabItem';
 ```python
 #!/usr/bin/env python3
 """
-Raspberry Pi USB Camera to Miniviz
+Raspberry Pi USB Camera to MiniViz
 """
 import requests
 import base64
@@ -157,7 +157,7 @@ import subprocess
 import time
 from datetime import datetime, timezone
 
-# Miniviz configuration
+# MiniViz configuration
 PROJECT_ID = "PROJECT_ID"
 TOKEN = "TOKEN"
 API_URL = "https://api.miniviz.net"
@@ -198,7 +198,7 @@ def encode_image_to_base64(image_path):
     return base64.b64encode(image_data).decode('utf-8')
 
 def send_image_to_miniviz(image_path):
-    """Send image to Miniviz API"""
+    """Send image to MiniViz API"""
     url = f"{API_URL}/api/project/{PROJECT_ID}/image"
     headers = {"Authorization": f"Bearer {TOKEN}"}
     
@@ -243,7 +243,7 @@ def main():
         print("[Error] Failed to capture image")
         return
     
-    # Send to Miniviz
+    # Send to MiniViz
     success = send_image_to_miniviz(IMAGE_PATH)
     
     # Delete image file only on success (to save disk space)

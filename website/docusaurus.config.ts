@@ -23,8 +23,8 @@ const siteUrl = isVercelPreview ? vercelUrl! : 'https://miniviz.net';
 const baseUrl = isVercelPreview ? '/' : '/docs/';
 
 const config: Config = {
-  title: 'Miniviz Docs',
-  tagline: 'Documentation for Miniviz',
+  title: 'MiniViz Docs',
+  tagline: 'Documentation for MiniViz',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -112,9 +112,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Miniviz Docs',
+      title: 'MiniViz Docs',
       logo: {
-        alt: 'Miniviz',
+        alt: 'MiniViz',
         src: 'img/favicon.ico',
       },
       items: [
@@ -144,13 +144,13 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Miniviz',
+              label: 'MiniViz',
               href: 'https://miniviz.net',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Miniviz. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} MiniViz. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

@@ -1,10 +1,10 @@
 ---
-description: Reference for the Miniviz image upload API, including the POST endpoint, plan limits, image constraints, and request examples.
+description: Reference for the MiniViz image upload API, including the POST endpoint, plan limits, image constraints, and request examples.
 ---
 
-# Miniviz API Reference (Image)
+# MiniViz API Reference (Image)
 
-Miniviz API supports the following endpoints.
+MiniViz API supports the following endpoints.
 
 ## API Endpoint
 
@@ -17,7 +17,7 @@ POST https://api.miniviz.net/api/project/{project_id}/image
 
 ## Request Overview
 
-Image transmission to Miniviz API uses the `POST` method. Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter is still supported for compatibility. The request body is in JSON format. Image data is base64 encoded before transmission.
+Image transmission to MiniViz API uses the `POST` method. Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter is still supported for compatibility. The request body is in JSON format. Image data is base64 encoded before transmission.
 
 ## Request Body (Image Transmission)
 

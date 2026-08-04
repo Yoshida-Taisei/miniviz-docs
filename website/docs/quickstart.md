@@ -1,6 +1,6 @@
 
 ---
-description: Send your first IoT data to Miniviz with curl or Python, verify it in the database, and create a chart in minutes.
+description: Send your first IoT data to MiniViz with curl or Python, verify it in the database, and create a chart in minutes.
 ---
 
 import FaqPageJsonLd from '@site/src/components/FaqPageJsonLd';
@@ -9,19 +9,19 @@ import TabItem from '@theme/TabItem';
 
 export const faqItems = [
   {
-    question: 'Why is my data not showing up in Miniviz?',
+    question: 'Why is my data not showing up in MiniViz?',
     answer:
       'First check that the project ID and token are correct. Then verify that timestamp, label_key, and payload are included in the JSON body, and confirm that payload only contains flat string or number values. If the database page is still empty, inspect the device-side log and the HTTP response body.',
   },
   {
     question: 'Why do I get a 403 error when sending data or images?',
     answer:
-      'A 403 error usually means the token is invalid or the feature is not available on your current plan. For image uploads, Miniviz requires the Pro plan. Re-copy the token from the project screen and confirm that you are calling the correct endpoint.',
+      'A 403 error usually means the token is invalid or the feature is not available on your current plan. For image uploads, MiniViz requires the Pro plan. Re-copy the token from the project screen and confirm that you are calling the correct endpoint.',
   },
   {
-    question: 'Which payload types are not supported by Miniviz?',
+    question: 'Which payload types are not supported by MiniViz?',
     answer:
-      'Miniviz payload values must be flat strings or numbers. Nested objects, arrays, booleans, and null values are not supported. Keep the payload to 8 keys or fewer and within 400 bytes after JSON encoding.',
+      'MiniViz payload values must be flat strings or numbers. Nested objects, arrays, booleans, and null values are not supported. Keep the payload to 8 keys or fewer and within 400 bytes after JSON encoding.',
   },
 ];
 
@@ -29,14 +29,14 @@ export const faqItems = [
 
 # Quick Start
 
-This page is the fastest way to confirm that Miniviz works for your device workflow.
+This page is the fastest way to confirm that MiniViz works for your device workflow.
 Use it when you want to send sample sensor data with a simple HTTP POST, see the record in the database, and create your first chart in about 5 minutes before writing full device code.
 
 :::info
 AI can help you implement and support faster. See the [AI Guide on the Intro page](/#ai-quick-start-guide) for details.
 :::
 
-## 1. Create Miniviz Account / Login
+## 1. Create MiniViz Account / Login
 
 Enter your email address and password to create a new account, or log in with an existing account.
 
@@ -74,7 +74,7 @@ POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ### Request Overview
-Data transmission to Miniviz API uses the `POST` method. The request body is in JSON format.
+Data transmission to MiniViz API uses the `POST` method. The request body is in JSON format.
 Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter is still supported for compatibility.
 
 ### Request Body
@@ -247,7 +247,7 @@ For details, see [API Endpoint (Image)](./api_endpoint/api_image_reference).
 
 ## Common errors
 
-### Why is my data not showing up in Miniviz?
+### Why is my data not showing up in MiniViz?
 
 Check the following in order:
 
@@ -266,7 +266,7 @@ The most common causes are:
 
 ### Which payload types are not supported?
 
-Miniviz does not accept these payload value types:
+MiniViz does not accept these payload value types:
 
 - Nested objects
 - Arrays
