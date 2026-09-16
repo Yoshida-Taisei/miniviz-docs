@@ -1,10 +1,10 @@
 ---
-description: ESP32 の温湿度データをシンプルな HTTP POST で Miniviz に送り、すばやくグラフ化する手順を解説します。
+description: ESP32 の温湿度データをシンプルな HTTP POST で MiniViz に送り、すばやくグラフ化する手順を解説します。
 ---
 
 # ESP32 で温湿度データを送る
 
-このページでは、ESP32 から Miniviz へ温湿度データを送って可視化/グラフ化するまでの最短ルートを紹介します。
+このページでは、ESP32 から MiniViz へ温湿度データを送って可視化/グラフ化するまでの最短ルートを紹介します。
 重い IoT アーキテクチャを使わず、まずは HTTP ベースで試作やデモを始めたい場合に向いています。
 
 ## ここで行うこと
@@ -84,7 +84,7 @@ DHT11              ESP32
 
 ## 3. データ送信サンプルを実行
 
-Miniviz APIにデータを送信するESP32用のコードを作成します。
+MiniViz APIにデータを送信するESP32用のコードを作成します。
 
 ### コードの作成
 
@@ -121,7 +121,7 @@ DHT dht(PIN_DHT, DHT11);
 const char *ssid = "WIFI_SSID";
 const char *password = "WIFI_PASSWORD";
 
-// Miniviz API
+// MiniViz API
 const char *project_id = "MINIVIZ_PROJECT_ID";
 const char *token = "MINIVIZ_API_TOKEN";
 
@@ -183,7 +183,7 @@ uint64_t getTimestampMs()
 }
 
 //----------------------------------------
-// POST to Miniviz
+// POST to MiniViz
 //----------------------------------------
 void sendToMiniviz(float temp, float humid)
 {
@@ -248,7 +248,7 @@ void loop()
 
 ### データ送信の確認
 
-1. MinivizのWebインターフェースにログイン
+1. MiniVizのWebインターフェースにログイン
 2. Databaseメニューから送信されたデータを確認
 3. 温度・湿度のデータが表示されていることを確認
 
@@ -265,7 +265,7 @@ void loop()
 
 ## よくあるエラー
 
-### ESP32 のデータが Miniviz に表示されない原因は？
+### ESP32 のデータが MiniViz に表示されない原因は？
 
 まず次を確認してください。
 

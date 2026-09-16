@@ -1,8 +1,8 @@
 ---
-description: Compare Miniviz with Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud for IoT visualization and operations.
+description: Compare MiniViz with Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud for IoT visualization and operations.
 ---
 
-# Compare Miniviz with major services
+# Compare MiniViz with major services
 
 When selecting an IoT-related service, you should choose based on your goals and use case.
 
@@ -10,7 +10,7 @@ When selecting an IoT-related service, you should choose based on your goals and
 - You care more about flexibility for analysis and operations
 - You want long-term scalability with commercial use in mind
 
-Miniviz is a strong fit when you want to send sensor data via HTTP POST and move quickly to storage, visualization/charting, and alerts.
+MiniViz is a strong fit when you want to send sensor data via HTTP POST and move quickly to storage, visualization/charting, and alerts.
 Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud each have different strengths, and may be better choices depending on your use case.
 
 :::info
@@ -20,7 +20,7 @@ This comparison is also subjective and does not fully represent every strength o
 
 ## Summary
 
-**Miniviz** is a strong candidate if these conditions apply:
+**MiniViz** is a strong candidate if these conditions apply:
 
 - You want the shortest setup path with HTTP POST, without installing extra libraries
 - You need strong compatibility with microcontrollers such as Raspberry Pi, ESP32, or M5Stack
@@ -40,9 +40,9 @@ Cases where other services are often a better fit:
 
 | Service | Suitable use cases | Strengths | Considerations |
 | --- | --- | --- | --- |
-| Miniviz | Learning, prototyping, PoC, personal use | Easy HTTP POST onboarding, time-series visualization, alerts, CSV, image support in Pro | Free plan has limits such as send interval and data retention |
+| MiniViz | Learning, prototyping, PoC, personal use | Easy HTTP POST onboarding, time-series visualization, alerts, CSV, image support in Pro | Free plan has limits such as send interval and data retention |
 | Ambient | Education, lightweight IoT visualization for Japan-focused users | Simple, widely used in Japan, strong compatibility with Arduino/ESP32 | Alert features are mainly a paid-plan consideration; free plans limit channels, field counts, and retention |
-| ThingSpeak | IoT PoCs with analysis, research use cases | MathWorks/MATLAB integration, practical from collection to analysis | Slightly heavier onboarding and operation model than Miniviz |
+| ThingSpeak | IoT PoCs with analysis, research use cases | MathWorks/MATLAB integration, practical from collection to analysis | Slightly heavier onboarding and operation model than MiniViz |
 | Grafana | Continuous monitoring, multi-device dashboards, large-scale operation | High dashboard flexibility, strong monitoring capabilities | Requires your own data sources and operational knowledge |
 | IFTTT | Automation, notification workflows, no-code integrations | Easy integration between web services and IoT devices | Not ideal for long-term time-series storage or full-scale visualization |
 | GAS | Small-scale collection, automation, Google Workspace integration | Easy to connect with Sheets/Gmail and build lightweight flows | Large-scale operations and full time-series visualization require more custom implementation |
@@ -50,7 +50,7 @@ Cases where other services are often a better fit:
 
 ## Comparison by key criteria
 
-| Perspective | Miniviz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
+| Perspective | MiniViz | Ambient | ThingSpeak | Grafana | IFTTT | GAS | AWS / Google Cloud |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Ease of setup | ◎  | ◎  | ○  | ×  | ◎  | ○  | ×  |
 | Time-series charting | ◎ | ◎ | ◎ | ◎ | × | △ | △ |
@@ -68,15 +68,15 @@ This comparison is also subjective and does not fully represent every strength o
 
 ## How to view each service
 
-### Miniviz
+### MiniViz
 
-Miniviz is well suited when you want to keep the path from IoT device data to stored and visualized data as short as possible.
+MiniViz is well suited when you want to keep the path from IoT device data to stored and visualized data as short as possible.
 Its key strength is lightweight onboarding: "send data first, see charts quickly."
 Because data can be sent via HTTP POST regardless of device type, setup is straightforward.
 
 ### Ambient
 
-Ambient, like Miniviz, emphasizes simplicity for Japan-focused users.
+Ambient, like MiniViz, emphasizes simplicity for Japan-focused users.
 It is commonly used in Japan for education and personal electronics projects.
 On the other hand, alert functionality should generally be considered a paid-plan feature.
 
@@ -93,7 +93,7 @@ Its flexibility is high, but it often assumes data sources such as InfluxDB or P
 ### IFTTT
 
 IFTTT is useful when sensor values should trigger notifications or actions in external services.
-However, if the main goal is continuous time-series storage and dashboard visualization, Miniviz, Ambient, ThingSpeak, or Grafana is usually a better fit.
+However, if the main goal is continuous time-series storage and dashboard visualization, MiniViz, Ambient, ThingSpeak, or Grafana is usually a better fit.
 
 ### GAS (Google Apps Script)
 
@@ -110,8 +110,8 @@ They are powerful for large-scale deployment and security/integration needs, but
 
 ### Quick prototyping and learning
 
-If you want to visualize data from `ESP32` or `Raspberry Pi` quickly, **Miniviz** or **Ambient** is a good first candidate.
-If you prefer an API-first approach, Miniviz is a better fit; if you value a Japan-mainstream service with local familiarity, Ambient is often a better fit.
+If you want to visualize data from `ESP32` or `Raspberry Pi` quickly, **MiniViz** or **Ambient** is a good first candidate.
+If you prefer an API-first approach, MiniViz is a better fit; if you value a Japan-mainstream service with local familiarity, Ambient is often a better fit.
 
 ### Analysis-oriented PoCs
 
@@ -131,5 +131,5 @@ On the other hand, if visualization itself is your primary goal, a dedicated vis
 
 ## Summary
 
-Miniviz is a strong choice for users who want to start IoT data visualization and alerts with as little effort as possible.
-Other services each have their own strengths, but Miniviz stands out for fast progress in prototyping, learning, and lightweight PoCs. If Google-centered lightweight workflows are important, include GAS in your comparison. If enterprise-scale integrated architecture is required, include AWS and Google Cloud as well.
+MiniViz is a strong choice for users who want to start IoT data visualization and alerts with as little effort as possible.
+Other services each have their own strengths, but MiniViz stands out for fast progress in prototyping, learning, and lightweight PoCs. If Google-centered lightweight workflows are important, include GAS in your comparison. If enterprise-scale integrated architecture is required, include AWS and Google Cloud as well.

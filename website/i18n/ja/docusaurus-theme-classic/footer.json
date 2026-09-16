@@ -15,12 +15,12 @@
     "message": "クイックスタート",
     "description": "The label of footer link with label=Quick start linking to /quickstart"
   },
-  "link.item.label.Miniviz": {
-    "message": "Miniviz",
-    "description": "The label of footer link with label=Miniviz linking to https://miniviz.net"
+  "link.item.label.MiniViz": {
+    "message": "MiniViz",
+    "description": "The label of footer link with label=MiniViz linking to https://miniviz.net"
   },
   "copyright": {
-    "message": "Copyright © 2026 Miniviz. Docusaurus で構築。",
+    "message": "Copyright © 2026 MiniViz. Docusaurus で構築。",
     "description": "The footer copyright"
   }
 }

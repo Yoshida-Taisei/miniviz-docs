@@ -1,10 +1,10 @@
 ---
-description: Reference for the Miniviz data ingestion API, including the POST endpoint, payload rules, supported value types, and examples.
+description: Reference for the MiniViz data ingestion API, including the POST endpoint, payload rules, supported value types, and examples.
 ---
 
-# Miniviz API Reference
+# MiniViz API Reference
 
-Miniviz API supports the following endpoints.
+MiniViz API supports the following endpoints.
 
 * [Data Transmission API](api_reference)
 * [Image Transmission API](api_image_reference)
@@ -16,7 +16,7 @@ POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ## Request Overview
-Data transmission to Miniviz API uses the `POST` method. The request body is in JSON format.
+Data transmission to MiniViz API uses the `POST` method. The request body is in JSON format.
 
 Send the project token with the `Authorization: Bearer {token}` header. The legacy `?token={token}` query parameter is still supported for compatibility.
 

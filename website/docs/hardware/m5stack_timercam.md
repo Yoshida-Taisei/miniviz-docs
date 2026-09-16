@@ -1,14 +1,14 @@
 ---
-description: Send images from M5Stack TimerCAM to Miniviz and view them on your smartphone with a lightweight image-upload flow.
+description: Send images from M5Stack TimerCAM to MiniViz and view them on your smartphone with a lightweight image-upload flow.
 ---
 
 # Send images with M5Stack TimerCAM
 
-This guide is the fastest way to send TimerCAM images to Miniviz and check them from your phone.
+This guide is the fastest way to send TimerCAM images to MiniViz and check them from your phone.
 Use it when you want a lightweight image monitoring flow with simple HTTP uploads and minimal dashboard setup.
 
 ## What We'll Do
-Send images captured by TimerCAM to Miniviz so you can view them on your smartphone.
+Send images captured by TimerCAM to MiniViz so you can view them on your smartphone.
 
 ## Required Items
 
@@ -16,7 +16,7 @@ Send images captured by TimerCAM to Miniviz so you can view them on your smartph
 * PlatformIO
 
 To use miniviz:
-* Miniviz Project ID and Token
+* MiniViz Project ID and Token
 
 
 # Connection Verification
@@ -49,7 +49,7 @@ Upload and access the local IP.
 ![Web Camera](/images/m5_cam/web_cam.png)
 
 
-# Use Miniviz to View on Smartphone
+# Use MiniViz to View on Smartphone
 
 ## Get Project ID and Token
 Get the Project ID and Token.
@@ -59,7 +59,7 @@ Create Project -> Get Project ID and Token
 <!-- Account -->
 ![Account](/images/pj_5.png)
 
-## Modify Sample Code to Send to Miniviz
+## Modify Sample Code to Send to MiniViz
 
 ### Sample Code
 
@@ -86,7 +86,7 @@ import TabItem from '@theme/TabItem';
 const char *ssid     = "SSID";
 const char *password = "PASSWORD";
 
-// Miniviz Configuration
+// MiniViz Configuration
 const char* PROJECT_ID = "PROJECT_ID";
 const char* TOKEN = "TOKEN";
 const char* API_URL = "https://api.miniviz.net";
@@ -206,7 +206,7 @@ bool sendImageToMiniviz(camera_fb_t* fb) {
     Serial.println("[Info] Encoding image to base64...");
     String imageBase64 = encodeBase64(fb->buf, fb->len);
     
-    Serial.println("[Info] Sending image to Miniviz...");
+    Serial.println("[Info] Sending image to MiniViz...");
     
     HTTPClient http;
     String url = String(API_URL) + "/api/project/" + String(PROJECT_ID) + "/image";

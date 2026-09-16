@@ -1,6 +1,6 @@
 
 ---
-description: curl や Python で Miniviz に最初の IoT データを送り、データ確認とグラフ作成まで数分で試せる最短ガイドです。
+description: curl や Python で MiniViz に最初の IoT データを送り、データ確認とグラフ作成まで数分で試せる最短ガイドです。
 ---
 
 import FaqPageJsonLd from '@site/src/components/FaqPageJsonLd';
@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 export const faqItems = [
   {
-    question: 'Miniviz にデータが表示されない原因は？',
+    question: 'MiniViz にデータが表示されない原因は？',
     answer:
       'まずプロジェクト ID とトークンが正しいか確認してください。次に JSON ボディに timestamp、label_key、payload が入っているか、payload がフラットな文字列または数値だけで構成されているかを確認します。それでも表示されない場合は、デバイス側ログと HTTP レスポンス本文を確認してください。',
   },
@@ -19,7 +19,7 @@ export const faqItems = [
       '403 エラーは、トークンが無効か、現在のプランで使えない機能を呼んでいる場合に発生しやすいです。画像送信 API は Pro プラン専用です。プロジェクト画面からトークンを再取得し、エンドポイントも再確認してください。',
   },
   {
-    question: 'Miniviz の payload に送れない型は？',
+    question: 'MiniViz の payload に送れない型は？',
     answer:
       'payload の値には、フラットな文字列または数値のみ使えます。ネストしたオブジェクト、配列、真偽値、null は送れません。JSON エンコード後 400 bytes 以内、キー数は 8 個以内に収めてください。',
   },
@@ -29,14 +29,14 @@ export const faqItems = [
 
 # クイックスタート
 
-このページは、Miniviz が自分のデバイス構成で動くかを最短で確認するための入口です。
+このページは、MiniViz が自分のデバイス構成で動くかを最短で確認するための入口です。
 まずはシンプルな HTTP POST でサンプルデータを送り、Database で保存を確認し、5 分程度で最初のグラフまで作る流れを試せます。
 
 :::info
 AI を活用するとより素早く実装やサポートが可能です。詳細は [はじめにの AI ガイド](/#ai-用クイックスタートガイド) をご覧ください。
 :::
 
-## 1. Minivizアカウント作成/ログイン
+## 1. MiniVizアカウント作成/ログイン
 
 メールアドレス・パスワードを入力して新規登録するか、既存のアカウントでログインします。
 
@@ -71,7 +71,7 @@ POST https://api.miniviz.net/api/project/{project_id}
 ```
 
 ### リクエスト概要
-Miniviz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
+MiniViz API へのデータ送信は `POST` メソッドを使用します。送信ボディは JSON 形式です。
 プロジェクト token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。
 
 ### リクエストボディ
@@ -244,7 +244,7 @@ Proプランでは画像送信APIを用いて画像を送信することがで�
 
 ## よくあるエラー
 
-### Miniviz にデータが表示されない原因は？
+### MiniViz にデータが表示されない原因は？
 
 次の順に確認してください。
 
@@ -263,7 +263,7 @@ Proプランでは画像送信APIを用いて画像を送信することがで�
 
 ### payload に送れない型は？
 
-Miniviz では次の payload 値は送れません。
+MiniViz では次の payload 値は送れません。
 
 - ネストしたオブジェクト
 - 配列

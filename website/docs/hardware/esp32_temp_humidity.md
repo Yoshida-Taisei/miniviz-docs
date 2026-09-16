@@ -1,10 +1,10 @@
 ---
-description: Send ESP32 temperature and humidity data to Miniviz with a simple HTTP POST workflow and turn it into charts quickly.
+description: Send ESP32 temperature and humidity data to MiniViz with a simple HTTP POST workflow and turn it into charts quickly.
 ---
 
 # Send temperature & humidity data with ESP32
 
-This guide shows the shortest practical path for sending ESP32 sensor data to Miniviz and visualizing it.
+This guide shows the shortest practical path for sending ESP32 sensor data to MiniViz and visualizing it.
 It is a good fit for prototypes, demos, and first-time IoT dashboards when you want simple HTTP-based setup instead of a heavier IoT platform.
 
 ## What We'll Do
@@ -84,7 +84,7 @@ DHT11              ESP32
 
 ## 3. Run Data Transmission Sample
 
-Create ESP32 code to send data to Miniviz API.
+Create ESP32 code to send data to MiniViz API.
 
 ### Create Code
 
@@ -121,7 +121,7 @@ DHT dht(PIN_DHT, DHT11);
 const char *ssid = "WIFI_SSID";
 const char *password = "WIFI_PASSWORD";
 
-// Miniviz API
+// MiniViz API
 const char *project_id = "MINIVIZ_PROJECT_ID";
 const char *token = "MINIVIZ_API_TOKEN";
 
@@ -183,7 +183,7 @@ uint64_t getTimestampMs()
 }
 
 //----------------------------------------
-// POST to Miniviz
+// POST to MiniViz
 //----------------------------------------
 void sendToMiniviz(float temp, float humid)
 {
@@ -248,7 +248,7 @@ void loop()
 
 ### Verify Data Transmission
 
-1. Log in to Miniviz web interface
+1. Log in to MiniViz web interface
 2. Check sent data from Database menu
 3. Verify that temperature and humidity data is displayed
 
@@ -265,7 +265,7 @@ For details, see "5. Create Charts" in [Quick Start](../quickstart).
 
 ## Common errors
 
-### Why is my ESP32 data not showing up in Miniviz?
+### Why is my ESP32 data not showing up in MiniViz?
 
 Check these points first:
 

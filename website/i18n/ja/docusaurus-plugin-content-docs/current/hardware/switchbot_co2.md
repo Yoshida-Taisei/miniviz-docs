@@ -1,15 +1,15 @@
 ---
-description: SwitchBot CO2 センサーの CO2・温湿度データを Raspberry Pi 経由で Miniviz に送り、柔軟に可視化/グラフ化する手順です。
+description: SwitchBot CO2 センサーの CO2・温湿度データを Raspberry Pi 経由で MiniViz に送り、柔軟に可視化/グラフ化する手順です。
 ---
 
-# SwitchBot CO2データを保存・可視化/グラフ化する（Miniviz / Raspberry Pi）
+# SwitchBot CO2データを保存・可視化/グラフ化する（MiniViz / Raspberry Pi）
 
-このページでは、SwitchBot CO2 センサーのデータを Raspberry Pi で取得し、Miniviz に送って可視化/グラフ化や通知につなげる方法を紹介します。
+このページでは、SwitchBot CO2 センサーのデータを Raspberry Pi で取得し、MiniViz に送って可視化/グラフ化や通知につなげる方法を紹介します。
 純正アプリだけでは足りない、自由なダッシュボード化や自動化をしたい場合に向いています。
 
 ## ここで行うこと
 
-SwitchBot CO2センサーのデータをMinivizに送信して、データベースに温度・湿度・CO2濃度を保存し、グラフを作成します。SwitchBotアプリでもデータを確認できますが、Minivizへ送信することで、より柔軟なデータ活用が可能になります。
+SwitchBot CO2センサーのデータをMiniVizに送信して、データベースに温度・湿度・CO2濃度を保存し、グラフを作成します。SwitchBotアプリでもデータを確認できますが、MiniVizへ送信することで、より柔軟なデータ活用が可能になります。
 
 :::info
 API連携では温湿度の値が取得できないため、今回はBLEを用いてデータを取得します。
@@ -26,18 +26,18 @@ API連携では温湿度の値が取得できないため、今回はBLEを用�
 
 - Raspberry Pi（Raspberry Pi 3 B+ / Zero 2 W など）
 - SwitchBot CO2センサー
-- MinivizのプロジェクトIDとトークン
+- MiniVizのプロジェクトIDとトークン
 
-## MinivizのプロジェクトIDとトークンを取得
+## MiniVizのプロジェクトIDとトークンを取得
 
 プロジェクトIDとトークンを取得します。プロジェクトを作成し、プロジェクト詳細画面から確認してください。詳細は[クイックスタート](../quickstart)を参照してください。
 
 ## 手順
 
 1. ローカルPCを使ってCO2センサーのデバイスIDを取得
-2. Minivizにデータを送信するスクリプトを作成
+2. MiniVizにデータを送信するスクリプトを作成
 3. Raspberry Piでスクリプトを常時稼働
-4. Minivizでデータベースとグラフを確認
+4. MiniVizでデータベースとグラフを確認
 
 ## 1. CO2センサーのBLEアドバタイズを受信してデバイスIDを取得
 
@@ -64,7 +64,7 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     """
     meter_sw.md を参考に、restから温度/湿度/CO2をデコード（暫定）。
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     b3 = rest[2]
@@ -77,12 +77,13 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
 
     return {
         "temperature_c": temperature_c,
         "humidity": humidity,
         "co2": co2,
+        "co2_valid": co2 <= 9999,
         "raw": rest.hex(),
         "b3": b3,
         "b4": b4,
@@ -165,29 +166,22 @@ async def main() -> None:
                 if not decoded:
                     return
 
-                batt = None
-                fd3d_hex = sd.get("0000fd3d-0000-1000-8000-00805f9b34fb")
-                if fd3d_hex:
-                    raw_sd = bytes.fromhex(fd3d_hex)
-                    if raw_sd:
-                        batt = raw_sd[-1] & 0x7F
-
                 out = {
-                    "ts_ms": int(time.time() * 1000),
-                    "dev_id": dev_id,
-                    "temp_c": round(decoded["temperature_c"], 1),
+                    "device_id": dev_id,
+                    "temperature_c": round(decoded["temperature_c"], 1),
                     "humidity": decoded["humidity"],
                     "co2": decoded["co2"],
-                    "battery": batt,
+                    "co2_valid": decoded["co2_valid"],
+                    "raw_manufacturer_data": raw.hex(),
+                    "rest_hex": rest.hex(),
+                    "timestamp": int(time.time()),
+                    "address": device.address,
                     "rssi": rssi,
                 }
-                if DEBUG_RAW:
-                    out["rest_hex"] = rest.hex()
-                    out["fd3d"] = fd3d_hex
                 print(json.dumps(out, ensure_ascii=False))
 
     mode = "forever" if SCAN_FOREVER else f"{SCAN_SECONDS}s"
-    print(f"Scanning... ({mode}) device_id={TARGET_DEVICE_ID or '(any)'}")
+    print(f"Scanning for SwitchBot Meter Pro CO2 ({mode})...")
     async with BleakScanner(detection_callback=callback):
         if SCAN_FOREVER:
             while True:
@@ -218,17 +212,17 @@ if __name__ == "__main__":
 
 ### 実行例
 
-実行すると近くのデバイスが反応します。ここで `"dev_id": "AABBCCDDEEFF"` の値を控えておいてください。
+実行すると近くのデバイスが反応します。ここで `"device_id": "B0E9FE6D1180"` の値を控えておいてください。
 
 ```bash
-python3 sw_ble_adv_scan.py
+python3 switchbot_co2_receive_sample.py
 ```
 
 ```json
-{"ts_ms": 1773046541493, "dev_id": "AABBCCDDEEFF", "temp_c": 19.4, "humidity": 45, "co2": 268, "battery": null, "rssi": -78, "rest_hex": "116404932d000c01b700", "fd3d": null}
+{"device_id": "B0E9FE6D1180", "temperature_c": 24.8, "humidity": 64, "co2": 581, "co2_valid": true, "raw_manufacturer_data": "b0e9fe6d1180e82f0898400016024500", "rest_hex": "e82f0898400016024500", "timestamp": 1789539392, "address": "B0:E9:FE:6D:11:80", "rssi": -44}
 ```
 
-## 2. Minivizへデータを送信する
+## 2. MiniVizへデータを送信する
 
 ### 設定項目
 
@@ -237,10 +231,10 @@ python3 sw_ble_adv_scan.py
 ```python
 # ===== ユーザー設定 =====
 MINIVIZ_API_URL = "https://api.miniviz.net"
-MINIVIZ_PROJECT_ID = "PROJECT_ID"  # MinivizのプロジェクトID
+MINIVIZ_PROJECT_ID = "PROJECT_ID"  # MiniVizのプロジェクトID
 MINIVIZ_TOKEN = "PROJECT_TOKEN"  # トークン
 
-# Miniviz上での送信元ラベル（デバイス名/設置場所など）
+# MiniViz上での送信元ラベル（デバイス名/設置場所など）
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # Freeなら60秒、Proなら15秒（今回は120秒）
@@ -256,12 +250,12 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # 先ほど取得したデバイスID
 
 ```python
 """
-SwitchBot MeterPro(CO2) のBLEアドバタイズから取得した値を Miniviz にPOSTする。
+SwitchBot MeterPro(CO2) のBLEアドバタイズから取得した値を MiniViz にPOSTする。
 
 前提:
   pip install bleak requests
 
-Miniviz API:
+MiniViz API:
   POST https://api.miniviz.net/api/project/{project_id}
 """
 
@@ -284,7 +278,7 @@ MINIVIZ_API_URL = "https://api.miniviz.net"
 MINIVIZ_PROJECT_ID = "PROJECT_ID"
 MINIVIZ_TOKEN = "PROJECT_TOKEN"
 
-# Miniviz上での送信元ラベル（デバイス名/設置場所など）
+# MiniViz上での送信元ラベル（デバイス名/設置場所など）
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # Freeなら60秒、Proなら15秒(今回は120秒)
@@ -299,9 +293,9 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # 空なら最初に見つかった0x0969
 def decode_meter_like(rest: bytes) -> Optional[dict]:
     """
     SwitchBotAPI-BLE(meter.md) の温湿度の持ち方を参考にデコード。
-    MeterPro(CO2)の観測では CO2 が rest[6:8] little-endian っぽい。
+    Meter Pro CO2では、CO2はrest[7:9]のbig-endian uint16です。
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     # meter.md: Byte3=小数(下位4bit), Byte4=符号+整数, Byte5=湿度(下位7bit)
@@ -315,7 +309,10 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
+
+    if co2 > 9999:
+        return None
 
     return {"temperature_c": temperature_c, "humidity": humidity, "co2": co2}
 
@@ -411,13 +408,13 @@ def post_to_miniviz(reading: Reading) -> None:
     r = requests.post(url, headers=headers, json=body, timeout=20)
     if r.status_code == 429:
         retry_after = int(r.headers.get("Retry-After", "60"))
-        raise RuntimeError(f"Miniviz rate limit (429). Retry-After={retry_after}")
+        raise RuntimeError(f"MiniViz rate limit (429). Retry-After={retry_after}")
     r.raise_for_status()
     print(r.json())
 
 
 def main() -> None:
-    print("Starting BLE -> Miniviz sender (Ctrl+C to stop)")
+    print("Starting BLE -> MiniViz sender (Ctrl+C to stop)")
     while True:
         try:
             reading = asyncio.run(read_once_from_ble())
@@ -483,7 +480,7 @@ sudo nano /etc/systemd/system/miniviz-co2.service
 
 ```ini
 [Unit]
-Description=Miniviz SwitchBot MeterPro CO2 BLE Sender
+Description=MiniViz SwitchBot MeterPro CO2 BLE Sender
 After=bluetooth.target network-online.target
 Wants=network-online.target
 
@@ -512,7 +509,7 @@ sudo systemctl enable miniviz-co2
 sudo systemctl start miniviz-co2
 ```
 
-## 4. Minivizでデータ確認・可視化/グラフ化
+## 4. MiniVizでデータ確認・可視化/グラフ化
 
 ### データベースの確認
 
@@ -533,14 +530,14 @@ Databaseメニューより、データが保存されていることを確認で
 
 取得したデータは自由にグラフ化できます。CO2の値が低すぎる場合は、センサーの校正状態も確認してください。
 
-Minivizなら自由にレイアウトを作成できます。
+MiniVizなら自由にレイアウトを作成できます。
 
 <!-- 画像 -->
 ![可視化](/images/swbot_co2/swbot_1.png)
 
 ## よくあるエラー
 
-### SwitchBot CO2 のデータが Miniviz に表示されない原因は？
+### SwitchBot CO2 のデータが MiniViz に表示されない原因は？
 
 次を確認してください。
 

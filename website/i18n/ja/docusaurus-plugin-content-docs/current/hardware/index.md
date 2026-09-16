@@ -1,5 +1,5 @@
 ---
-description: ESP32、Raspberry Pi、Pico W、USB カメラ、M5Stack、SwitchBot など Miniviz のデバイス別ガイドを一覧できます。
+description: ESP32、Raspberry Pi、Pico W、USB カメラ、M5Stack、SwitchBot など MiniViz のデバイス別ガイドを一覧できます。
 ---
 
 # ハードウェアガイド

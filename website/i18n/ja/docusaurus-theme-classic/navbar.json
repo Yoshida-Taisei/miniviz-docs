@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Miniviz ドキュメント",
+    "message": "MiniViz ドキュメント",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Miniviz",
+    "message": "MiniViz",
     "description": "The alt text of navbar logo"
   }
 }

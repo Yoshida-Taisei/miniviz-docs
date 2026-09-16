@@ -1,10 +1,10 @@
 ---
-description: Miniviz の画像送信 API について、POST エンドポイント、プラン制限、画像制約、リクエスト例をまとめたリファレンスです。
+description: MiniViz の画像送信 API について、POST エンドポイント、プラン制限、画像制約、リクエスト例をまとめたリファレンスです。
 ---
 
-# Miniviz APIリファレンス(画像)
+# MiniViz APIリファレンス(画像)
 
-Miniviz APIは、以下のエンドポイントをサポートしています。
+MiniViz APIは、以下のエンドポイントをサポートしています。
 
 ## APIエンドポイント
 
@@ -17,7 +17,7 @@ POST https://api.miniviz.net/api/project/{project_id}/image
 
 ## リクエスト概要
 
-Miniviz API への画像送信は `POST` メソッドを使用します。project token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
+MiniViz API への画像送信は `POST` メソッドを使用します。project token は `Authorization: Bearer {token}` ヘッダーで送信します。既存の `?token={token}` クエリパラメータも互換目的で引き続き利用できます。送信ボディは JSON 形式です。画像データは base64 エンコードして送信します。
 
 ## リクエストボディ（画像送信）
 

@@ -1,15 +1,15 @@
 ---
-description: Send SwitchBot CO2, temperature, and humidity data to Miniviz from Raspberry Pi and visualize it with a flexible dashboard.
+description: Send SwitchBot CO2, temperature, and humidity data to MiniViz from Raspberry Pi and visualize it with a flexible dashboard.
 ---
 
 # Integrate with SwitchBot CO2 sensor
 
-This guide shows how to capture SwitchBot CO2 data with Raspberry Pi, send it to Miniviz, and turn it into reusable charts and alerts.
+This guide shows how to capture SwitchBot CO2 data with Raspberry Pi, send it to MiniViz, and turn it into reusable charts and alerts.
 Choose this flow when you want more flexible visualization and automation than the vendor app alone can provide.
 
 ## What We'll Do
 
-Send data from a SwitchBot CO2 sensor to Miniviz, store temperature, humidity, and CO2 concentration in the database, and create graphs. You can check data in the SwitchBot app as well, but sending it to Miniviz gives you more flexibility for visualization and automation.
+Send data from a SwitchBot CO2 sensor to MiniViz, store temperature, humidity, and CO2 concentration in the database, and create graphs. You can check data in the SwitchBot app as well, but sending it to MiniViz gives you more flexibility for visualization and automation.
 
 Since the API integration does not provide temperature and humidity values, this guide uses BLE to read the sensor data.
 
@@ -24,18 +24,18 @@ Since the API integration does not provide temperature and humidity values, this
 
 - Raspberry Pi (such as Raspberry Pi 3 B+ or Zero 2 W)
 - SwitchBot CO2 sensor
-- Miniviz project ID and token
+- MiniViz project ID and token
 
-## Get Your Miniviz Project ID and Token
+## Get Your MiniViz Project ID and Token
 
 Create a project, then check the project details screen to get your project ID and token. For more information, see [Quick Start](../quickstart).
 
 ## Steps
 
 1. Get the CO2 sensor device ID from a local PC
-2. Create a script that sends data to Miniviz
+2. Create a script that sends data to MiniViz
 3. Run the script continuously on Raspberry Pi
-4. Check the database and graphs in Miniviz
+4. Check the database and graphs in MiniViz
 
 ## 1. Receive BLE Advertisements and Get the Device ID
 
@@ -63,7 +63,7 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     Tentatively decode temperature / humidity / CO2 from rest
     based on meter_sw.md.
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     b3 = rest[2]
@@ -76,12 +76,13 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
 
     return {
         "temperature_c": temperature_c,
         "humidity": humidity,
         "co2": co2,
+        "co2_valid": co2 <= 9999,
         "raw": rest.hex(),
         "b3": b3,
         "b4": b4,
@@ -164,29 +165,22 @@ async def main() -> None:
                 if not decoded:
                     return
 
-                batt = None
-                fd3d_hex = sd.get("0000fd3d-0000-1000-8000-00805f9b34fb")
-                if fd3d_hex:
-                    raw_sd = bytes.fromhex(fd3d_hex)
-                    if raw_sd:
-                        batt = raw_sd[-1] & 0x7F
-
                 out = {
-                    "ts_ms": int(time.time() * 1000),
-                    "dev_id": dev_id,
-                    "temp_c": round(decoded["temperature_c"], 1),
+                    "device_id": dev_id,
+                    "temperature_c": round(decoded["temperature_c"], 1),
                     "humidity": decoded["humidity"],
                     "co2": decoded["co2"],
-                    "battery": batt,
+                    "co2_valid": decoded["co2_valid"],
+                    "raw_manufacturer_data": raw.hex(),
+                    "rest_hex": rest.hex(),
+                    "timestamp": int(time.time()),
+                    "address": device.address,
                     "rssi": rssi,
                 }
-                if DEBUG_RAW:
-                    out["rest_hex"] = rest.hex()
-                    out["fd3d"] = fd3d_hex
                 print(json.dumps(out, ensure_ascii=False))
 
     mode = "forever" if SCAN_FOREVER else f"{SCAN_SECONDS}s"
-    print(f"Scanning... ({mode}) device_id={TARGET_DEVICE_ID or '(any)'}")
+    print(f"Scanning for SwitchBot Meter Pro CO2 ({mode})...")
     async with BleakScanner(detection_callback=callback):
         if SCAN_FOREVER:
             while True:
@@ -217,17 +211,17 @@ if __name__ == "__main__":
 
 ### Example Output
 
-When you run it, nearby devices should appear. Save the value of `"dev_id": "AABBCCDDEEFF"`.
+When you run it, nearby devices should appear. Save the value of `"device_id": "B0E9FE6D1180"`.
 
 ```bash
-python3 sw_ble_adv_scan.py
+python3 switchbot_co2_receive_sample.py
 ```
 
 ```json
-{"ts_ms": 1773046541493, "dev_id": "AABBCCDDEEFF", "temp_c": 19.4, "humidity": 45, "co2": 268, "battery": null, "rssi": -78, "rest_hex": "116404932d000c01b700", "fd3d": null}
+{"device_id": "B0E9FE6D1180", "temperature_c": 24.8, "humidity": 64, "co2": 581, "co2_valid": true, "raw_manufacturer_data": "b0e9fe6d1180e82f0898400016024500", "rest_hex": "e82f0898400016024500", "timestamp": 1789539392, "address": "B0:E9:FE:6D:11:80", "rssi": -44}
 ```
 
-## 2. Send Data to Miniviz
+## 2. Send Data to MiniViz
 
 ### Configuration
 
@@ -236,10 +230,10 @@ Fill in the configuration values in the script.
 ```python
 # ===== User settings =====
 MINIVIZ_API_URL = "https://api.miniviz.net"
-MINIVIZ_PROJECT_ID = "PROJECT_ID"  # Miniviz project ID
+MINIVIZ_PROJECT_ID = "PROJECT_ID"  # MiniViz project ID
 MINIVIZ_TOKEN = "PROJECT_TOKEN"  # Token
 
-# Label key shown in Miniviz (device name, installation location, etc.)
+# Label key shown in MiniViz (device name, installation location, etc.)
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # 60 seconds for Free, 15 seconds for Pro (120 seconds in this example)
@@ -255,12 +249,12 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # Device ID obtained above
 
 ```python
 """
-POST values obtained from SwitchBot MeterPro (CO2) BLE advertisements to Miniviz.
+POST values obtained from SwitchBot MeterPro (CO2) BLE advertisements to MiniViz.
 
 Requirements:
   pip install bleak requests
 
-Miniviz API:
+MiniViz API:
   POST https://api.miniviz.net/api/project/{project_id}
 """
 
@@ -283,7 +277,7 @@ MINIVIZ_API_URL = "https://api.miniviz.net"
 MINIVIZ_PROJECT_ID = "PROJECT_ID"
 MINIVIZ_TOKEN = "PROJECT_TOKEN"
 
-# Label key shown in Miniviz (device name, installation location, etc.)
+# Label key shown in MiniViz (device name, installation location, etc.)
 LABEL_KEY = "switchbot_meterpro_co2"
 
 # 60 seconds for Free, 15 seconds for Pro (120 seconds in this example)
@@ -298,9 +292,9 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # Leave empty to use the first detected 0
 def decode_meter_like(rest: bytes) -> Optional[dict]:
     """
     Decode temperature / humidity based on SwitchBotAPI-BLE meter.md.
-    Observations suggest CO2 is stored in rest[6:8] as little-endian.
+    Meter Pro CO2 stores CO2 in rest[7:9] as a big-endian uint16.
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     # meter.md: Byte3=fraction (lower 4 bits), Byte4=sign+integer, Byte5=humidity (lower 7 bits)
@@ -314,7 +308,10 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
+
+    if co2 > 9999:
+        return None
 
     return {"temperature_c": temperature_c, "humidity": humidity, "co2": co2}
 
@@ -411,13 +408,13 @@ def post_to_miniviz(reading: Reading) -> None:
     r = requests.post(url, headers=headers, json=body, timeout=20)
     if r.status_code == 429:
         retry_after = int(r.headers.get("Retry-After", "60"))
-        raise RuntimeError(f"Miniviz rate limit (429). Retry-After={retry_after}")
+        raise RuntimeError(f"MiniViz rate limit (429). Retry-After={retry_after}")
     r.raise_for_status()
     print(r.json())
 
 
 def main() -> None:
-    print("Starting BLE -> Miniviz sender (Ctrl+C to stop)")
+    print("Starting BLE -> MiniViz sender (Ctrl+C to stop)")
     while True:
         try:
             reading = asyncio.run(read_once_from_ble())
@@ -483,7 +480,7 @@ sudo nano /etc/systemd/system/miniviz-co2.service
 
 ```ini
 [Unit]
-Description=Miniviz SwitchBot MeterPro CO2 BLE Sender
+Description=MiniViz SwitchBot MeterPro CO2 BLE Sender
 After=bluetooth.target network-online.target
 Wants=network-online.target
 
@@ -512,7 +509,7 @@ sudo systemctl enable miniviz-co2
 sudo systemctl start miniviz-co2
 ```
 
-## 4. Check Data and Visualize in Miniviz
+## 4. Check Data and Visualize in MiniViz
 
 ### Check the Database
 
@@ -533,14 +530,14 @@ The main stored fields are:
 
 You can freely create graphs from the collected data. If the CO2 value looks too low, also check the sensor calibration status.
 
-Miniviz lets you build your layout freely.
+MiniViz lets you build your layout freely.
 
 <!-- image -->
 ![Visualization](/images/swbot_co2/swbot_1.png)
 
 ## Common errors
 
-### Why is my SwitchBot CO2 data not showing up in Miniviz?
+### Why is my SwitchBot CO2 data not showing up in MiniViz?
 
 Check these points:
 

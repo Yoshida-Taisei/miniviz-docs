@@ -1,14 +1,14 @@
 ---
-description: M5Stack TimerCAM で撮影した画像を Miniviz に送り、スマホで確認できる軽量な画像送信フローを解説します。
+description: M5Stack TimerCAM で撮影した画像を MiniViz に送り、スマホで確認できる軽量な画像送信フローを解説します。
 ---
 
 # M5Stack TimerCAM で画像を送る
 
-このページは、TimerCAM の画像を Miniviz に送ってスマホで確認するまでの最短ルートです。
+このページは、TimerCAM の画像を MiniViz に送ってスマホで確認するまでの最短ルートです。
 シンプルな HTTP 送信で、軽量に画像監視の試作やデモを始めたい場合に向いています。
 
 ## ここで行うこと
-TimerCAMで撮影した画像をMinivizに送信して、スマホから画像を見れるようにします。
+TimerCAMで撮影した画像をMiniVizに送信して、スマホから画像を見れるようにします。
 
 ## 用意するもの
 
@@ -16,7 +16,7 @@ TimerCAMで撮影した画像をMinivizに送信して、スマホから画像�
 * PlatformIO
 
 minivizを使う場合は
-* MinivizのプロジェクトIDとトークン
+* MiniVizのプロジェクトIDとトークン
 
 
 # 接続確認
@@ -49,7 +49,7 @@ monitor_speed = 115200
 ![](/images/m5_cam/web_cam.png)
 
 
-# Minivizを使ってスマホでも確認する
+# MiniVizを使ってスマホでも確認する
 
 ## プロジェクトIDとトークンを取得
 プロジェクトIDとトークンを取得します。
@@ -59,7 +59,7 @@ monitor_speed = 115200
 <!-- アカウント -->
 ![アカウント](/images/pj_5.png)
 
-## サンプルコードを修正してMinivizに送信する
+## サンプルコードを修正してMiniVizに送信する
 
 ### サンプルコード
 
@@ -86,7 +86,7 @@ import TabItem from '@theme/TabItem';
 const char *ssid     = "SSID";
 const char *password = "PASSWORD";
 
-// Miniviz設定
+// MiniViz設定
 const char* PROJECT_ID = "PROJECT_ID";
 const char* TOKEN = "TOKEN";
 const char* API_URL = "https://api.miniviz.net";
@@ -206,7 +206,7 @@ bool sendImageToMiniviz(camera_fb_t* fb) {
     Serial.println("[Info] Encoding image to base64...");
     String imageBase64 = encodeBase64(fb->buf, fb->len);
     
-    Serial.println("[Info] Sending image to Miniviz...");
+    Serial.println("[Info] Sending image to MiniViz...");
     
     HTTPClient http;
     String url = String(API_URL) + "/api/project/" + String(PROJECT_ID) + "/image";

@@ -1,5 +1,5 @@
 ---
-description: Choose a Miniviz hardware guide for ESP32, Raspberry Pi, Pico W, USB cameras, M5Stack, and SwitchBot integrations.
+description: Choose a MiniViz hardware guide for ESP32, Raspberry Pi, Pico W, USB cameras, M5Stack, and SwitchBot integrations.
 ---
 
 # Hardware Guides

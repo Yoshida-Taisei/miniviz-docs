@@ -1,15 +1,15 @@
 ---
-description: Raspberry Pi Pico W の温湿度データを MicroPython とシンプルな HTTP 送信で Miniviz に送る手順です。
+description: Raspberry Pi Pico W の温湿度データを MicroPython とシンプルな HTTP 送信で MiniViz に送る手順です。
 ---
 
 # Raspberry Pi Pico W で温湿度データを送る
 
-Raspberry Pi Pico W と DHT11 を使って、温度・湿度データを取得し、Miniviz に送信して可視化/グラフ化する手順をまとめます。  
+Raspberry Pi Pico W と DHT11 を使って、温度・湿度データを取得し、MiniViz に送信して可視化/グラフ化する手順をまとめます。
 IoT のプロトタイプや電子工作の入門用途におすすめの構成です。
 
 ## やること
 
-Raspberry Pi Pico W と温湿度センサー DHT11 を使って、温度・湿度データを取得し、Miniviz 上で可視化/グラフ化します。
+Raspberry Pi Pico W と温湿度センサー DHT11 を使って、温度・湿度データを取得し、MiniViz 上で可視化/グラフ化します。
 
 ## 用意するもの
 
@@ -17,7 +17,7 @@ Raspberry Pi Pico W と温湿度センサー DHT11 を使って、温度・湿�
 - DHT11（温度・湿度センサー）
 - ブレッドボードとジャンパーワイヤー
 - MicroPython 実行環境
-- Miniviz のプロジェクト ID とトークン
+- MiniViz のプロジェクト ID とトークン
 
 ## ラズパイPicoとDHT11を配線
 
@@ -41,9 +41,9 @@ Raspberry Pi Pico W と温湿度センサー DHT11 を使って、温度・湿�
 
 今回は VS Code の MicroPython 拡張機能を使います。
 
-- 拡張機能 `MicroPico` を導入  
+- 拡張機能 `MicroPico` を導入
   Pico との通信やコード転送を一括管理できるようになります。
-- コマンドパレット（`Ctrl+Shift+P`）から `MicroPico: Configure project` を実行  
+- コマンドパレット（`Ctrl+Shift+P`）から `MicroPico: Configure project` を実行
   Pico 用の補完機能や接続設定がフォルダ内に作成されます。
 
 ![拡張機能の画面](/images/pico/pico_1_03.png)
@@ -80,8 +80,8 @@ import ntptime
 # ================= Configuration =================
 WIFI_SSID  = "YOUR_WIFI_SSID"       # Wi-Fi SSID
 WIFI_PASS  = "YOUR_WIFI_PASSWORD"   # Wi-Fi Password
-PROJECT_ID = "YOUR_PROJECT_ID"      # Miniviz Project ID
-TOKEN      = "YOUR_TOKEN"           # Miniviz API Token
+PROJECT_ID = "YOUR_PROJECT_ID"      # MiniViz Project ID
+TOKEN      = "YOUR_TOKEN"           # MiniViz API Token
 LABEL_KEY  = "PicoW_DHT"            # Label for the device
 SEND_INTERVAL = 120                 # Interval between sends (seconds)
 # =================================================
@@ -117,7 +117,7 @@ def connect_wifi():
         print(" Failed (Using internal clock)")
 
 def send_data_to_miniviz(temp, hum):
-    """Send measurement data to Miniviz and log details"""
+    """Send measurement data to MiniViz and log details"""
     url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
 
@@ -126,7 +126,7 @@ def send_data_to_miniviz(temp, hum):
     unix_time_sec = time.time()
     ts_ms = int(unix_time_sec * 1000)
 
-    # Create Miniviz-compliant payload
+    # Create MiniViz-compliant payload
     payload = {
         "timestamp": ts_ms,
         "label_key": LABEL_KEY,
@@ -144,7 +144,7 @@ def send_data_to_miniviz(temp, hum):
     print("-" * 40)
 
     try:
-        print("🚀 Sending request to Miniviz...", end="")
+        print("🚀 Sending request to MiniViz...", end="")
         res = urequests.post(url, headers=headers, json=payload)
 
         if res.status_code in [200, 201]:
@@ -193,18 +193,18 @@ if __name__ == "__main__":
   </TabItem>
 </Tabs>
 
-## Minivizに送信する
+## MiniVizに送信する
 
 ### プロジェクトIDとトークンを取得
 
-先ほどのコードに Wi-Fi 接続、時刻同期、HTTP リクエストを追加して、`Miniviz` に送信します。
+先ほどのコードに Wi-Fi 接続、時刻同期、HTTP リクエストを追加して、`MiniViz` に送信します。
 
-まずはプロジェクトを作成し、プロジェクト ID とトークンを取得してください。  
+まずはプロジェクトを作成し、プロジェクト ID とトークンを取得してください。
 詳細はクイックリファレンスを参照してください。
 
 ![プロジェクト ID とトークンの取得画面](/images/pico/pico_1_06.png)
 
-### Minivizに送信するソースコード
+### MiniVizに送信するソースコード
 
 Wi-Fi 情報、プロジェクト ID、トークンは自分の環境に合わせて書き換えてください。
 
@@ -219,8 +219,8 @@ import ntptime
 # ================= Configuration =================
 WIFI_SSID  = "YOUR_WIFI_SSID"       # Wi-Fi SSID
 WIFI_PASS  = "YOUR_WIFI_PASSWORD"   # Wi-Fi Password
-PROJECT_ID = "YOUR_PROJECT_ID"      # Miniviz Project ID
-TOKEN      = "YOUR_TOKEN"           # Miniviz API Token
+PROJECT_ID = "YOUR_PROJECT_ID"      # MiniViz Project ID
+TOKEN      = "YOUR_TOKEN"           # MiniViz API Token
 LABEL_KEY  = "PicoW_DHT"            # Label for the device
 SEND_INTERVAL = 120                 # Interval between sends (seconds)
 # =================================================
@@ -256,7 +256,7 @@ def connect_wifi():
         print(" Failed (Using internal clock)")
 
 def send_data_to_miniviz(temp, hum):
-    """Send measurement data to Miniviz and log details"""
+    """Send measurement data to MiniViz and log details"""
     url = f"https://api.miniviz.net/api/project/{PROJECT_ID}"
     headers = {"Authorization": f"Bearer {TOKEN}"}
 
@@ -265,7 +265,7 @@ def send_data_to_miniviz(temp, hum):
     unix_time_sec = time.time()
     ts_ms = int(unix_time_sec * 1000)
 
-    # Create Miniviz-compliant payload
+    # Create MiniViz-compliant payload
     payload = {
         "timestamp": ts_ms,
         "label_key": LABEL_KEY,
@@ -283,7 +283,7 @@ def send_data_to_miniviz(temp, hum):
     print("-" * 40)
 
     try:
-        print("🚀 Sending request to Miniviz...", end="")
+        print("🚀 Sending request to MiniViz...", end="")
         res = urequests.post(url, headers=headers, json=payload)
 
         if res.status_code in [200, 201]:
@@ -333,16 +333,16 @@ if __name__ == "__main__":
 
 ![送信成功時のログ](/images/pico/pico_1_07.png)
 
-## Miniviz上で確認する
+## MiniViz上で確認する
 
-`Database` メニューから送信したデータを確認できます。  
+`Database` メニューから送信したデータを確認できます。
 反映まで 30 秒ほどかかる場合があります。
 
 ![Database 画面](/images/pico/pico_1_08.png)
 
 ## グラフ化する
 
-`Viz` メニューからグラフを作成できます。  
+`Viz` メニューからグラフを作成できます。
 今回はラインチャートを選択します。
 
 ![グラフ設定画面](/images/pico/pico_1_09.png)
@@ -351,14 +351,14 @@ if __name__ == "__main__":
 
 ## まとめ
 
-今回はラズパイPicoを使って、温度・湿度の可視化/グラフ化を簡単に行いました。  
-`Miniviz` ではこのほかにもさまざまなセンサーデータや画像を扱えるので、ぜひ試してみてください。
+今回はラズパイPicoを使って、温度・湿度の可視化/グラフ化を簡単に行いました。
+`MiniViz` ではこのほかにもさまざまなセンサーデータや画像を扱えるので、ぜひ試してみてください。
 
 ## モニター募集
 
-Pro プランのモニターを募集しています。  
+Pro プランのモニターを募集しています。
 個人・学生・企業など、使ってフィードバックをいただける方に一定期間 Pro プランを提供します。詳細は問い合わせや DM でお願いします。
 
 通常 2 週間の無料トライアルもあります。画像も扱える Pro プランもぜひご利用ください。
 
-[Miniviz - IoT Data Visualization & Graphing Platform](https://miniviz.net)
+[MiniViz - IoT Data Visualization & Graphing Platform](https://miniviz.net)
