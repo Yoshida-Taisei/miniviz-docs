@@ -63,7 +63,7 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     Tentatively decode temperature / humidity / CO2 from rest
     based on meter_sw.md.
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     b3 = rest[2]
@@ -76,12 +76,13 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
 
     return {
         "temperature_c": temperature_c,
         "humidity": humidity,
         "co2": co2,
+        "co2_valid": co2 <= 9999,
         "raw": rest.hex(),
         "b3": b3,
         "b4": b4,
@@ -164,29 +165,22 @@ async def main() -> None:
                 if not decoded:
                     return
 
-                batt = None
-                fd3d_hex = sd.get("0000fd3d-0000-1000-8000-00805f9b34fb")
-                if fd3d_hex:
-                    raw_sd = bytes.fromhex(fd3d_hex)
-                    if raw_sd:
-                        batt = raw_sd[-1] & 0x7F
-
                 out = {
-                    "ts_ms": int(time.time() * 1000),
-                    "dev_id": dev_id,
-                    "temp_c": round(decoded["temperature_c"], 1),
+                    "device_id": dev_id,
+                    "temperature_c": round(decoded["temperature_c"], 1),
                     "humidity": decoded["humidity"],
                     "co2": decoded["co2"],
-                    "battery": batt,
+                    "co2_valid": decoded["co2_valid"],
+                    "raw_manufacturer_data": raw.hex(),
+                    "rest_hex": rest.hex(),
+                    "timestamp": int(time.time()),
+                    "address": device.address,
                     "rssi": rssi,
                 }
-                if DEBUG_RAW:
-                    out["rest_hex"] = rest.hex()
-                    out["fd3d"] = fd3d_hex
                 print(json.dumps(out, ensure_ascii=False))
 
     mode = "forever" if SCAN_FOREVER else f"{SCAN_SECONDS}s"
-    print(f"Scanning... ({mode}) device_id={TARGET_DEVICE_ID or '(any)'}")
+    print(f"Scanning for SwitchBot Meter Pro CO2 ({mode})...")
     async with BleakScanner(detection_callback=callback):
         if SCAN_FOREVER:
             while True:
@@ -217,14 +211,14 @@ if __name__ == "__main__":
 
 ### Example Output
 
-When you run it, nearby devices should appear. Save the value of `"dev_id": "AABBCCDDEEFF"`.
+When you run it, nearby devices should appear. Save the value of `"device_id": "B0E9FE6D1180"`.
 
 ```bash
-python3 sw_ble_adv_scan.py
+python3 switchbot_co2_receive_sample.py
 ```
 
 ```json
-{"ts_ms": 1773046541493, "dev_id": "AABBCCDDEEFF", "temp_c": 19.4, "humidity": 45, "co2": 268, "battery": null, "rssi": -78, "rest_hex": "116404932d000c01b700", "fd3d": null}
+{"device_id": "B0E9FE6D1180", "temperature_c": 24.8, "humidity": 64, "co2": 581, "co2_valid": true, "raw_manufacturer_data": "b0e9fe6d1180e82f0898400016024500", "rest_hex": "e82f0898400016024500", "timestamp": 1789539392, "address": "B0:E9:FE:6D:11:80", "rssi": -44}
 ```
 
 ## 2. Send Data to MiniViz
@@ -298,9 +292,9 @@ TARGET_DEVICE_ID = "TARGET_DEVICE_ID"  # Leave empty to use the first detected 0
 def decode_meter_like(rest: bytes) -> Optional[dict]:
     """
     Decode temperature / humidity based on SwitchBotAPI-BLE meter.md.
-    Observations suggest CO2 is stored in rest[6:8] as little-endian.
+    Meter Pro CO2 stores CO2 in rest[7:9] as a big-endian uint16.
     """
-    if len(rest) < 8:
+    if len(rest) < 9:
         return None
 
     # meter.md: Byte3=fraction (lower 4 bits), Byte4=sign+integer, Byte5=humidity (lower 7 bits)
@@ -314,7 +308,10 @@ def decode_meter_like(rest: bytes) -> Optional[dict]:
     temperature_c = temp_sign * (temp_int + temp_dec / 10.0)
 
     humidity = b5 & 0x7F
-    co2 = int.from_bytes(rest[6:8], "little", signed=False)
+    co2 = int.from_bytes(rest[7:9], "big", signed=False)
+
+    if co2 > 9999:
+        return None
 
     return {"temperature_c": temperature_c, "humidity": humidity, "co2": co2}
 
