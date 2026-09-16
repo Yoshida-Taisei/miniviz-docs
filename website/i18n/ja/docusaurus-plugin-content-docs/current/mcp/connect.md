@@ -36,13 +36,13 @@ MiniViz MCPは現在Public Betaです。対応クライアントや仕様は、�
 
 ## 接続までのフロー
 
-1. MiniVizの**AI連携**画面でServer URLをコピーする。
+1. MiniVizの**MCP**画面でServer URLをコピーする。
 2. AIクライアントに、コピーしたURLをRemote MCPサーバーまたはコネクタとして追加する。
 3. 接続を開始し、認可画面からMiniVizへログインする。
 4. クライアントに参照を許可するprojectを選択して、接続を許可する。
 5. 新しい会話に戻り、選択したprojectだけを一覧できることを確認する。
 
-接続済みクライアント、参照可能なproject、接続解除はMiniVizの**AI連携**画面から確認・操作できます。
+接続済みクライアント、参照可能なproject、接続解除はMiniVizの**MCP**画面から確認・操作できます。
 
 ## 動作確認済みクライアント
 
@@ -62,17 +62,17 @@ MiniViz MCPは現在Public Betaです。対応クライアントや仕様は、�
 
 設定画面や項目名はクライアントごとに異なります。
 
-## 1. MiniVizでAI連携画面を開く
+## 1. MiniVizでMCP画面を開く
 
 1. MiniVizへログインする。
-2. アプリのナビゲーションから**AI連携**を開く。
+2. アプリのナビゲーションから**MCP**を開く。
 3. read-onlyの注意事項を確認し、表示された**Server URL**をコピーする。
 
 対応クライアントに入力するMiniVizの接続情報は、このURLだけです。tokenやcredentialを設定画面へ貼り付けないでください。
 
 <div className="mcp-screenshot">
 
-![MiniVizのAI連携画面でServer URLをコピーする](../../../../../static/images/mcp/01-ai-connections-server-url.png)
+![MiniVizのMCP画面でServer URLをコピーする](../../../../../static/images/mcp/01-ai-connections-server-url.png)
 
 </div>
 
@@ -139,11 +139,11 @@ Codexで新しい会話を開き、次のように質問します。
 
 ## 接続状況の確認と解除
 
-MiniVizの**AI連携**画面では、接続済みクライアントと各クライアントが参照できるprojectを確認できます。**接続解除**を選ぶと、MiniVizの参照権限とOAuth認可を解除します。解除したクライアントが再びデータを読むには、もう一度認可が必要です。
+MiniVizの**MCP**画面では、接続済みクライアントと各クライアントが参照できるprojectを確認できます。**接続解除**を選ぶと、MiniVizの参照権限とOAuth認可を解除します。解除したクライアントが再びデータを読むには、もう一度認可が必要です。
 
 <div className="mcp-screenshot">
 
-![MiniVizのAI連携画面で接続済みクライアントを確認または解除する](../../../../../static/images/mcp/06-ai-connections-connected-client.png)
+![MiniVizのMCP画面で接続済みクライアントを確認または解除する](../../../../../static/images/mcp/06-ai-connections-connected-client.png)
 
 </div>
 

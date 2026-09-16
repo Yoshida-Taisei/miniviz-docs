@@ -24,7 +24,7 @@ MiniViz MCP is a Public Beta that lets compatible AI clients read only the proje
 
 To connect it in Codex:
 
-1. Sign in to MiniViz and open **AI connections**.
+1. Sign in to MiniViz and open **MCP**.
 2. Copy the displayed **Server URL**.
 3. In Codex, open **Plugins** → **MCPs** → **Add server**, choose a streaming HTTP server, and paste the Server URL.
 4. Start authentication, sign in to MiniViz, and select the projects Codex may read.

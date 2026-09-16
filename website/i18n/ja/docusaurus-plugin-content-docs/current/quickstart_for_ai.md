@@ -24,7 +24,7 @@ MiniViz MCPは、対応するAIクライアントから、あなたが選択し�
 
 Codexでの接続手順は次の通りです。
 
-1. MiniVizにログインし、**AI連携**画面を開く。
+1. MiniVizにログインし、**MCP**画面を開く。
 2. 表示された**Server URL**をコピーする。
 3. Codexで**Plugins** → **MCPs** → **Add server**を開き、ストリーミング可能なHTTPサーバーを選んでServer URLを貼り付ける。
 4. 認証を開始し、MiniVizへログインして、Codexに参照を許可するプロジェクトを選択する。

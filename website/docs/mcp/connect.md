@@ -37,13 +37,13 @@ MiniViz MCP is currently a Public Beta. Supported clients and details may change
 
 ## Connection Flow
 
-1. Copy the Server URL from **AI connections** in MiniViz.
+1. Copy the Server URL from **MCP** in MiniViz.
 2. Add that URL as a remote MCP server or connector in your AI client.
 3. Start the connection and sign in to MiniViz through the authorization screen.
 4. Select the projects the client may read and approve the connection.
 5. Return to a new chat and confirm that the client can list only those projects.
 
-You can review the connected client, its readable projects, and disconnect it later from **AI connections** in MiniViz.
+You can review the connected client, its readable projects, and disconnect it later from **MCP** in MiniViz.
 
 ## Verified Client
 
@@ -63,17 +63,17 @@ Other clients are not listed here as verified. To connect, they must support:
 
 Their setup labels and screens may differ from this guide.
 
-## 1. Open AI Connections in MiniViz
+## 1. Open MCP in MiniViz
 
 1. Sign in to MiniViz.
-2. Open **AI connections** from the app navigation.
+2. Open **MCP** from the app navigation.
 3. Read the read-only access notice and copy the displayed **Server URL**.
 
 The URL is the only MiniViz connection value you should need to enter in a compatible MCP client. Never copy a token or credential into your client settings.
 
 <div className="mcp-screenshot">
 
-![Copy the Server URL from MiniViz AI connections](../../static/images/mcp/01-ai-connections-server-url.png)
+![Copy the Server URL from MiniViz MCP](../../static/images/mcp/01-ai-connections-server-url.png)
 
 </div>
 
@@ -140,7 +140,7 @@ The client should return only the projects you selected. Once this works, try a 
 
 ## Review or Disconnect a Client
 
-Return to **AI connections** in MiniViz to see connected clients and their readable projects. Choose **Disconnect** to revoke the MiniViz permission and OAuth authorization. A disconnected client must complete authorization again before it can read data.
+Return to **MCP** in MiniViz to see connected clients and their readable projects. Choose **Disconnect** to revoke the MiniViz permission and OAuth authorization. A disconnected client must complete authorization again before it can read data.
 
 <div className="mcp-screenshot">
 

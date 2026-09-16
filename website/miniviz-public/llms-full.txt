@@ -34,7 +34,7 @@ The basic public workflow is:
 
 MiniViz MCP lets a compatible AI client read the MiniViz projects you select through conversation. It is designed for safe, read-only analysis of project summaries, latest values, time-series data, chart settings, rule settings, and public MiniViz documentation.
 
-MCP cannot ingest, change, or delete data; send notifications; or read images, project tokens, or credentials. To connect, open **AI connections** in MiniViz, copy the Server URL, add it as a remote MCP server in your AI client, then complete OAuth authorization and select the projects the client may read.
+MCP cannot ingest, change, or delete data; send notifications; or read images, project tokens, or credentials. To connect, open **MCP** in MiniViz, copy the Server URL, add it as a remote MCP server in your AI client, then complete OAuth authorization and select the projects the client may read.
 
 For Codex setup and detailed connection instructions, see [Connect MiniViz MCP](https://miniviz.net/docs/mcp/connect).
 
