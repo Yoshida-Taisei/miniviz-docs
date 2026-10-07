@@ -2,7 +2,7 @@
 description: Raspberry Pi の温湿度データを Python と HTTP で MiniViz に送り、最小構成でグラフ化する手順を解説します。
 ---
 
-# Raspberry Pi で温湿度データを送る
+# Raspberry Pi（ラズパイ）で温湿度データを送る
 
 このガイドは、Raspberry Pi のセンサーデータを Python で MiniViz に送り、可視化/グラフ化する最短手順です。
 まずは大きな IoT アーキテクチャを組まずに、試作や自宅監視をシンプルな HTTP フローで始めたい場合に向いています。

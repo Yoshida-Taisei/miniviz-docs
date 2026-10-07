@@ -2,7 +2,7 @@
 description: Raspberry Pi Pico W の温湿度データを MicroPython とシンプルな HTTP 送信で MiniViz に送る手順です。
 ---
 
-# Raspberry Pi Pico W で温湿度データを送る
+# Raspberry Pi Pico W（ラズパイPico W）で温湿度データを送る
 
 Raspberry Pi Pico W と DHT11 を使って、温度・湿度データを取得し、MiniViz に送信して可視化/グラフ化する手順をまとめます。
 IoT のプロトタイプや電子工作の入門用途におすすめの構成です。
