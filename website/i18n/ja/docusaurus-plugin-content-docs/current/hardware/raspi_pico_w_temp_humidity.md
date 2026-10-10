@@ -13,7 +13,7 @@ Raspberry Pi Pico W と温湿度センサー DHT11 を使って、温度・湿�
 
 ## 用意するもの
 
-- Raspberry Pi Pico W（以下、ラズパイPico）
+- [Raspberry Pi Pico W](https://link.amazon/B00tDSuYr)（以下、ラズパイPico）
 - [DHT11](https://link.amazon/B0iWF8KJA)（温度・湿度センサー）
 - ブレッドボードとジャンパーワイヤー
 - MicroPython 実行環境
