@@ -24,8 +24,8 @@ API連携では温湿度の値が取得できないため、今回はBLEを用�
 
 ## 必要なもの
 
-- Raspberry Pi（Raspberry Pi 3 B+ / Zero 2 W など）
-- SwitchBot CO2センサー
+- [Raspberry Pi](https://link.amazon/B0dDbOBBZ)（Raspberry Pi 3 B+ / Zero 2 W など）
+- [SwitchBot CO2センサー](https://link.amazon/B00QvyAzp)
 - MiniVizのプロジェクトIDとトークン
 
 ## MiniVizのプロジェクトIDとトークンを取得

@@ -12,9 +12,9 @@ Send data using a temperature and humidity sensor and create graphs.
 
 ## Required Items
 
-- Raspberry Pi
+- [Raspberry Pi](https://link.amazon/B0dDbOBBZ)
 - Power supply (AC adapter, etc.)
-- Temperature and humidity sensor (DHT11, etc.)
+- Temperature and humidity sensor ([DHT11](https://link.amazon/B0iWF8KJA), etc.)
 
 ## Steps
 

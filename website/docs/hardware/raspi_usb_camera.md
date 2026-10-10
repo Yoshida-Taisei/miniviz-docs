@@ -15,7 +15,7 @@ The image transmission feature is only available for the **Pro plan**. It is not
 :::
 
 ## Required Items and Environment
-* Raspberry Pi
+* [Raspberry Pi](https://link.amazon/B0dDbOBBZ)
 * USB Camera
 * MiniViz Project ID and Token
 

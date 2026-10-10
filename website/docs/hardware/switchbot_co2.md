@@ -22,8 +22,8 @@ Since the API integration does not provide temperature and humidity values, this
 
 ## Required Items
 
-- Raspberry Pi (such as Raspberry Pi 3 B+ or Zero 2 W)
-- SwitchBot CO2 sensor
+- [Raspberry Pi](https://link.amazon/B0dDbOBBZ) (such as Raspberry Pi 3 B+ or Zero 2 W)
+- [SwitchBot CO2 sensor](https://link.amazon/B00QvyAzp)
 - MiniViz project ID and token
 
 ## Get Your MiniViz Project ID and Token

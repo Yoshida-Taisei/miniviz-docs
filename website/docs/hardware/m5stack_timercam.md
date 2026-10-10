@@ -12,7 +12,7 @@ Send images captured by TimerCAM to MiniViz so you can view them on your smartph
 
 ## Required Items
 
-* M5Stack timer
+* [M5Stack timer](https://link.amazon/B0bpsPiue)
 * PlatformIO
 
 To use miniviz:

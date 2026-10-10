@@ -12,9 +12,9 @@ description: Raspberry Pi の温湿度データを Python と HTTP で MiniViz �
 
 ## 必要なもの
 
-- Raspberry Pi
+- [Raspberry Pi](https://link.amazon/B0dDbOBBZ)
 - 電源(ACアダプターなど)
-- 温度・湿度センサー(DHT11など)
+- 温度・湿度センサー([DHT11](https://link.amazon/B0iWF8KJA)など)
 
 ## 手順
 

@@ -15,7 +15,7 @@ Raspberry PiとUSBカメラを接続してMiniVizに画像を送信します。
 :::
 
 ## 用意するもの・環境
-* Raspberry Pi
+* [Raspberry Pi](https://link.amazon/B0dDbOBBZ)
 * USBカメラ
 * MiniVizのプロジェクトIDとトークン
 

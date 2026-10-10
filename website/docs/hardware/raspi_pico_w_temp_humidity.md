@@ -13,7 +13,7 @@ Use a Raspberry Pi Pico W and a `DHT11` temperature/humidity sensor to read valu
 ## Required Items
 
 - Raspberry Pi Pico W (referred to below as “Pico”)
-- DHT11 (temperature & humidity sensor)
+- [DHT11](https://link.amazon/B0iWF8KJA) (temperature & humidity sensor)
 - Breadboard and jumper wires
 - MicroPython environment
 - MiniViz project ID and token

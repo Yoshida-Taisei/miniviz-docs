@@ -17,7 +17,7 @@ ESP8266（Lolin D1 R1 など）または ESP32 と赤外線センサー（KY-022
 
 ## 必要なもの
 
-- ESP8266（Lolin D1 R1 など）または ESP32（DevKitC など）
+- ESP8266（Lolin D1 R1 など）または [ESP32](https://link.amazon/B0gPvcW0p)（DevKitC など）
 - USB ケーブル（データ転送対応）
 - 赤外線センサー（KY-022 / VS1838B / TSOP1838）
 - ジャンパーワイヤー

@@ -12,9 +12,9 @@ Send data using a temperature and humidity sensor and create graphs.
 
 ## Required Items
 
-- ESP32
+- [ESP32](https://link.amazon/B0gPvcW0p)
 - USB cable (for data transfer)
-- Temperature and humidity sensor (DHT11, etc.)
+- Temperature and humidity sensor ([DHT11](https://link.amazon/B0iWF8KJA), etc.)
 - Jumper wires
 - Breadboard (optional)
 

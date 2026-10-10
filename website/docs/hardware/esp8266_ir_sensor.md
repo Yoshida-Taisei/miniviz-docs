@@ -13,7 +13,7 @@ Read IR sensor state with ESP8266 (ESP32), send data to MiniViz API periodically
 
 ## Required Items
 
-- ESP8266 board (Lolin D1 R1, etc.) or ESP32 board (DevKitC, etc.)
+- ESP8266 board (Lolin D1 R1, etc.) or [ESP32 board](https://link.amazon/B0gPvcW0p) (DevKitC, etc.)
 - USB cable (data transfer capable)
 - IR receiver module (KY-022 / VS1838B / TSOP1838)
 - Jumper wires

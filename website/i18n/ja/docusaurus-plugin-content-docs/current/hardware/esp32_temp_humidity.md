@@ -12,9 +12,9 @@ description: ESP32 の温湿度データをシンプルな HTTP POST で MiniViz
 
 ## 必要なもの
 
-- ESP32
+- [ESP32](https://link.amazon/B0gPvcW0p)
 - USBケーブル（データ転送用）
-- 温度・湿度センサー(DHT11など)
+- 温度・湿度センサー([DHT11](https://link.amazon/B0iWF8KJA)など)
 - ジャンパーワイヤー
 - ブレッドボード（オプション）
 

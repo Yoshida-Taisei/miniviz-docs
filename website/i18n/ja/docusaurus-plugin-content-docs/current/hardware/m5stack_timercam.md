@@ -12,7 +12,7 @@ TimerCAMで撮影した画像をMiniVizに送信して、スマホから画像�
 
 ## 用意するもの
 
-* M5Stack timer
+* [M5Stack timer](https://link.amazon/B0bpsPiue)
 * PlatformIO
 
 minivizを使う場合は
