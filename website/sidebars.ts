@@ -69,6 +69,13 @@ const sidebars: SidebarsConfig = {
         'comparison/miniviz_vs_services',
       ],
     },
+    {
+      type: 'category',
+      label: 'Migration',
+      items: [
+        'migration/from_ambient',
+      ],
+    },
   ],
 };
 

@@ -54,3 +54,48 @@
   height: auto;
   margin: 0 auto;
 }
+
+/* 対応表が長いURLで横に広がるのを防ぐ（移行ガイド） */
+.migration-table table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.migration-table th,
+.migration-table td {
+  overflow-wrap: anywhere;
+}
+
+.migration-table td pre {
+  margin: 0;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.migration-table td ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.migration-table td li {
+  margin: 0;
+}
+
+.migration-table th:nth-child(1) {
+  width: 16%;
+}
+
+.migration-table th:nth-child(2),
+.migration-table th:nth-child(3) {
+  width: 42%;
+}
+
+/* サイドバーの開閉ボタンを上端に置く（既定は下端） */
+[class*='collapseSidebarButton'].button {
+  top: 0;
+  bottom: auto;
+}

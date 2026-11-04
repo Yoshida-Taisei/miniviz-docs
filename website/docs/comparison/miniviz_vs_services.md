@@ -79,6 +79,7 @@ Because data can be sent via HTTP POST regardless of device type, setup is strai
 Ambient, like MiniViz, emphasizes simplicity for Japan-focused users.
 It is commonly used in Japan for education and personal electronics projects.
 On the other hand, alert functionality should generally be considered a paid-plan feature.
+If you already send data to Ambient, see [Migrate from Ambient to MiniViz](../migration/from_ambient).
 
 ### ThingSpeak
 

@@ -30,5 +30,9 @@
   "sidebar.docs.category.Comparison": {
     "message": "比較",
     "description": "The label for category 'Comparison' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.Migration": {
+    "message": "移行",
+    "description": "The label for category 'Migration' in sidebar 'docs'"
   }
 }
