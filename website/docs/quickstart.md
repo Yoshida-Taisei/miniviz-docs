@@ -87,6 +87,10 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 
 - `payload` supports numbers and strings. You can freely add any metrics.
 
+:::note Sending multiple sensors from one project
+The 60-second interval applies to the whole project, not per sensor. To send multiple readings, either put them in one payload or rotate devices every 60 seconds. One payload holds up to 8 keys / 400 bytes, and every sensor then updates once per minute. Rotation does not increase the request rate — each sensor updates once every N minutes. If all sensors need every-minute data, use Pro (15 seconds).
+:::
+
 ### Request Example
 
 ```json
