@@ -263,6 +263,24 @@ void loop()
 
 For details, see "5. Create Charts" in [Quick Start](../quickstart).
 
+## 5. Using multiple ESP32 devices in one project
+
+You can send data from several ESP32 devices to the same project. Use a different `label_key` for each device, for example `living-room` and `bedroom`. The send interval applies to the whole project, so all devices share one budget.
+
+| Device | `label_key` | Send at |
+|---|---|---|
+| Living room | `living-room` | 0 s |
+| Bedroom | `bedroom` | 60 s |
+| Outside | `outside` | 120 s |
+| Attic | `attic` | 180 s |
+
+- Each device updates once every four minutes on Free.
+- On Pro, use 15-second offsets to update each device once per minute.
+- These offsets are only an example; adjust them to your setup.
+- To keep a stable schedule, either synchronize time on each device (for example with NTP) or buffer readings and retry after `Retry-After` when a send is rejected.
+
+For the gateway pattern (one payload from several devices), see [Quick Start](../quickstart).
+
 ## Common errors
 
 ### Why is my ESP32 data not showing up in MiniViz?

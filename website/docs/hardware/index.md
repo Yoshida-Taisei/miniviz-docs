@@ -13,6 +13,10 @@ Choose a guide by what you want to do.
 - [Send temperature & humidity data with ESP32](./esp32_temp_humidity)
 - [Send IR sensor state data with ESP8266 (ESP32)](./esp8266_ir_sensor)
 
+## Multiple devices
+
+- [Use multiple ESP32 devices in one project](./esp32_temp_humidity)
+
 ## Send images
 
 - [Send images with Raspberry Pi × USB camera](./raspi_usb_camera)
