@@ -51,7 +51,7 @@ It shows the minimum code changes needed to send the same sensor values to MiniV
 :::caution Send interval and past data
 
 - The send interval depends on the plan: 60 seconds (free) and 15 seconds (Pro). If you were sending every 5 seconds on Ambient, adjust to this interval.
-- The interval is per project, not per device. When several devices share one project, design the send timing so the total stays within the interval.
+- The interval is per project, not per device. When several devices share one project, either combine their readings in one payload or take turns. See [Quick Start](../quickstart) for examples.
 - Sends that are too fast return `429` with a `Retry-After` header.
 - There is no `/dataarray` equivalent, so migrating past data is not realistic (one day of 5-minute data takes about 72 minutes even on Pro). Export the history to CSV instead.
 

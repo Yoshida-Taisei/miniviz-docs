@@ -87,8 +87,38 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 
 - `payload` supports numbers and strings. You can freely add any metrics.
 
-:::note Sending multiple sensors from one project
-The 60-second interval applies to the whole project, not per sensor. To send multiple readings, either put them in one payload or rotate devices every 60 seconds. One payload holds up to 8 keys / 400 bytes, and every sensor then updates once per minute. Rotation does not increase the request rate — each sensor updates once every N minutes. If all sensors need every-minute data, use Pro (15 seconds).
+:::note Sending data from multiple devices in one project
+One project represents one site, such as a home or a field. Use a different `label_key` for each source, such as a device or a location. The send interval applies to the **whole project**, not to each `label_key`: 60 seconds on Free and 15 seconds on Pro.
+
+**Option 1: Send readings together.** A gateway such as a Raspberry Pi can collect several devices and send one request. One payload holds up to 8 keys / 400 bytes. Put the device or location in the key name.
+
+```json
+{
+  "timestamp": 1731129600000,
+  "label_key": "home",
+  "payload": {
+    "living_temp": 23.5, "living_hum": 55,
+    "bedroom_temp": 22.8, "bedroom_hum": 58,
+    "outside_temp": 12.1, "outside_hum": 70,
+    "attic_temp": 18.4, "attic_hum": 60
+  }
+}
+```
+
+**Option 2: Take turns.** Independent devices send at different offsets.
+
+- With four devices 60 seconds apart, each device updates once every four minutes.
+- Give each device its own `label_key`.
+- These offsets are only an example; adjust them to your setup.
+- If devices cannot keep a stable schedule, synchronize their clocks (for example with NTP) or buffer readings and retry after `Retry-After`.
+- On Pro, 15-second offsets let four devices update once per minute.
+
+| Device | `label_key` | Send at |
+|---|---|---|
+| Living room | `living-room` | 0 s |
+| Bedroom | `bedroom` | 60 s |
+| Outside | `outside` | 120 s |
+| Attic | `attic` | 180 s |
 :::
 
 ### Request Example

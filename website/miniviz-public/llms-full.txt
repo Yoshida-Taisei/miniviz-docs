@@ -104,11 +104,13 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 
 ### Rate limiting behavior
 
-- Event rate limiting is enforced per project
+- Event rate limiting is enforced per project, not per `label_key`
+- Multiple devices in one project share the same interval
 - Free plan minimum interval: 60 seconds
 - Pro plan minimum interval: 15 seconds
 - If you send too early, the API returns `429 Too Many Requests`
 - The response includes a `Retry-After` header
+- To send from multiple devices, either combine readings in one payload (up to 8 keys) or take turns. See https://miniviz.net/docs/quickstart
 
 ### Safe curl example
 
