@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "docs:mcp:build": "node scripts/build-mcp-docs.mjs",
     "test:mcp-docs": "node --test scripts/build-mcp-docs.test.mjs",
+    "test:docs": "node --test scripts/docs-consistency.test.mjs",
     "start": "npm run docs:mcp:build && docusaurus start",
     "start:ja": "npm run docs:mcp:build && docusaurus start --locale ja",
     "preview": "npm run build && docusaurus serve",
