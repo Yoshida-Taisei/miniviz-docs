@@ -88,7 +88,7 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 - `payload` supports numbers and strings. You can freely add any metrics.
 
 :::note Sending data from multiple devices in one project
-One project represents one site, such as a home or a field. Use a different `label_key` for each source, such as a device or a location. The send interval applies to the **whole project**, not to each `label_key`: 60 seconds on Free and 15 seconds on Pro.
+**There is no device limit.** One project represents one site, such as a home or a field. Use a different `label_key` for each source, such as a device or a location. The send interval applies to the **whole project**, not to each `label_key`: 60 seconds on Free and 15 seconds on Pro.
 
 **Option 1: Send readings together.** A gateway such as a Raspberry Pi can collect several devices and send one request. One payload holds up to 8 keys / 400 bytes. Put the device or location in the key name.
 

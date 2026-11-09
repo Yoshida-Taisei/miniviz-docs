@@ -43,6 +43,7 @@ For Codex setup and detailed connection instructions, see [Connect MiniViz MCP](
 ### Free plan
 
 - Projects: up to 1
+- Devices: unlimited (send interval shared across the project)
 - Event send interval: 60 seconds per project
 - Data retention: 90 days
 - Rules: up to 1
@@ -51,6 +52,7 @@ For Codex setup and detailed connection instructions, see [Connect MiniViz MCP](
 ### Pro plan
 
 - Projects: up to 3
+- Devices: unlimited (send interval shared across the project)
 - Event send interval: 15 seconds per project
 - Data retention: 365 days
 - Rules: up to 5
