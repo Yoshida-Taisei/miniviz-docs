@@ -9,6 +9,10 @@ const sidebars: SidebarsConfig = {
       label: 'QuickStart',
     },
     {
+      type: 'doc',
+      id: 'visualize/embed_chart',
+    },
+    {
       type: 'category',
       label: 'Use Cases',
       link: {type: 'doc', id: 'hardware/index'},
