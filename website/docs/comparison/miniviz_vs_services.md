@@ -14,7 +14,7 @@ MiniViz is a strong fit when you want to send sensor data via HTTP POST and move
 Ambient, ThingSpeak, Grafana, IFTTT, GAS (Google Apps Script), AWS, and Google Cloud each have different strengths, and may be better choices depending on your use case.
 
 :::info
-This comparison is based on public information and typical onboarding flows as of 2026-04. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
+This comparison is based on public information and typical onboarding flows. Last updated: 2026-11-17. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
 This comparison is also subjective and does not fully represent every strength or weakness of each service.
 :::
 
@@ -62,7 +62,7 @@ Cases where other services are often a better fit:
 | Beginner friendliness | ◎ | ◎ | ○ | × | ◎ | ○ | × |
 
 :::info
-This comparison is based on public information and typical onboarding flows as of 2026-04. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
+This comparison is based on public information and typical onboarding flows. Last updated: 2026-11-17. Free plan limits and feature details can change, so please verify current official information before publishing customer-facing promises.
 This comparison is also subjective and does not fully represent every strength or weakness of each service.
 :::
 
@@ -79,6 +79,11 @@ Because data can be sent via HTTP POST regardless of device type, setup is strai
 Ambient, like MiniViz, emphasizes simplicity for Japan-focused users.
 It is commonly used in Japan for education and personal electronics projects.
 On the other hand, alert functionality should generally be considered a paid-plan feature.
+
+:::warning
+As of 2026-11-17, Ambient is not accepting new account registrations (verified). If you are considering it now, check the official site for the latest status.
+:::
+
 If you already send data to Ambient, see [Migrate from Ambient to MiniViz](../migration/from_ambient).
 
 ### ThingSpeak
