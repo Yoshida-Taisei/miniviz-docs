@@ -26,3 +26,7 @@ description: ESP32、Raspberry Pi、Pico W、USB カメラ、M5Stack、SwitchBot
 
 - [SwitchBot CO2センサーと連携する](./switchbot_co2)
 
+## 通知・監視
+
+- [閾値・デバイス死活監視を行う](../rules/threshold_heartbeat)
+

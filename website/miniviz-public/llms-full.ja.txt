@@ -190,6 +190,8 @@ if __name__ == "__main__":
 
 閾値超過時の Slack / Webhook 通知などを設定します。
 
+ルール種別は、閾値（イベントの値が条件を満たしたら通知）と、死活監視（デバイスの `label_key` から 10 / 30 / 60 分データが届かないとき 1 回通知）です。死活監視は 5 分間隔の定期チェックなので、即時通知ではありません。
+
 ## 画像 API（Pro 限定）
 
 ### 画像送信エンドポイント
@@ -224,6 +226,8 @@ project token は `Authorization: Bearer {token}` ヘッダーで送信します
 `GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
 
 画像イベントに紐づく保存画像を取得するための API です。MiniViz では Database のプレビューや image chart 表示にも画像イベントを使います。
+
+直近7日より古い画像は Cold storage から解決するため、`event_timestamp`（イベントの日時、ISO 8601）を付与してください。
 
 ### 画像エクスポート
 

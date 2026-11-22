@@ -26,3 +26,7 @@ Choose a guide by what you want to do.
 
 - [Integrate with SwitchBot CO2 sensor](./switchbot_co2)
 
+## Alerts and monitoring
+
+- [Monitor thresholds and device heartbeats](../rules/threshold_heartbeat)
+

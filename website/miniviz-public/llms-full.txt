@@ -190,6 +190,8 @@ Use the Visualize page to create charts from stored events. The service supports
 
 Use the Rules page to define alerts and notifications such as Slack or Webhook notifications when thresholds are exceeded.
 
+Rule types: Threshold (notify when an event value meets a condition) and Heartbeat (notify once when a device's `label_key` sends no data for 10, 30, or 60 minutes). Heartbeat is checked every 5 minutes, so the notification is not instant.
+
 ## Image APIs (Pro only)
 
 ### Image upload endpoint
@@ -224,6 +226,8 @@ Send the project token with the `Authorization: Bearer {token}` header. The lega
 `GET https://api.miniviz.net/api/project/{project_id}/image/{event_id}?token={token}`
 
 Use this endpoint to fetch the stored image for an image event. MiniViz also uses image events for preview in the Database page and display in image charts.
+
+Images older than the last 7 days are resolved from Cold storage, so include `event_timestamp` (the event datetime, ISO 8601).
 
 ### Image export
 

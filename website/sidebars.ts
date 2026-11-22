@@ -48,6 +48,7 @@ const sidebars: SidebarsConfig = {
             'hardware/esp8266_ir_sensor',
           ],
         },
+        'rules/threshold_heartbeat',
       ],
     },
     {

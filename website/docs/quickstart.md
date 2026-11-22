@@ -274,6 +274,8 @@ Enter the Slack Webhook URL.
 Notifications will be sent when the set threshold is exceeded.
 ![After Slack Notification Settings](/images/alert_3.png)
 
+You can also set up heartbeat monitoring to get notified when a device stops sending data. See [Monitor thresholds and device heartbeats](./rules/threshold_heartbeat).
+
 ## 7. Image Transmission
 Pro plan users can send images using the image transmission API.
 
