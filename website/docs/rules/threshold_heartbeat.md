@@ -9,7 +9,7 @@ The Rules menu supports two rule types.
 | Rule type | When it notifies |
 | --- | --- |
 | Threshold (value condition) | When a received value meets the condition (e.g. `temperature > 30`) |
-| Heartbeat (no data) | When a selected device sends no data for a set time |
+| Device Heartbeat | When a selected device sends no data for a set time |
 
 You can notify via Slack, Webhook, or email.
 
@@ -41,7 +41,7 @@ Each rule notifies at most once every 5 minutes.
 ## Create a heartbeat rule
 
 1. Open the Rules menu and click **New Rule**.
-2. In **Rule Type**, select "Heartbeat (no data)".
+2. In **Rule Type**, select "Device Heartbeat".
 3. In **Device to monitor (Label Key)**, select the `label_key` of the device to monitor.
 4. In **Treat as down after**, choose 10, 30, or 60 minutes.
 5. Set the notification target and click **Create Rule**.
